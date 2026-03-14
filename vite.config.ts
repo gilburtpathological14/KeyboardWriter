@@ -2,6 +2,8 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  // GitHub Pages base path - Repository name
+  base: '/KeyboardWriter/',
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),

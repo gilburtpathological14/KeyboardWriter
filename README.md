@@ -10,7 +10,7 @@
   [![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
   
-  [Live Demo](#quick-start) | [Documentation](#features) | [Report Bug](https://github.com/niklasmarderx/keyboardwriter/issues)
+  [Live Demo](https://niklasmarderx.github.io/KeyboardWriter/) | [Documentation](#features) | [Report Bug](https://github.com/niklasmarderx/KeyboardWriter/issues)
 
 </div>
 
