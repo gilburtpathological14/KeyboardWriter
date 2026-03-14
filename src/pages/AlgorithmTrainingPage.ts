@@ -231,14 +231,6 @@ export class AlgorithmTrainingPage {
   }
 
   /**
-   * Check if current algorithm uses array visualization
-   */
-  private isArrayAlgorithm(): boolean {
-    const algo = this.getCurrentAlgorithmInfo();
-    return algo?.category === 'sorting' || algo?.category === 'search';
-  }
-
-  /**
    * Render the page
    */
   render(): string {

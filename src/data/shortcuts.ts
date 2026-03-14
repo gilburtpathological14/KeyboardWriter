@@ -8481,7 +8481,6 @@ export const DESCRIPTION_TRANSLATIONS: Record<string, string> = {
   'Bis Zeilenanfang löschen': 'Delete to Start of Line',
 
   // macOS - Mission Control
-  'Mission Control': 'Mission Control',
   'App-Fenster anzeigen': 'Show App Windows',
   'Einen Space nach links': 'Move One Space Left',
   'Einen Space nach rechts': 'Move One Space Right',
@@ -8495,7 +8494,6 @@ export const DESCRIPTION_TRANSLATIONS: Record<string, string> = {
   'Vollbildmodus umschalten': 'Toggle Full Screen Mode',
   'Andere ausblenden': 'Hide Others',
   'Neues Fenster': 'New Window',
-  'Fenster schließen': 'Close Window',
 
   // macOS - Safari
   'Adresszeile fokussieren': 'Focus Address Bar',
@@ -8738,7 +8736,6 @@ export const DESCRIPTION_TRANSLATIONS: Record<string, string> = {
   // IntelliJ - Tabs
   'Vorheriger Tab': 'Previous Tab',
   'Nächster Tab': 'Next Tab',
-  'Alle Tabs schließen': 'Close All Tabs',
 
   // IntelliJ - Live Templates
   'Code mit Template umschließen': 'Surround with Template',
@@ -8820,7 +8817,6 @@ export const DESCRIPTION_TRANSLATIONS: Record<string, string> = {
 
   // Vim - Editing
   'Zeichen löschen': 'Delete Character',
-  'Wort löschen': 'Delete Word',
   'Bis Zeilenende löschen': 'Delete to End of Line',
   'Zeile kopieren': 'Copy Line',
   'Wort kopieren': 'Copy Word',
@@ -8836,7 +8832,7 @@ export const DESCRIPTION_TRANSLATIONS: Record<string, string> = {
 
   // Vim - Search
   'Vorwärts suchen': 'Search Forward',
-  'Rückwärts suchen': 'Search Backward',
+  'Rückwärts suchen (Vim)': 'Search Backward',
   'Nächstes Ergebnis': 'Next Result',
   'Vorheriges Ergebnis': 'Previous Result',
   'Wort unter Cursor suchen': 'Search Word Under Cursor',
