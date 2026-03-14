@@ -1,0 +1,319 @@
+:root {
+  /* ==========================================
+     VIOLET AURORA - Professional Design System
+     ========================================== */
+
+  /* Background Colors - Dark Mode Default */
+  --bg-primary: #0f0a1a;
+  --bg-secondary: #1a1225;
+  --bg-tertiary: #241830;
+  --bg-elevated: #2d2040;
+  --bg-overlay: rgba(15, 10, 26, 0.85);
+  --bg-glass: rgba(26, 18, 37, 0.7);
+  --bg-glass-hover: rgba(36, 24, 48, 0.8);
+
+  /* Text Colors */
+  --text-primary: #f5f3f8;
+  --text-secondary: #a8a0b5;
+  --text-muted: #6d6580;
+  --text-inverse: #0f0a1a;
+  --text-accent: #c084fc;
+
+  /* Border Colors */
+  --border-primary: #3d2d55;
+  --border-secondary: #2d2040;
+  --border-focus: #a855f7;
+  --border-glass: rgba(168, 85, 247, 0.2);
+
+  /* Primary Accent - Violet */
+  --accent-primary: #a855f7;
+  --accent-primary-hover: #c084fc;
+  --accent-primary-active: #9333ea;
+  --accent-primary-glow: rgba(168, 85, 247, 0.4);
+  --accent-primary-subtle: rgba(168, 85, 247, 0.1);
+
+  /* Secondary Accent - Indigo */
+  --accent-secondary: #818cf8;
+  --accent-secondary-hover: #a5b4fc;
+  --accent-secondary-subtle: rgba(129, 140, 248, 0.1);
+
+  /* Tertiary Accent - Purple */
+  --accent-tertiary: #c084fc;
+  --accent-tertiary-hover: #d8b4fe;
+
+  /* Status Colors */
+  --accent-success: #4ade80;
+  --accent-success-hover: #86efac;
+  --accent-success-subtle: rgba(74, 222, 128, 0.15);
+  --accent-warning: #fbbf24;
+  --accent-warning-hover: #fcd34d;
+  --accent-warning-subtle: rgba(251, 191, 36, 0.15);
+  --accent-error: #f87171;
+  --accent-error-hover: #fca5a5;
+  --accent-error-subtle: rgba(248, 113, 113, 0.15);
+  --accent-info: #60a5fa;
+  --accent-info-hover: #93c5fd;
+  --accent-info-subtle: rgba(96, 165, 250, 0.15);
+
+  /* Gradient Colors */
+  --gradient-primary: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #c084fc 0%, #818cf8 100%);
+  --gradient-accent: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+  --gradient-success: linear-gradient(135deg, #4ade80 0%, #22d3ee 100%);
+  --gradient-dark: linear-gradient(180deg, #1a1225 0%, #0f0a1a 100%);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+
+  /* Finger Colors for Keyboard - Enhanced */
+  --finger-pinky-left: #f472b6;
+  --finger-ring-left: #fb923c;
+  --finger-middle-left: #4ade80;
+  --finger-index-left: #60a5fa;
+  --finger-thumb: #a78bfa;
+  --finger-index-right: #f472b6;
+  --finger-middle-right: #2dd4bf;
+  --finger-ring-right: #fbbf24;
+  --finger-pinky-right: #a3e635;
+
+  /* Key States - Enhanced */
+  --key-default: #241830;
+  --key-hover: #3d2d55;
+  --key-active: #a855f7;
+  --key-correct: #22c55e;
+  --key-incorrect: #ef4444;
+  --key-highlight: #a855f7;
+  --key-gradient: linear-gradient(180deg, #2d2040 0%, #1a1225 100%);
+  --key-border: #3d2d55;
+  --key-shadow: 0 4px 0 #0f0a1a;
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows - Enhanced with color */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px rgba(168, 85, 247, 0.3);
+  --shadow-glow-lg: 0 0 40px rgba(168, 85, 247, 0.4);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  --shadow-colored: 0 10px 30px -5px rgba(168, 85, 247, 0.3);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(168, 85, 247, 0.1);
+
+  /* Glassmorphism */
+  --glass-blur: blur(16px);
+  --glass-blur-lg: blur(24px);
+  --glass-bg: rgba(26, 18, 37, 0.6);
+  --glass-border: rgba(168, 85, 247, 0.15);
+
+  /* Transitions */
+  --transition-fast: 100ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+  --transition-slower: 500ms ease;
+  --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-spring: 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Z-Index Scale */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal-backdrop: 300;
+  --z-modal: 400;
+  --z-tooltip: 500;
+  --z-toast: 600;
+
+  /* Layout */
+  --sidebar-width: 260px;
+  --header-height: 64px;
+  --keyboard-max-width: 1000px;
+  --content-max-width: 1400px;
+
+  /* Keyboard Specific */
+  --key-size: 48px;
+  --key-gap: 4px;
+  --key-border-width: 1px;
+}
+
+/* ==========================================
+   LIGHT THEME
+   ========================================== */
+[data-theme='light'],
+.theme-light {
+  /* Background Colors - Light Mode */
+  --bg-primary: #faf8fc;
+  --bg-secondary: #f3f0f7;
+  --bg-tertiary: #ebe6f2;
+  --bg-elevated: #ffffff;
+  --bg-overlay: rgba(250, 248, 252, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.7);
+  --bg-glass-hover: rgba(255, 255, 255, 0.85);
+
+  /* Text Colors - Light Mode */
+  --text-primary: #1a1225;
+  --text-secondary: #5c5470;
+  --text-muted: #8b8299;
+  --text-inverse: #faf8fc;
+  --text-accent: #9333ea;
+
+  /* Border Colors - Light Mode */
+  --border-primary: #e0dae8;
+  --border-secondary: #ebe6f2;
+  --border-focus: #9333ea;
+  --border-glass: rgba(147, 51, 234, 0.2);
+
+  /* Primary Accent - Light Mode */
+  --accent-primary: #9333ea;
+  --accent-primary-hover: #a855f7;
+  --accent-primary-active: #7c3aed;
+  --accent-primary-glow: rgba(147, 51, 234, 0.3);
+  --accent-primary-subtle: rgba(147, 51, 234, 0.08);
+
+  /* Secondary Accent - Light Mode */
+  --accent-secondary: #6366f1;
+  --accent-secondary-hover: #818cf8;
+  --accent-secondary-subtle: rgba(99, 102, 241, 0.08);
+
+  /* Tertiary Accent - Light Mode */
+  --accent-tertiary: #a855f7;
+  --accent-tertiary-hover: #c084fc;
+
+  /* Status Colors - Light Mode */
+  --accent-success: #22c55e;
+  --accent-success-hover: #4ade80;
+  --accent-success-subtle: rgba(34, 197, 94, 0.1);
+  --accent-warning: #f59e0b;
+  --accent-warning-hover: #fbbf24;
+  --accent-warning-subtle: rgba(245, 158, 11, 0.1);
+  --accent-error: #ef4444;
+  --accent-error-hover: #f87171;
+  --accent-error-subtle: rgba(239, 68, 68, 0.1);
+  --accent-info: #3b82f6;
+  --accent-info-hover: #60a5fa;
+  --accent-info-subtle: rgba(59, 130, 246, 0.1);
+
+  /* Gradient Colors - Light Mode */
+  --gradient-primary: linear-gradient(135deg, #9333ea 0%, #6366f1 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #a855f7 0%, #818cf8 100%);
+  --gradient-accent: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  --gradient-success: linear-gradient(135deg, #22c55e 0%, #06b6d4 100%);
+  --gradient-dark: linear-gradient(180deg, #f3f0f7 0%, #faf8fc 100%);
+  --gradient-glow: radial-gradient(ellipse at center, rgba(147, 51, 234, 0.08) 0%, transparent 70%);
+
+  /* Key States - Light Mode */
+  --key-default: #ffffff;
+  --key-hover: #f3f0f7;
+  --key-active: #9333ea;
+  --key-correct: #22c55e;
+  --key-incorrect: #ef4444;
+  --key-highlight: #9333ea;
+  --key-gradient: linear-gradient(180deg, #ffffff 0%, #f3f0f7 100%);
+  --key-border: #e0dae8;
+  --key-shadow: 0 3px 0 #d4cce0;
+
+  /* Shadows - Light Mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 20px rgba(147, 51, 234, 0.2);
+  --shadow-glow-lg: 0 0 40px rgba(147, 51, 234, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  --shadow-colored: 0 10px 30px -5px rgba(147, 51, 234, 0.15);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(147, 51, 234, 0.08);
+
+  /* Glassmorphism - Light Mode */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(147, 51, 234, 0.12);
+
+  /* Finger Colors - Light Mode (slightly adjusted for visibility) */
+  --finger-pinky-left: #ec4899;
+  --finger-ring-left: #f97316;
+  --finger-middle-left: #22c55e;
+  --finger-index-left: #3b82f6;
+  --finger-thumb: #8b5cf6;
+  --finger-index-right: #ec4899;
+  --finger-middle-right: #14b8a6;
+  --finger-ring-right: #f59e0b;
+  --finger-pinky-right: #84cc16;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    --text-primary: #ffffff;
+    --border-primary: #ffffff;
+    --accent-primary: #d946ef;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-normal: 0ms;
+    --transition-slow: 0ms;
+    --transition-slower: 0ms;
+    --transition-bounce: 0ms;
+    --transition-spring: 0ms;
+  }
+}
+
+/* Reduced Motion Class */
+.reduced-motion {
+  --transition-fast: 0ms !important;
+  --transition-normal: 0ms !important;
+  --transition-slow: 0ms !important;
+  --transition-slower: 0ms !important;
+  --transition-bounce: 0ms !important;
+  --transition-spring: 0ms !important;
+}

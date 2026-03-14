@@ -1,0 +1,14 @@
+/*
+ * Components Index
+ * Import all component styles
+ */
+
+@import './buttons.css';
+@import './cards.css';
+@import './keyboard.css';
+@import './modal.css';
+@import './forms.css';
+@import './toast.css';
+@import './typing.css';
+@import './progress.css';
+@import './animations.css';

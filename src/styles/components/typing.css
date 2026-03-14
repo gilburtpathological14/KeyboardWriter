@@ -1,0 +1,56 @@
+/*
+ * Typing Area Styles
+ */
+
+.typing-container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.typing-text-display {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-relaxed);
+  min-height: 200px;
+}
+
+.typing-char {
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.typing-char.current {
+  background-color: var(--accent-primary);
+  color: var(--text-inverse);
+  border-radius: 2px;
+}
+
+.typing-char.correct {
+  color: var(--accent-success);
+}
+
+.typing-char.incorrect {
+  color: var(--accent-error);
+  background-color: rgba(248, 81, 73, 0.2);
+  border-radius: 2px;
+}
+
+.typing-char.upcoming {
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .typing-text-display {
+    font-size: var(--font-size-xl);
+    padding: var(--space-4);
+  }
+}

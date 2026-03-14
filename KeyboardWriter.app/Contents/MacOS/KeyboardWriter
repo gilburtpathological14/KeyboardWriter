@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# KeyboardWriter macOS App
+# Startet den Dev-Server und öffnet den Browser
+
+# Füge Homebrew zum PATH hinzu (wichtig für macOS Apps)
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
+# Projektverzeichnis
+PROJECT_DIR="/Users/niklasmarder/Coding/KeyboardWriter"
+
+if [ ! -f "$PROJECT_DIR/package.json" ]; then
+    osascript -e 'display alert "Fehler" message "KeyboardWriter Projektverzeichnis nicht gefunden!" as critical'
+    exit 1
+fi
+
+cd "$PROJECT_DIR"
+
+# PID-Datei
+PID_FILE="$PROJECT_DIR/.server.pid"
+LOG_FILE="$PROJECT_DIR/.server.log"
+
+# Beende alle alten Prozesse auf den üblichen Ports
+for port in 5173 5174 5175 5176 3000 3001 3002 3003 3004 3005; do
+    PID=$(lsof -ti:$port 2>/dev/null)
+    if [ -n "$PID" ]; then
+        kill "$PID" 2>/dev/null
+    fi
+done
+
+sleep 0.5
+
+# Altes Log und PID löschen
+rm -f "$PID_FILE" "$LOG_FILE"
+
+# Starte den Dev-Server im Hintergrund
+/opt/homebrew/bin/npm run dev > "$LOG_FILE" 2>&1 &
+SERVER_PID=$!
+echo $SERVER_PID > "$PID_FILE"
+
+# Warte auf Server und finde den richtigen Port
+FOUND_PORT=""
+for i in {1..30}; do
+    # Lese Port aus dem Log
+    if [ -f "$LOG_FILE" ]; then
+        PORT_LINE=$(grep -o "http://localhost:[0-9]*" "$LOG_FILE" | head -1)
+        if [ -n "$PORT_LINE" ]; then
+            FOUND_PORT=$(echo "$PORT_LINE" | grep -o "[0-9]*$")
+            break
+        fi
+    fi
+    sleep 0.5
+done
+
+if [ -z "$FOUND_PORT" ]; then
+    osascript -e 'display alert "Fehler" message "Server konnte nicht gestartet werden. Bitte prüfe das Terminal." as critical'
+    exit 1
+fi
+
+# Öffne den Browser mit dem korrekten Port
+open "http://localhost:$FOUND_PORT"
+
+# Zeige Benachrichtigung
+osascript -e "display notification \"KeyboardWriter läuft auf Port $FOUND_PORT. Klicke 'Beenden' im Browser zum Stoppen.\" with title \"KeyboardWriter\""

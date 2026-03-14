@@ -1,0 +1,335 @@
+/**
+ * SQL Training Exercises
+ * Learn SQL queries by typing
+ */
+
+export interface SQLExercise {
+  id: string;
+  title: string;
+  description: string;
+  category:
+    | 'select'
+    | 'insert'
+    | 'update'
+    | 'delete'
+    | 'join'
+    | 'aggregate'
+    | 'subquery'
+    | 'advanced';
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  query: string;
+  explanation: string;
+  xp: number;
+}
+
+export const SQL_EXERCISES: SQLExercise[] = [
+  // SELECT BASICS
+  {
+    id: 'sql-select-all',
+    title: 'Select All Columns',
+    description: 'Select all columns from the users table',
+    category: 'select',
+    difficulty: 'beginner',
+    query: 'SELECT * FROM users;',
+    explanation: '* selects all columns. Use this sparingly in production!',
+    xp: 10,
+  },
+  {
+    id: 'sql-select-columns',
+    title: 'Specific Columns',
+    description: 'Select only name and email from users',
+    category: 'select',
+    difficulty: 'beginner',
+    query: 'SELECT name, email FROM users;',
+    explanation: 'Specify the columns you want separated by commas.',
+    xp: 10,
+  },
+  {
+    id: 'sql-select-where',
+    title: 'WHERE Condition',
+    description: 'Find all active users',
+    category: 'select',
+    difficulty: 'beginner',
+    query: 'SELECT * FROM users WHERE active = true;',
+    explanation: 'WHERE filters rows based on a condition.',
+    xp: 15,
+  },
+  {
+    id: 'sql-select-and-or',
+    title: 'AND & OR',
+    description: 'Combine multiple conditions',
+    category: 'select',
+    difficulty: 'beginner',
+    query: "SELECT * FROM users WHERE age >= 18 AND country = 'DE';",
+    explanation: 'AND = both must be true, OR = one must be true.',
+    xp: 15,
+  },
+  {
+    id: 'sql-select-like',
+    title: 'LIKE Pattern',
+    description: 'Search for names starting with "A"',
+    category: 'select',
+    difficulty: 'beginner',
+    query: "SELECT * FROM users WHERE name LIKE 'A%';",
+    explanation: '% is a wildcard for any number of characters, _ for exactly one.',
+    xp: 20,
+  },
+  {
+    id: 'sql-select-in',
+    title: 'IN Operator',
+    description: 'Find users from specific countries',
+    category: 'select',
+    difficulty: 'beginner',
+    query: "SELECT * FROM users WHERE country IN ('DE', 'AT', 'CH');",
+    explanation: 'IN is shorter than multiple OR conditions.',
+    xp: 15,
+  },
+  {
+    id: 'sql-select-between',
+    title: 'BETWEEN Range',
+    description: 'Find users in the age range 18-30',
+    category: 'select',
+    difficulty: 'beginner',
+    query: 'SELECT * FROM users WHERE age BETWEEN 18 AND 30;',
+    explanation: 'BETWEEN is inclusive (both bounds included).',
+    xp: 15,
+  },
+  {
+    id: 'sql-select-null',
+    title: 'NULL Values',
+    description: 'Find users without a phone number',
+    category: 'select',
+    difficulty: 'beginner',
+    query: 'SELECT * FROM users WHERE phone IS NULL;',
+    explanation: 'Use IS NULL or IS NOT NULL - not = NULL!',
+    xp: 15,
+  },
+  {
+    id: 'sql-select-order',
+    title: 'ORDER BY',
+    description: 'Sort users by name descending',
+    category: 'select',
+    difficulty: 'beginner',
+    query: 'SELECT * FROM users ORDER BY name DESC;',
+    explanation: 'ASC = ascending (default), DESC = descending.',
+    xp: 15,
+  },
+  {
+    id: 'sql-select-limit',
+    title: 'LIMIT & OFFSET',
+    description: 'Get the first 10 users',
+    category: 'select',
+    difficulty: 'beginner',
+    query: 'SELECT * FROM users ORDER BY created_at DESC LIMIT 10;',
+    explanation: 'LIMIT limits the number, OFFSET skips rows.',
+    xp: 15,
+  },
+  {
+    id: 'sql-select-distinct',
+    title: 'DISTINCT',
+    description: 'Find all unique countries',
+    category: 'select',
+    difficulty: 'beginner',
+    query: 'SELECT DISTINCT country FROM users;',
+    explanation: 'DISTINCT removes duplicate values from the result.',
+    xp: 15,
+  },
+  {
+    id: 'sql-select-alias',
+    title: 'Alias with AS',
+    description: 'Give columns readable names',
+    category: 'select',
+    difficulty: 'beginner',
+    query: 'SELECT name AS username, email AS contact FROM users;',
+    explanation: 'AS creates an alias - useful for better readability.',
+    xp: 10,
+  },
+  // AGGREGATE FUNCTIONS
+  {
+    id: 'sql-agg-count',
+    title: 'COUNT',
+    description: 'Count all users',
+    category: 'aggregate',
+    difficulty: 'beginner',
+    query: 'SELECT COUNT(*) AS total_users FROM users;',
+    explanation: 'COUNT(*) counts all rows, COUNT(column) only non-NULL values.',
+    xp: 15,
+  },
+  {
+    id: 'sql-agg-sum',
+    title: 'SUM',
+    description: 'Calculate total revenue',
+    category: 'aggregate',
+    difficulty: 'beginner',
+    query: 'SELECT SUM(amount) AS total_revenue FROM orders;',
+    explanation: 'SUM adds all values in a column.',
+    xp: 15,
+  },
+  {
+    id: 'sql-agg-avg',
+    title: 'AVG',
+    description: 'Calculate average age',
+    category: 'aggregate',
+    difficulty: 'beginner',
+    query: 'SELECT AVG(age) AS average_age FROM users;',
+    explanation: 'AVG calculates the average.',
+    xp: 15,
+  },
+  {
+    id: 'sql-agg-minmax',
+    title: 'MIN & MAX',
+    description: 'Find the oldest and youngest age',
+    category: 'aggregate',
+    difficulty: 'beginner',
+    query: 'SELECT MIN(age) AS youngest, MAX(age) AS oldest FROM users;',
+    explanation: 'MIN/MAX find the smallest/largest value.',
+    xp: 15,
+  },
+  {
+    id: 'sql-agg-group',
+    title: 'GROUP BY',
+    description: 'Count users per country',
+    category: 'aggregate',
+    difficulty: 'intermediate',
+    query: 'SELECT country, COUNT(*) AS user_count FROM users GROUP BY country;',
+    explanation: 'GROUP BY groups rows for aggregates per group.',
+    xp: 25,
+  },
+  {
+    id: 'sql-agg-having',
+    title: 'HAVING',
+    description: 'Find countries with more than 100 users',
+    category: 'aggregate',
+    difficulty: 'intermediate',
+    query: 'SELECT country, COUNT(*) AS cnt FROM users GROUP BY country HAVING COUNT(*) > 100;',
+    explanation: 'HAVING filters after GROUP BY - WHERE filters before.',
+    xp: 30,
+  },
+  // JOINS
+  {
+    id: 'sql-join-inner',
+    title: 'INNER JOIN',
+    description: 'Connect Users with Orders',
+    category: 'join',
+    difficulty: 'intermediate',
+    query: 'SELECT u.name, o.total FROM users u INNER JOIN orders o ON u.id = o.user_id;',
+    explanation: 'INNER JOIN returns only rows with matches in both tables.',
+    xp: 30,
+  },
+  {
+    id: 'sql-join-left',
+    title: 'LEFT JOIN',
+    description: 'All users with their orders (if any)',
+    category: 'join',
+    difficulty: 'intermediate',
+    query: 'SELECT u.name, o.total FROM users u LEFT JOIN orders o ON u.id = o.user_id;',
+    explanation: 'LEFT JOIN keeps all rows from the left table.',
+    xp: 30,
+  },
+  {
+    id: 'sql-join-right',
+    title: 'RIGHT JOIN',
+    description: 'All orders with their users',
+    category: 'join',
+    difficulty: 'intermediate',
+    query: 'SELECT u.name, o.total FROM users u RIGHT JOIN orders o ON u.id = o.user_id;',
+    explanation: 'RIGHT JOIN keeps all rows from the right table.',
+    xp: 30,
+  },
+  // INSERT, UPDATE, DELETE
+  {
+    id: 'sql-insert-single',
+    title: 'INSERT Single Row',
+    description: 'Insert a new user',
+    category: 'insert',
+    difficulty: 'beginner',
+    query: "INSERT INTO users (name, email) VALUES ('Max', 'max@example.com');",
+    explanation: 'INSERT INTO adds new rows to a table.',
+    xp: 15,
+  },
+  {
+    id: 'sql-update-basic',
+    title: 'UPDATE Basic',
+    description: 'Update a user',
+    category: 'update',
+    difficulty: 'beginner',
+    query: "UPDATE users SET email = 'new@example.com' WHERE id = 1;",
+    explanation: 'UPDATE changes existing rows. ALWAYS use WHERE!',
+    xp: 15,
+  },
+  {
+    id: 'sql-delete-basic',
+    title: 'DELETE Basic',
+    description: 'Delete inactive users',
+    category: 'delete',
+    difficulty: 'beginner',
+    query: 'DELETE FROM users WHERE active = false;',
+    explanation: 'DELETE removes rows. ALWAYS use WHERE!',
+    xp: 15,
+  },
+  // SUBQUERIES
+  {
+    id: 'sql-sub-where',
+    title: 'Subquery in WHERE',
+    description: 'Find users with above average age',
+    category: 'subquery',
+    difficulty: 'intermediate',
+    query: 'SELECT * FROM users WHERE age > (SELECT AVG(age) FROM users);',
+    explanation: 'Subqueries are nested SELECT statements.',
+    xp: 30,
+  },
+  {
+    id: 'sql-sub-in',
+    title: 'Subquery with IN',
+    description: 'Find users who have placed orders',
+    category: 'subquery',
+    difficulty: 'intermediate',
+    query: 'SELECT * FROM users WHERE id IN (SELECT DISTINCT user_id FROM orders);',
+    explanation: 'IN with subquery checks if value is in the result set.',
+    xp: 30,
+  },
+  // ADVANCED
+  {
+    id: 'sql-case',
+    title: 'CASE Expression',
+    description: 'Conditional logic in SQL',
+    category: 'advanced',
+    difficulty: 'intermediate',
+    query:
+      "SELECT name, age, CASE WHEN age < 18 THEN 'Minor' WHEN age < 65 THEN 'Adult' ELSE 'Senior' END AS age_group FROM users;",
+    explanation: 'CASE is like if/else in SQL.',
+    xp: 30,
+  },
+  {
+    id: 'sql-coalesce',
+    title: 'COALESCE',
+    description: 'Replace NULL values',
+    category: 'advanced',
+    difficulty: 'intermediate',
+    query: "SELECT name, COALESCE(phone, 'N/A') AS phone FROM users;",
+    explanation: 'COALESCE returns the first non-NULL value.',
+    xp: 25,
+  },
+  {
+    id: 'sql-index',
+    title: 'CREATE INDEX',
+    description: 'Create an index for faster queries',
+    category: 'advanced',
+    difficulty: 'advanced',
+    query: 'CREATE INDEX idx_users_email ON users(email);',
+    explanation: 'Indexes speed up queries but slow down INSERTs.',
+    xp: 35,
+  },
+];
+
+// Categories for the UI
+export const SQL_CATEGORIES = [
+  { id: 'select', name: 'SELECT Basics', icon: 'list' },
+  { id: 'aggregate', name: 'Aggregate Functions', icon: 'chart' },
+  { id: 'join', name: 'JOINs', icon: 'link' },
+  { id: 'insert', name: 'INSERT', icon: 'plus' },
+  { id: 'update', name: 'UPDATE', icon: 'edit' },
+  { id: 'delete', name: 'DELETE', icon: 'trash' },
+  { id: 'subquery', name: 'Subqueries', icon: 'refresh' },
+  { id: 'advanced', name: 'Advanced', icon: 'rocket' },
+];
