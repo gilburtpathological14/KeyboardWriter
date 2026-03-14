@@ -217,17 +217,13 @@ keyboardwriter/
 
 ![Main View](docs/screenshots/main.png)
 
-### Code Playground
+### Practice Mode
 
-![Code Playground](docs/screenshots/playground.png)
+![Practice Mode](docs/screenshots/practicemode.png)
 
-### Achievements
+### Lessons
 
-![Achievements](docs/screenshots/achievements.png)
-
-### Statistics
-
-![Statistics](docs/screenshots/stats.png)
+![Lessons](docs/screenshots/lessons.png)
 
 </details>
 
