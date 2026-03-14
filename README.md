@@ -16,6 +16,28 @@
 
 ---
 
+## Screenshots
+
+### Main View
+
+The clean, modern interface with dark mode and glassmorphism design.
+
+![Main View](docs/screenshots/main.png)
+
+### Practice Mode
+
+Real-time typing practice with WPM tracking and visual keyboard feedback.
+
+![Practice Mode](docs/screenshots/practicemode.png)
+
+### Lessons
+
+Structured learning path with progress tracking and skill-based lessons.
+
+![Lessons](docs/screenshots/lessons.png)
+
+---
+
 ## What Makes KeyboardWriter Special?
 
 KeyboardWriter is not just another typing trainer. It is **specifically designed for programmers** and offers unique features:
@@ -205,27 +227,6 @@ keyboardwriter/
 |   +-- styles/         # CSS Modules
 +-- index.html
 ```
-
----
-
-## Screenshots
-
-<details>
-<summary>View Screenshots</summary>
-
-### Main View
-
-![Main View](docs/screenshots/main.png)
-
-### Practice Mode
-
-![Practice Mode](docs/screenshots/practicemode.png)
-
-### Lessons
-
-![Lessons](docs/screenshots/lessons.png)
-
-</details>
 
 ---
 
