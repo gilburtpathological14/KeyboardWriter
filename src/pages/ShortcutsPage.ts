@@ -621,7 +621,7 @@ export class ShortcutsPage {
     const feedback = document.getElementById('practice-feedback');
     if (feedback) {
       const color = correct ? 'var(--accent-success)' : 'var(--accent-error)';
-      const text = correct ? this.t('✓ Richtig!', '✓ Correct!') : this.t('✗ Falsch!', '✗ Wrong!');
+      const text = correct ? this.t('[OK] Richtig!', '[OK] Correct!') : this.t('[X] Falsch!', '[X] Wrong!');
 
       feedback.innerHTML = `
         <div style="font-size: var(--font-size-xl); color: ${color}; font-weight: bold;">

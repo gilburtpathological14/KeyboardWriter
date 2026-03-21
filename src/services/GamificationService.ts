@@ -109,6 +109,47 @@ export interface DailyChallenge {
 }
 
 /**
+ * Star rating (1-3 stars) based on performance
+ */
+export type StarRating = 1 | 2 | 3;
+
+/**
+ * Lesson result with star rating
+ */
+export interface LessonResult {
+  lessonId: string;
+  stars: StarRating;
+  wpm: number;
+  accuracy: number;
+  completedAt: string;
+  timeSpent: number; // in seconds
+}
+
+/**
+ * Calculate star rating based on WPM and accuracy
+ */
+export function calculateStarRating(
+  wpm: number,
+  accuracy: number,
+  targetWPM: number = 30,
+  targetAccuracy: number = 90
+): StarRating {
+  // 3 stars: exceed targets by 20%+
+  const exceeds = wpm >= targetWPM * 1.2 && accuracy >= Math.min(targetAccuracy + 5, 100);
+  // 2 stars: meet or slightly exceed targets
+  const meets = wpm >= targetWPM && accuracy >= targetAccuracy;
+  // 1 star: completed but below targets
+
+  if (exceeds) {
+    return 3;
+  }
+  if (meets) {
+    return 2;
+  }
+  return 1;
+}
+
+/**
  * User gamification data
  */
 export interface GamificationData {
@@ -134,6 +175,13 @@ export interface GamificationData {
 
   // XP History (last 30 days)
   xpHistory: Array<{ date: string; xp: number; actions: string[] }>;
+
+  // Star ratings per lesson
+  lessonResults: Record<string, LessonResult>;
+
+  // Total stars earned
+  totalStars: number;
+  threeStarLessons: number;
 }
 
 /**
@@ -189,6 +237,9 @@ export class GamificationService {
       totalReviews: 0,
       totalLessonsCompleted: 0,
       xpHistory: [],
+      lessonResults: {},
+      totalStars: 0,
+      threeStarLessons: 0,
     };
   }
 
@@ -637,6 +688,95 @@ export class GamificationService {
     }
 
     return result;
+  }
+
+  /**
+   * Record lesson completion with star rating
+   */
+  recordLessonResult(
+    lessonId: string,
+    wpm: number,
+    accuracy: number,
+    timeSpent: number,
+    targetWPM: number = 30,
+    targetAccuracy: number = 90
+  ): LessonResult {
+    const stars = calculateStarRating(wpm, accuracy, targetWPM, targetAccuracy);
+    const result: LessonResult = {
+      lessonId,
+      stars,
+      wpm,
+      accuracy,
+      completedAt: new Date().toISOString(),
+      timeSpent,
+    };
+
+    // Check if this is a new best for this lesson
+    const previousResult = this.data.lessonResults[lessonId];
+    const isNewBest = !previousResult || stars > previousResult.stars;
+
+    if (isNewBest) {
+      // Update stars count
+      if (previousResult) {
+        this.data.totalStars -= previousResult.stars;
+        if (previousResult.stars === 3) {
+        this.data.threeStarLessons--;
+      }
+      }
+      this.data.totalStars += stars;
+      if (stars === 3) {
+        this.data.threeStarLessons++;
+      }
+
+      this.data.lessonResults[lessonId] = result;
+    }
+
+    // Always count as completed
+    this.data.totalLessonsCompleted++;
+
+    // Add XP based on stars
+    if (stars === 3) {
+      this.addXP('lessonPerfect', 1);
+    } else {
+      this.addXP('lessonComplete', 1);
+    }
+
+    this.saveToStorage();
+    this.notify();
+
+    return result;
+  }
+
+  /**
+   * Get lesson result by ID
+   */
+  getLessonResult(lessonId: string): LessonResult | undefined {
+    return this.data.lessonResults[lessonId];
+  }
+
+  /**
+   * Get star rating for a lesson (0 if not completed)
+   */
+  getLessonStars(lessonId: string): number {
+    return this.data.lessonResults[lessonId]?.stars ?? 0;
+  }
+
+  /**
+   * Get all lesson results
+   */
+  getAllLessonResults(): Record<string, LessonResult> {
+    return { ...this.data.lessonResults };
+  }
+
+  /**
+   * Get star statistics
+   */
+  getStarStats(): { total: number; threeStars: number; completed: number } {
+    return {
+      total: this.data.totalStars,
+      threeStars: this.data.threeStarLessons,
+      completed: Object.keys(this.data.lessonResults).length,
+    };
   }
 
   /**

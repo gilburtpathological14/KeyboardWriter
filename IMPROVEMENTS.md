@@ -8,6 +8,58 @@ This document tracks completed improvements, open tasks, and future plans for th
 
 ## Completed Improvements
 
+### Phase 3: Advanced Learning Features (Current)
+
+| #   | Improvement                      | Status | Files                                            |
+| --- | -------------------------------- | ------ | ------------------------------------------------ |
+| 1   | Bilingual Exercise System        | Done   | `src/data/lessons.ts`, `src/data/practiceTexts.ts` |
+| 2   | Micro-Lessons (Level 0)          | Done   | `src/data/lessons.ts` (single finger drills)     |
+| 3   | Star Rating System               | Done   | `src/services/GamificationService.ts`            |
+| 4   | Adaptive Learning Service        | Done   | `src/services/AdaptiveLearningService.ts`        |
+| 5   | Exercise Mode Service            | Done   | `src/services/ExerciseModeService.ts`            |
+| 6   | Progress Tracking Service        | Done   | `src/services/ProgressTrackingService.ts`        |
+| 7   | Progress Map Component           | Done   | `src/components/progress/ProgressMap.ts`         |
+| 8   | Performance Charts Component     | Done   | `src/components/progress/PerformanceCharts.ts`   |
+
+#### New Exercise Categories
+- **Dictation Mode**: Audio-based typing exercises
+- **Blind Typing Mode**: Type without seeing input
+- **Time Pressure Mode**: Timed challenges with countdown
+- **Error Correction Drills**: Focus on mistake patterns
+- **Warmup Mode**: Gentle exercises to start sessions
+- **Endurance Mode**: Extended typing sessions
+
+#### Personalized Learning Features
+- Weakness analysis with digraph/pattern detection
+- Adaptive exercise recommendations
+- Difficulty auto-adjustment based on performance
+- Key-specific error tracking and practice suggestions
+
+#### Progress Tracking Features
+- Daily session recording with WPM/accuracy tracking
+- Weekly summaries with improvement metrics
+- 15 achievement milestones (lessons, stars, WPM, accuracy, time, streaks)
+- Visual learning path map (Canvas-based)
+- Performance comparison charts (week/month/all-time)
+
+---
+
+### Phase 2: Content Expansion
+
+| #   | Improvement                     | Status | Files                                          |
+| --- | ------------------------------- | ------ | ---------------------------------------------- |
+| 1   | Expanded Programming Exercises  | Done   | `src/data/programmingExercises.ts`             |
+| 2   | Algorithm Exercises             | Done   | `src/data/algorithmExercises.ts`               |
+| 3   | Framework Exercises             | Done   | `src/data/frameworkExercises.ts`               |
+| 4   | SQL Training                    | Done   | `src/pages/SQLTrainingPage.ts`                 |
+| 5   | Git Training                    | Done   | `src/pages/GitTrainingPage.ts`                 |
+| 6   | Vim Training                    | Done   | `src/pages/VimTrainingPage.ts`                 |
+| 7   | Regex Training                  | Done   | `src/pages/RegexTrainingPage.ts`               |
+| 8   | Terminal Training               | Done   | `src/pages/TerminalTrainingPage.ts`            |
+| 9   | Keyboard Shortcuts              | Done   | `src/pages/ShortcutsPage.ts`                   |
+
+---
+
 ### Phase 1: Core Infrastructure
 
 | #   | Improvement                     | Status | Files                                          |
@@ -40,6 +92,24 @@ Tests:       108 passed (108)
 - GamificationService.test.ts (15 tests)
 - StorageService.test.ts      (15 tests)
 ```
+
+---
+
+## Open Tasks (High Priority)
+
+### 1. UI Integration of New Components
+
+- [ ] Integrate ProgressMap into LessonsPage
+- [ ] Integrate PerformanceCharts into StatisticsPage
+- [ ] Add milestones display to AchievementsPage
+- [ ] Connect AdaptiveLearningService to lesson recommendations
+
+### 2. Exercise Mode Implementation
+
+- [ ] Implement Dictation Mode UI (audio playback)
+- [ ] Implement Blind Typing Mode UI (hidden input)
+- [ ] Implement Time Pressure Mode UI (countdown timer)
+- [ ] Implement Error Correction Mode UI (error highlighting)
 
 ---
 
@@ -106,6 +176,10 @@ Tests:       108 passed (108)
 | Bundle Size (main)  | ~50kB (gzip: 11kB) |
 | Code Splitting      | 37 chunks          |
 | Supported Languages | EN, DE             |
+| Services            | 15+                |
+| Components          | 20+                |
+| Exercise Modes      | 6                  |
+| Milestones          | 15                 |
 
 ---
 
@@ -153,11 +227,19 @@ src/
 ├── __tests__/         # Test files
 ├── app/               # App entry point
 ├── components/        # UI components
-├── core/              # Core modules (EventBus, Store, Logger, etc.)
-├── data/              # Static data (lessons, exercises)
+│   ├── charts/        # Chart components (LineChart, KeyboardHeatmap)
+│   ├── common/        # Common components (Icons)
+│   ├── keyboard/      # Virtual keyboard
+│   ├── onboarding/    # Onboarding modal
+│   ├── progress/      # Progress visualization (ProgressMap, PerformanceCharts)
+│   ├── settings/      # Settings modal
+│   ├── typing-area/   # Typing area component
+│   └── visualization/ # Algorithm/Graph visualizers
+├── core/              # Core modules (EventBus, Store, Logger, Router, i18n)
+├── data/              # Static data (lessons, exercises, shortcuts)
 ├── domain/            # Domain models and enums
-├── pages/             # Page components
-├── services/          # Business logic services
+├── pages/             # Page components (20+ pages)
+├── services/          # Business logic services (15+ services)
 └── styles/            # CSS modules
 ```
 
@@ -165,8 +247,11 @@ src/
 
 - **Event-Driven Architecture**: Type-safe EventBus for decoupled communication
 - **State Management**: Centralized Store with subscription pattern
-- **Service Layer**: Business logic separated from UI
+- **Service Layer**: Business logic separated from UI (15+ services)
 - **Code Splitting**: Dynamic imports for optimal loading
+- **Adaptive Learning**: Pattern-based weakness detection and personalized recommendations
+- **Progress Tracking**: Session-based analytics with milestone system
+- **Canvas Rendering**: Hardware-accelerated visualizations for progress map
 
 ---
 
@@ -197,4 +282,29 @@ npm run preview     # Preview build
 
 ---
 
-_Last updated: March 14, 2026_
+## New Services Reference
+
+### AdaptiveLearningService
+Provides personalized learning recommendations based on user performance.
+- `analyzeWeaknesses()`: Identifies weak keys and patterns
+- `recommendExercises()`: Suggests targeted exercises
+- `adjustDifficulty()`: Auto-adjusts lesson difficulty
+
+### ExerciseModeService
+Manages different exercise modes for varied practice.
+- Dictation Mode: Audio-based typing
+- Blind Typing: Hidden input mode
+- Time Pressure: Countdown challenges
+- Error Correction: Mistake-focused drills
+- Warmup/Endurance: Session management
+
+### ProgressTrackingService
+Comprehensive progress tracking and analytics.
+- Session recording with detailed metrics
+- Weekly/monthly summaries
+- Milestone achievement tracking
+- Performance comparison over time
+
+---
+
+_Last updated: March 21, 2026_

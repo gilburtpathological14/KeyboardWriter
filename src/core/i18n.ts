@@ -130,6 +130,26 @@ const en: Translations = {
   'lessons.passed': 'Lesson passed! {wpm} WPM · {accuracy}% · +{xp} XP',
   'lessons.ended': 'Lesson ended. {wpm} WPM · {accuracy}%',
   'lessons.completedCount': '{count} completed',
+  'lessons.progressMap': 'Learning Path',
+  'lessons.progressMapDesc': 'Visualize your progress through all lessons',
+
+  // Statistics - Performance
+  'stats.performanceComparison': 'Performance Comparison',
+  'stats.performanceComparisonDesc': 'Compare your performance across different time periods',
+  'stats.week': 'Week',
+  'stats.month': 'Month',
+  'stats.allTime': 'All Time',
+  'stats.practiceTimeLabel': 'Practice Time',
+  'stats.today': 'Today',
+  'stats.thisWeek': 'This Week',
+  'stats.thisMonth': 'This Month',
+  'stats.milestones': 'Milestones',
+  'stats.achieved': 'achieved',
+  'stats.current': 'Current',
+  'stats.previous': 'Previous',
+  'stats.noChange': 'No change',
+  'stats.last7Days': 'Last 7 Days Activity',
+  'stats.comparedToPrevious': 'Progress compared to previous period',
 
   // Lesson Categories
   'lessons.category.beginner': 'Beginner',
@@ -450,6 +470,51 @@ const en: Translations = {
   'algo.algorithmsData': 'Algorithms & Data Structures',
   'algo.reactTs': 'React & TypeScript',
   'algo.exercises': 'Exercises',
+
+  // Framework Categories (Phase 5)
+  'algo.category.algorithms': 'Algorithms & Data Structures',
+  'algo.category.react': 'React',
+  'algo.category.typescript': 'TypeScript',
+  'algo.category.vue': 'Vue.js',
+  'algo.category.svelte': 'Svelte',
+  'algo.category.nodejs': 'Node.js',
+  'algo.category.docker': 'Docker & DevOps',
+  'algo.category.testing': 'Testing',
+  'algo.category.nextjs': 'Next.js',
+  'algo.category.angular': 'Angular',
+  
+  // Vue Snippets
+  'algo.vue.composition': 'Vue 3 Composition API',
+  'algo.vue.composables': 'Custom Composables',
+  'algo.vue.pinia': 'Pinia Store',
+  'algo.vue.router': 'Vue Router Guards',
+  'algo.vue.directives': 'Custom Directives',
+  
+  // Svelte Snippets
+  'algo.svelte.basic': 'Svelte Basic Component',
+  'algo.svelte.stores': 'Svelte Stores',
+  'algo.svelte.lifecycle': 'Svelte Lifecycle',
+  'algo.svelte.transitions': 'Svelte Transitions',
+  'algo.svelte.actions': 'Svelte Actions',
+  
+  // Node.js Snippets
+  'algo.nodejs.express': 'Express Server Setup',
+  'algo.nodejs.router': 'Express Router & Controller',
+  'algo.nodejs.middleware': 'Custom Middleware',
+  'algo.nodejs.prisma': 'Prisma ORM',
+  'algo.nodejs.websocket': 'WebSocket Server',
+  
+  // Docker Snippets
+  'algo.docker.production': 'Node.js Production Dockerfile',
+  'algo.docker.compose': 'Docker Compose Full Stack',
+  'algo.docker.cicd': 'GitHub Actions CI/CD',
+  
+  // Testing Snippets
+  'algo.testing.e2e': 'Playwright E2E Test',
+  'algo.testing.api': 'Supertest API Testing',
+  'algo.testing.mocking': 'Advanced Mocking',
+  'algo.testing.snapshot': 'Snapshot Testing',
+
   'algo.all': 'All',
   'algo.beginner': 'Beginner',
   'algo.intermediate': 'Intermediate',
@@ -663,6 +728,26 @@ const de: Translations = {
   'lessons.passed': 'Lektion bestanden! {wpm} WPM · {accuracy}% · +{xp} XP',
   'lessons.ended': 'Lektion beendet. {wpm} WPM · {accuracy}%',
   'lessons.completedCount': '{count} abgeschlossen',
+  'lessons.progressMap': 'Lernpfad',
+  'lessons.progressMapDesc': 'Visualisiere deinen Fortschritt durch alle Lektionen',
+
+  // Statistics - Performance
+  'stats.performanceComparison': 'Leistungsvergleich',
+  'stats.performanceComparisonDesc': 'Vergleiche deine Leistung über verschiedene Zeiträume',
+  'stats.week': 'Woche',
+  'stats.month': 'Monat',
+  'stats.allTime': 'Gesamt',
+  'stats.practiceTimeLabel': 'Übungszeit',
+  'stats.today': 'Heute',
+  'stats.thisWeek': 'Diese Woche',
+  'stats.thisMonth': 'Dieser Monat',
+  'stats.milestones': 'Meilensteine',
+  'stats.achieved': 'erreicht',
+  'stats.current': 'Aktuell',
+  'stats.previous': 'Vorher',
+  'stats.noChange': 'Keine Änderung',
+  'stats.last7Days': 'Letzte 7 Tage Aktivität',
+  'stats.comparedToPrevious': 'Fortschritt im Vergleich zur Vorperiode',
 
   // Lesson Categories
   'lessons.category.beginner': 'Anfänger',
@@ -985,6 +1070,51 @@ const de: Translations = {
   'algo.algorithmsData': 'Algorithmen & Datenstrukturen',
   'algo.reactTs': 'React & TypeScript',
   'algo.exercises': 'Übungen',
+
+  // Framework-Kategorien (Phase 5)
+  'algo.category.algorithms': 'Algorithmen & Datenstrukturen',
+  'algo.category.react': 'React',
+  'algo.category.typescript': 'TypeScript',
+  'algo.category.vue': 'Vue.js',
+  'algo.category.svelte': 'Svelte',
+  'algo.category.nodejs': 'Node.js',
+  'algo.category.docker': 'Docker & DevOps',
+  'algo.category.testing': 'Testing',
+  'algo.category.nextjs': 'Next.js',
+  'algo.category.angular': 'Angular',
+  
+  // Vue Snippets
+  'algo.vue.composition': 'Vue 3 Composition API',
+  'algo.vue.composables': 'Eigene Composables',
+  'algo.vue.pinia': 'Pinia Store',
+  'algo.vue.router': 'Vue Router Guards',
+  'algo.vue.directives': 'Eigene Direktiven',
+  
+  // Svelte Snippets
+  'algo.svelte.basic': 'Svelte Basis-Komponente',
+  'algo.svelte.stores': 'Svelte Stores',
+  'algo.svelte.lifecycle': 'Svelte Lifecycle',
+  'algo.svelte.transitions': 'Svelte Übergänge',
+  'algo.svelte.actions': 'Svelte Actions',
+  
+  // Node.js Snippets
+  'algo.nodejs.express': 'Express Server Setup',
+  'algo.nodejs.router': 'Express Router & Controller',
+  'algo.nodejs.middleware': 'Eigene Middleware',
+  'algo.nodejs.prisma': 'Prisma ORM',
+  'algo.nodejs.websocket': 'WebSocket Server',
+  
+  // Docker Snippets
+  'algo.docker.production': 'Node.js Produktions-Dockerfile',
+  'algo.docker.compose': 'Docker Compose Full Stack',
+  'algo.docker.cicd': 'GitHub Actions CI/CD',
+  
+  // Testing Snippets
+  'algo.testing.e2e': 'Playwright E2E Test',
+  'algo.testing.api': 'Supertest API Testing',
+  'algo.testing.mocking': 'Fortgeschrittenes Mocking',
+  'algo.testing.snapshot': 'Snapshot Testing',
+
   'algo.all': 'Alle',
   'algo.beginner': 'Anfänger',
   'algo.intermediate': 'Mittel',

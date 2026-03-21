@@ -77,6 +77,26 @@ export interface AppEvents {
   'celebration:achievement': void;
   'celebration:perfect': void;
   'celebration:success': void;
+
+  // Exercise Mode events
+  'exerciseMode:start': { mode: string };
+  'exerciseMode:end': { mode: string };
+
+  // Dictation mode events
+  'dictation:show': { chunk: string; index: number };
+  'dictation:hide': { index: number };
+
+  // Time pressure events
+  'timePressure:start': { timeLimit: number };
+  'timePressure:tick': { timeRemaining: number };
+  'timePressure:timeout': void;
+  'timePressure:stop': { timeRemaining: number };
+  'timePressure:bonus': { bonus: number; newTime: number };
+
+  // Error correction events
+  'errorCorrection:correct': { position: number };
+  'errorCorrection:falsePositive': { position: number };
+  'errorCorrection:hint': { position: number; hintsRemaining: number };
 }
 
 /**

@@ -1,5 +1,6 @@
 import { KeyboardHeatmap, KeyStats } from '../components/charts/KeyboardHeatmap';
 import { ChartDataPoint, LineChart } from '../components/charts/LineChart';
+import { PerformanceCharts, performanceChartsStyles } from '../components/progress/PerformanceCharts';
 import { Store, t } from '../core';
 import { formatPracticeTime } from '../domain/models';
 
@@ -11,6 +12,8 @@ export class StatisticsPage {
   private wpmChart: LineChart | null = null;
   private accuracyChart: LineChart | null = null;
   private keyboardHeatmap: KeyboardHeatmap | null = null;
+  private performanceCharts: PerformanceCharts | null = null;
+  private stylesInjected = false;
 
   constructor() {
     // Charts will be initialized in init()
@@ -29,6 +32,7 @@ export class StatisticsPage {
 
         ${this.renderOverviewCards(stats)}
         ${this.renderProgressSection(stats)}
+        ${this.renderPerformanceComparisonSection()}
         ${this.renderChartsSection()}
         ${this.renderWeeklyActivity(stats)}
         ${this.renderHeatmapSection()}
@@ -135,6 +139,21 @@ export class StatisticsPage {
           <h3 style="margin-bottom: var(--space-4);">${t('stats.accuracyHistory')}</h3>
           <div id="accuracy-chart-container" style="width: 100%; min-height: 250px;"></div>
         </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Render performance comparison section
+   */
+  private renderPerformanceComparisonSection(): string {
+    return `
+      <div class="card" style="margin-bottom: var(--space-6);">
+        <h3 style="margin-bottom: var(--space-4);">${t('stats.performanceComparison') || 'Leistungsvergleich'}</h3>
+        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: var(--space-4);">
+          ${t('stats.performanceComparisonDesc') || 'Vergleiche deine Leistung uber verschiedene Zeitraume'}
+        </p>
+        <div id="performance-charts-container"></div>
       </div>
     `;
   }
@@ -256,12 +275,50 @@ export class StatisticsPage {
     const state = Store.getState();
     const stats = state.user.statistics;
 
-    // Initialize WPM chart
+    // Inject styles if not already done
+    this.injectStyles();
+
+    // Initialize charts
     setTimeout(() => {
       this.initWpmChart(stats);
       this.initAccuracyChart(stats);
       this.initKeyboardHeatmap(stats);
+      this.initPerformanceCharts();
     }, 0);
+  }
+
+  /**
+   * Inject component styles
+   */
+  private injectStyles(): void {
+    if (this.stylesInjected) {
+      return;
+    }
+
+    const styleId = 'performance-charts-styles';
+    if (!document.getElementById(styleId)) {
+      const styleEl = document.createElement('style');
+      styleEl.id = styleId;
+      styleEl.textContent = performanceChartsStyles;
+      document.head.appendChild(styleEl);
+    }
+    this.stylesInjected = true;
+  }
+
+  /**
+   * Initialize performance charts
+   */
+  private initPerformanceCharts(): void {
+    try {
+      const container = document.getElementById('performance-charts-container');
+      if (!container) {
+        return;
+      }
+
+      this.performanceCharts = new PerformanceCharts('performance-charts-container');
+    } catch (e) {
+      console.error('Failed to initialize performance charts:', e);
+    }
   }
 
   /**
@@ -347,8 +404,10 @@ export class StatisticsPage {
     this.wpmChart?.destroy();
     this.accuracyChart?.destroy();
     this.keyboardHeatmap?.destroy();
+    this.performanceCharts?.destroy();
     this.wpmChart = null;
     this.accuracyChart = null;
     this.keyboardHeatmap = null;
+    this.performanceCharts = null;
   }
 }

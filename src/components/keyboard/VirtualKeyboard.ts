@@ -73,7 +73,16 @@ export class VirtualKeyboard {
   private renderKey(key: KeyDefinition): string {
     const widthClass = this.getWidthClass(key);
     const displayText = this.getKeyDisplayText(key);
-    const secondaryText = key.shiftKey ? `<span class="key-secondary">${key.shiftKey}</span>` : '';
+
+    // Only show secondary text if shiftKey is NOT just the uppercase version of key
+    // This prevents duplicate display for letters (e.g., showing both 'Q' and 'Q')
+    // but keeps it for numbers/symbols (e.g., showing '!' above '1')
+    const isUppercaseVariant =
+      key.shiftKey && key.shiftKey.toLowerCase() === key.key.toLowerCase();
+    const secondaryText =
+      key.shiftKey && !isUppercaseVariant
+        ? `<span class="key-secondary">${key.shiftKey}</span>`
+        : '';
 
     return `
       <div 

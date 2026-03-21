@@ -33,6 +33,9 @@ export interface Settings {
 
   // Tests
   defaultTestDuration: 30 | 60 | 120;
+
+  // Exercise Language
+  exerciseLanguage: 'de' | 'en' | 'both';
 }
 
 const DEFAULT_SETTINGS: Settings = {
@@ -52,6 +55,7 @@ const DEFAULT_SETTINGS: Settings = {
   pauseOnError: false,
   keyboardLayout: 'qwertz',
   defaultTestDuration: 60,
+  exerciseLanguage: 'de',
 };
 
 const SETTINGS_KEY = 'keyboardwriter_settings';
@@ -172,6 +176,28 @@ class SettingsServiceClass {
     };
 
     root.style.setProperty('--base-font-size', sizes[fontSize]);
+  }
+
+  /**
+   * Get exercise language setting
+   * Returns 'de' or 'en' based on the setting
+   * If 'both', returns user's browser language or 'de' as fallback
+   */
+  getExerciseLanguage(): 'de' | 'en' {
+    const setting = this.settings.exerciseLanguage;
+    if (setting === 'both') {
+      // Use browser language to determine preference
+      const browserLang = navigator.language.toLowerCase();
+      return browserLang.startsWith('en') ? 'en' : 'de';
+    }
+    return setting;
+  }
+
+  /**
+   * Set exercise language
+   */
+  setExerciseLanguage(language: 'de' | 'en' | 'both'): void {
+    this.updateSettings({ exerciseLanguage: language });
   }
 
   /**

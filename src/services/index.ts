@@ -2,20 +2,48 @@
  * Services - Central Export
  */
 
+// Adaptive Learning
+export { AdaptiveLearningService } from './AdaptiveLearningService';
+export type {
+  DailyGoal,
+  KeyPerformance,
+  LearningPathRecommendation,
+  PatternPerformance,
+  PracticeRecommendation,
+  WeaknessAnalysis
+} from './AdaptiveLearningService';
+
 export { ConfettiService } from './ConfettiService';
+
+// Exercise Modes
+export { ExerciseModeService } from './ExerciseModeService';
+export type {
+  DictationState,
+  ErrorCorrectionResult,
+  ErrorCorrectionState,
+  ExerciseModeSession,
+  TimePressureState,
+  WarmupExercise
+} from './ExerciseModeService';
+
+// Gamification
 export {
+  calculateStarRating,
   GamificationService,
   gamificationService,
   LEVEL_THRESHOLDS,
-  XP_REWARDS,
+  XP_REWARDS
 } from './GamificationService';
 export type {
   ChallengeDifficulty,
   ChallengeType,
   DailyChallenge,
   GamificationData,
-  XPGainEvent,
+  LessonResult,
+  StarRating,
+  XPGainEvent
 } from './GamificationService';
+
 export { LessonService } from './LessonService';
 export type { ExerciseResult, LessonCompletionResult } from './LessonService';
 export { PythonService } from './PythonService';
@@ -31,8 +59,18 @@ export type {
   MasteryLevel,
   QualityRating,
   ReviewResult,
-  SRSItemData,
+  SRSItemData
 } from './SpacedRepetitionService';
 export { ThemeService } from './ThemeService';
 export type { ThemeColors, ThemeMode, ThemeSettings } from './ThemeService';
 export { TypingEngineService } from './TypingEngineService';
+
+// Progress Tracking
+export { ProgressTrackingService, progressTrackingService } from './ProgressTrackingService';
+export type {
+  DailySession, LearningPathNode,
+  Milestone,
+  PerformanceComparison,
+  ProgressData, WeeklySummary
+} from './ProgressTrackingService';
+

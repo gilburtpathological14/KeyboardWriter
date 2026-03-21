@@ -63,9 +63,16 @@
 
 /* Icon */
 .onboarding-icon {
-  font-size: 64px;
+  width: 64px;
+  height: 64px;
   margin-bottom: 24px;
   animation: bounceIn 0.5s ease;
+  color: var(--accent-primary);
+}
+
+.onboarding-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 /* Title */

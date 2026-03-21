@@ -7,18 +7,18 @@
   max-width: var(--content-max-width);
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: var(--space-4);
 }
 
 .typing-text-display {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-lg);
-  padding: var(--space-8);
+  padding: var(--space-4);
   font-family: var(--font-mono);
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-xl);
   line-height: var(--line-height-relaxed);
-  min-height: 200px;
+  min-height: 100px;
   /* Enable word wrapping for long text */
   word-wrap: break-word;
   overflow-wrap: break-word;

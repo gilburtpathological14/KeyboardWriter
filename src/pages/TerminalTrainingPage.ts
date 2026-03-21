@@ -740,20 +740,20 @@ export class TerminalTrainingPage {
     this.terminalHistory.push({
       input: command,
       output: isCorrect
-        ? `✓ ${t('terminal.correctAnswer')}`
-        : `✗ ${t('terminal.wrongAnswer', { expected: currentTask.expectedCommand })}`,
+        ? `[OK] ${t('terminal.correctAnswer')}`
+        : `[X] ${t('terminal.wrongAnswer', { expected: currentTask.expectedCommand })}`,
       isError: !isCorrect,
       timestamp: new Date(),
     });
 
     if (isCorrect) {
       this.score++;
-      EventBus.emit('ui:toast', { message: `✓ ${t('terminal.correctAnswer')}`, type: 'success' });
+      EventBus.emit('ui:toast', { message: `[OK] ${t('terminal.correctAnswer')}`, type: 'success' });
       setTimeout(() => this.nextTask(), 800);
     } else {
       this.errors++;
       EventBus.emit('ui:toast', {
-        message: `✗ ${t('terminal.wrongAnswer', { expected: currentTask.expectedCommand })}`,
+        message: `[X] ${t('terminal.wrongAnswer', { expected: currentTask.expectedCommand })}`,
         type: 'error',
       });
     }

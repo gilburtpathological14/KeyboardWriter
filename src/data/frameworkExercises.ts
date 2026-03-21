@@ -731,6 +731,1028 @@ function reducer(state: number, action: Action): number {
   },
 ];
 
+// Vue.js Composition API
+export const VUE_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'vue-composition-basic',
+    language: 'typescript',
+    title: 'Vue 3 Composition API',
+    description: 'Grundlegendes Vue 3 Component',
+    code: `<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue';
+
+interface Props {
+  title: string;
+  count?: number;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  count: 0
+});
+
+const emit = defineEmits<{
+  (e: 'increment', value: number): void;
+  (e: 'reset'): void;
+}>();
+
+const counter = ref(props.count);
+
+const doubled = computed(() => counter.value * 2);
+
+function increment() {
+  counter.value++;
+  emit('increment', counter.value);
+}
+
+onMounted(() => {
+  console.log('Component mounted');
+});
+</script>
+
+<template>
+  <div class="counter">
+    <h2>{{ title }}</h2>
+    <p>Count: {{ counter }} (doubled: {{ doubled }})</p>
+    <button @click="increment">Increment</button>
+    <button @click="emit('reset')">Reset</button>
+  </div>
+</template>`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'vue-composables',
+    language: 'typescript',
+    title: 'Vue Composables',
+    description: 'Wiederverwendbare Logik mit Composables',
+    code: `// composables/useCounter.ts
+import { ref, computed } from 'vue';
+
+export function useCounter(initialValue = 0) {
+  const count = ref(initialValue);
+  
+  const doubled = computed(() => count.value * 2);
+  const isPositive = computed(() => count.value > 0);
+  
+  function increment() {
+    count.value++;
+  }
+  
+  function decrement() {
+    count.value--;
+  }
+  
+  function reset() {
+    count.value = initialValue;
+  }
+  
+  return {
+    count,
+    doubled,
+    isPositive,
+    increment,
+    decrement,
+    reset
+  };
+}
+
+// composables/useFetch.ts
+import { ref, watchEffect } from 'vue';
+
+export function useFetch<T>(url: string) {
+  const data = ref<T | null>(null);
+  const error = ref<Error | null>(null);
+  const loading = ref(true);
+  
+  watchEffect(async () => {
+    loading.value = true;
+    try {
+      const response = await fetch(url);
+      data.value = await response.json();
+    } catch (e) {
+      error.value = e as Error;
+    } finally {
+      loading.value = false;
+    }
+  });
+  
+  return { data, error, loading };
+}`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'vue-pinia-store',
+    language: 'typescript',
+    title: 'Pinia Store',
+    description: 'State Management mit Pinia',
+    code: `// stores/userStore.ts
+import { defineStore } from 'pinia';
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+interface UserState {
+  user: User | null;
+  isLoading: boolean;
+  error: string | null;
+}
+
+export const useUserStore = defineStore('user', {
+  state: (): UserState => ({
+    user: null,
+    isLoading: false,
+    error: null
+  }),
+  
+  getters: {
+    isLoggedIn: (state) => !!state.user,
+    userName: (state) => state.user?.name ?? 'Guest'
+  },
+  
+  actions: {
+    async login(email: string, password: string) {
+      this.isLoading = true;
+      this.error = null;
+      
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          body: JSON.stringify({ email, password })
+        });
+        this.user = await response.json();
+      } catch (e) {
+        this.error = 'Login failed';
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    
+    logout() {
+      this.user = null;
+    }
+  }
+});`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'vue-router-setup',
+    language: 'typescript',
+    title: 'Vue Router Setup',
+    description: 'Routing mit Vue Router',
+    code: `// router/index.ts
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'Home',
+    component: () => import('@/views/Home.vue')
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import('@/views/About.vue')
+  },
+  {
+    path: '/user/:id',
+    name: 'UserProfile',
+    component: () => import('@/views/UserProfile.vue'),
+    props: true,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('@/views/NotFound.vue')
+  }
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = useUserStore().isLoggedIn;
+  
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next({ name: 'Login', query: { redirect: to.fullPath } });
+  } else {
+    next();
+  }
+});
+
+export default router;`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'vue-directive-custom',
+    language: 'typescript',
+    title: 'Custom Directives',
+    description: 'Eigene Vue Direktiven',
+    code: `// directives/vFocus.ts
+import type { Directive } from 'vue';
+
+export const vFocus: Directive = {
+  mounted(el: HTMLElement) {
+    el.focus();
+  }
+};
+
+// directives/vClickOutside.ts
+export const vClickOutside: Directive = {
+  mounted(el: HTMLElement, binding) {
+    el._clickOutsideHandler = (event: MouseEvent) => {
+      if (!el.contains(event.target as Node)) {
+        binding.value(event);
+      }
+    };
+    document.addEventListener('click', el._clickOutsideHandler);
+  },
+  unmounted(el: HTMLElement) {
+    document.removeEventListener('click', el._clickOutsideHandler);
+  }
+};
+
+// Usage in component
+<template>
+  <input v-focus placeholder="Auto-focused" />
+  <div v-click-outside="closeDropdown">
+    <button @click="isOpen = !isOpen">Toggle</button>
+    <ul v-show="isOpen">
+      <li>Option 1</li>
+      <li>Option 2</li>
+    </ul>
+  </div>
+</template>`,
+    difficulty: 'advanced',
+  },
+];
+
+// Svelte Components
+export const SVELTE_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'svelte-basic-component',
+    language: 'typescript',
+    title: 'Svelte Basic Component',
+    description: 'Grundlegendes Svelte Component',
+    code: `<script lang="ts">
+  export let name: string = 'World';
+  export let count: number = 0;
+  
+  let doubled: number;
+  $: doubled = count * 2;
+  
+  function increment() {
+    count += 1;
+  }
+  
+  function reset() {
+    count = 0;
+  }
+</script>
+
+<div class="counter">
+  <h1>Hello {name}!</h1>
+  <p>Count: {count} (doubled: {doubled})</p>
+  <button on:click={increment}>Increment</button>
+  <button on:click={reset}>Reset</button>
+</div>
+
+<style>
+  .counter {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  button {
+    margin-right: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+</style>`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'svelte-stores',
+    language: 'typescript',
+    title: 'Svelte Stores',
+    description: 'State Management mit Svelte Stores',
+    code: `// stores/counter.ts
+import { writable, derived, readable } from 'svelte/store';
+
+// Writable Store
+export const count = writable(0);
+
+// Derived Store
+export const doubled = derived(count, $count => $count * 2);
+
+// Readable Store (z.B. für Zeit)
+export const time = readable(new Date(), (set) => {
+  const interval = setInterval(() => {
+    set(new Date());
+  }, 1000);
+  
+  return () => clearInterval(interval);
+});
+
+// Custom Store mit Methoden
+function createCounter() {
+  const { subscribe, set, update } = writable(0);
+  
+  return {
+    subscribe,
+    increment: () => update(n => n + 1),
+    decrement: () => update(n => n - 1),
+    reset: () => set(0)
+  };
+}
+
+export const counter = createCounter();
+
+// Usage in Component
+<script>
+  import { count, doubled, counter } from './stores/counter';
+</script>
+
+<p>Count: {$count}, Doubled: {$doubled}</p>
+<button on:click={counter.increment}>+</button>`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'svelte-lifecycle',
+    language: 'typescript',
+    title: 'Svelte Lifecycle',
+    description: 'Lifecycle Hooks in Svelte',
+    code: `<script lang="ts">
+  import { onMount, onDestroy, beforeUpdate, afterUpdate, tick } from 'svelte';
+  
+  export let data: string[];
+  let container: HTMLDivElement;
+  
+  onMount(() => {
+    console.log('Component mounted');
+    // Ideal für API calls, DOM manipulation
+    return () => {
+      console.log('Cleanup on unmount');
+    };
+  });
+  
+  onDestroy(() => {
+    console.log('Component destroyed');
+  });
+  
+  beforeUpdate(() => {
+    console.log('Before DOM update');
+  });
+  
+  afterUpdate(() => {
+    console.log('After DOM update');
+    // Scroll to bottom after update
+    container?.scrollTo(0, container.scrollHeight);
+  });
+  
+  async function addItem() {
+    data = [...data, 'New Item'];
+    await tick(); // Wait for DOM update
+    console.log('DOM has been updated');
+  }
+</script>
+
+<div bind:this={container} class="list">
+  {#each data as item}
+    <p>{item}</p>
+  {/each}
+</div>
+<button on:click={addItem}>Add Item</button>`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'svelte-transitions',
+    language: 'typescript',
+    title: 'Svelte Transitions',
+    description: 'Animationen mit Svelte Transitions',
+    code: `<script lang="ts">
+  import { fade, fly, slide, scale, draw } from 'svelte/transition';
+  import { elasticOut, cubicInOut } from 'svelte/easing';
+  
+  let visible = true;
+  let items = ['Item 1', 'Item 2', 'Item 3'];
+</script>
+
+<button on:click={() => visible = !visible}>
+  Toggle
+</button>
+
+{#if visible}
+  <!-- Fade Transition -->
+  <div transition:fade={{ duration: 300 }}>
+    Fades in and out
+  </div>
+  
+  <!-- Fly Transition -->
+  <div transition:fly={{ y: 200, duration: 500 }}>
+    Flies from below
+  </div>
+  
+  <!-- Custom Parameters -->
+  <div 
+    in:fly={{ y: -50, duration: 300, easing: elasticOut }}
+    out:fade={{ duration: 200 }}
+  >
+    Different in/out transitions
+  </div>
+{/if}
+
+<!-- List Transitions -->
+{#each items as item (item)}
+  <div 
+    animate:flip={{ duration: 300 }}
+    transition:slide
+  >
+    {item}
+  </div>
+{/each}`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'svelte-actions',
+    language: 'typescript',
+    title: 'Svelte Actions',
+    description: 'Wiederverwendbare DOM-Logik',
+    code: `<script lang="ts">
+  import type { Action } from 'svelte/action';
+  
+  // Click Outside Action
+  const clickOutside: Action<HTMLElement, () => void> = (node, callback) => {
+    const handleClick = (event: MouseEvent) => {
+      if (!node.contains(event.target as Node)) {
+        callback();
+      }
+    };
+    
+    document.addEventListener('click', handleClick, true);
+    
+    return {
+      destroy() {
+        document.removeEventListener('click', handleClick, true);
+      }
+    };
+  };
+  
+  // Tooltip Action
+  const tooltip: Action<HTMLElement, string> = (node, text) => {
+    let tooltipEl: HTMLDivElement;
+    
+    const showTooltip = () => {
+      tooltipEl = document.createElement('div');
+      tooltipEl.className = 'tooltip';
+      tooltipEl.textContent = text;
+      document.body.appendChild(tooltipEl);
+      
+      const rect = node.getBoundingClientRect();
+      tooltipEl.style.top = \`\${rect.top - 30}px\`;
+      tooltipEl.style.left = \`\${rect.left}px\`;
+    };
+    
+    const hideTooltip = () => {
+      tooltipEl?.remove();
+    };
+    
+    node.addEventListener('mouseenter', showTooltip);
+    node.addEventListener('mouseleave', hideTooltip);
+    
+    return {
+      update(newText) {
+        text = newText;
+      },
+      destroy() {
+        node.removeEventListener('mouseenter', showTooltip);
+        node.removeEventListener('mouseleave', hideTooltip);
+      }
+    };
+  };
+  
+  let isOpen = false;
+</script>
+
+<div use:clickOutside={() => isOpen = false}>
+  <button use:tooltip={'Click to toggle'}>
+    Toggle Menu
+  </button>
+</div>`,
+    difficulty: 'advanced',
+  },
+];
+
+// Node.js / Express Snippets
+export const NODEJS_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'node-express-basic',
+    language: 'typescript',
+    title: 'Express Basic Setup',
+    description: 'Grundlegende Express App',
+    code: `import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(helmet());
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Request logging
+app.use((req, res, next) => {
+  console.log(\`\${req.method} \${req.path}\`);
+  next();
+});
+
+// Routes
+app.get('/', (req: Request, res: Response) => {
+  res.json({ message: 'Hello World!' });
+});
+
+app.get('/api/health', (req: Request, res: Response) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Error handling
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
+});
+
+app.listen(PORT, () => {
+  console.log(\`Server running on port \${PORT}\`);
+});`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'node-express-router',
+    language: 'typescript',
+    title: 'Express Router & Controller',
+    description: 'Modulare Routen-Struktur',
+    code: `// routes/users.ts
+import { Router } from 'express';
+import { UserController } from '../controllers/UserController';
+import { authMiddleware } from '../middleware/auth';
+import { validateRequest } from '../middleware/validation';
+import { createUserSchema, updateUserSchema } from '../schemas/user';
+
+const router = Router();
+const controller = new UserController();
+
+router.get('/', controller.getAll);
+router.get('/:id', controller.getById);
+router.post('/', validateRequest(createUserSchema), controller.create);
+router.put('/:id', authMiddleware, validateRequest(updateUserSchema), controller.update);
+router.delete('/:id', authMiddleware, controller.delete);
+
+export default router;
+
+// controllers/UserController.ts
+import { Request, Response, NextFunction } from 'express';
+import { UserService } from '../services/UserService';
+
+export class UserController {
+  private userService = new UserService();
+  
+  getAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const users = await this.userService.findAll();
+      res.json(users);
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  getById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = await this.userService.findById(req.params.id);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  create = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = await this.userService.create(req.body);
+      res.status(201).json(user);
+    } catch (error) {
+      next(error);
+    }
+  };
+}`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'node-middleware',
+    language: 'typescript',
+    title: 'Express Middleware',
+    description: 'Custom Middleware Patterns',
+    code: `import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+
+// Auth Middleware
+export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  const authHeader = req.headers.authorization;
+  
+  if (!authHeader?.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+  
+  const token = authHeader.split(' ')[1];
+  
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+};
+
+// Rate Limiting Middleware
+const requestCounts = new Map<string, { count: number; resetTime: number }>();
+
+export const rateLimiter = (limit: number, windowMs: number) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const ip = req.ip;
+    const now = Date.now();
+    const record = requestCounts.get(ip);
+    
+    if (!record || now > record.resetTime) {
+      requestCounts.set(ip, { count: 1, resetTime: now + windowMs });
+      return next();
+    }
+    
+    if (record.count >= limit) {
+      return res.status(429).json({ error: 'Too many requests' });
+    }
+    
+    record.count++;
+    next();
+  };
+};
+
+// Validation Middleware
+import { z } from 'zod';
+
+export const validateRequest = (schema: z.ZodSchema) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    try {
+      schema.parse(req.body);
+      next();
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ errors: error.errors });
+      } else {
+        next(error);
+      }
+    }
+  };
+};`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'node-prisma',
+    language: 'typescript',
+    title: 'Prisma ORM',
+    description: 'Datenbank mit Prisma',
+    code: `// prisma/schema.prisma
+/*
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  createdAt DateTime @default(now())
+}
+*/
+
+// services/UserService.ts
+import { PrismaClient, User, Prisma } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+export class UserService {
+  async findAll(): Promise<User[]> {
+    return prisma.user.findMany({
+      include: { posts: true }
+    });
+  }
+  
+  async findById(id: string): Promise<User | null> {
+    return prisma.user.findUnique({
+      where: { id },
+      include: { posts: { where: { published: true } } }
+    });
+  }
+  
+  async create(data: Prisma.UserCreateInput): Promise<User> {
+    return prisma.user.create({ data });
+  }
+  
+  async update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
+    return prisma.user.update({ where: { id }, data });
+  }
+  
+  async delete(id: string): Promise<void> {
+    await prisma.user.delete({ where: { id } });
+  }
+}`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'node-websocket',
+    language: 'typescript',
+    title: 'WebSocket Server',
+    description: 'Real-time Kommunikation',
+    code: `import { WebSocketServer, WebSocket } from 'ws';
+import { createServer } from 'http';
+import express from 'express';
+
+const app = express();
+const server = createServer(app);
+const wss = new WebSocketServer({ server });
+
+interface Client {
+  ws: WebSocket;
+  id: string;
+  room?: string;
+}
+
+const clients = new Map<string, Client>();
+
+wss.on('connection', (ws: WebSocket) => {
+  const clientId = crypto.randomUUID();
+  clients.set(clientId, { ws, id: clientId });
+  
+  console.log(\`Client connected: \${clientId}\`);
+  
+  ws.on('message', (data: Buffer) => {
+    try {
+      const message = JSON.parse(data.toString());
+      handleMessage(clientId, message);
+    } catch (error) {
+      console.error('Invalid message:', error);
+    }
+  });
+  
+  ws.on('close', () => {
+    clients.delete(clientId);
+    console.log(\`Client disconnected: \${clientId}\`);
+  });
+  
+  ws.send(JSON.stringify({ type: 'connected', clientId }));
+});
+
+function handleMessage(clientId: string, message: any) {
+  const client = clients.get(clientId);
+  if (!client) return;
+  
+  switch (message.type) {
+    case 'join':
+      client.room = message.room;
+      broadcast(message.room, { type: 'userJoined', clientId });
+      break;
+      
+    case 'message':
+      if (client.room) {
+        broadcast(client.room, {
+          type: 'message',
+          from: clientId,
+          content: message.content
+        });
+      }
+      break;
+  }
+}
+
+function broadcast(room: string, message: any) {
+  clients.forEach((client) => {
+    if (client.room === room && client.ws.readyState === WebSocket.OPEN) {
+      client.ws.send(JSON.stringify(message));
+    }
+  });
+}
+
+server.listen(3000, () => console.log('Server running on port 3000'));`,
+    difficulty: 'advanced',
+  },
+];
+
+// Docker Extended Snippets
+export const DOCKER_EXTENDED_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'docker-node-production',
+    language: 'dockerfile',
+    title: 'Node.js Production Dockerfile',
+    description: 'Optimiertes Node.js Image',
+    code: `# Build stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Build application
+COPY . .
+RUN npm run build
+
+# Prune dev dependencies
+RUN npm prune --production
+
+# Production stage
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 appuser
+
+# Copy built files
+COPY --from=builder --chown=appuser:nodejs /app/dist ./dist
+COPY --from=builder --chown=appuser:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=appuser:nodejs /app/package.json ./
+
+USER appuser
+
+EXPOSE 3000
+
+ENV NODE_ENV=production
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s \\
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+
+CMD ["node", "dist/index.js"]`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'docker-compose-full',
+    language: 'yaml',
+    title: 'Docker Compose Full Stack',
+    description: 'Komplette Entwicklungsumgebung',
+    code: `version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://user:pass@db:5432/myapp
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: npm run dev
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: myapp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d myapp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  default:
+    name: myapp_network`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'docker-github-actions',
+    language: 'yaml',
+    title: 'Docker CI/CD Pipeline',
+    description: 'GitHub Actions Docker Build',
+    code: `name: Docker Build & Push
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: \${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: \${{ env.REGISTRY }}
+          username: \${{ github.actor }}
+          password: \${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: \${{ env.REGISTRY }}/\${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=sha
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: \${{ github.event_name != 'pull_request' }}
+          tags: \${{ steps.meta.outputs.tags }}
+          labels: \${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max`,
+    difficulty: 'advanced',
+  },
+];
+
 // Testing Patterns
 export const TESTING_PATTERNS: CodeSnippet[] = [
   {
@@ -824,6 +1846,277 @@ describe('LoginForm', () => {
   },
 ];
 
+// Extended Testing Patterns
+export const TESTING_EXTENDED: CodeSnippet[] = [
+  {
+    id: 'test-e2e-playwright',
+    language: 'typescript',
+    title: 'Playwright E2E Tests',
+    description: 'End-to-End Tests mit Playwright',
+    code: `import { test, expect, Page } from '@playwright/test';
+
+test.describe('User Authentication', () => {
+  let page: Page;
+  
+  test.beforeEach(async ({ page: p }) => {
+    page = p;
+    await page.goto('/login');
+  });
+  
+  test('should login with valid credentials', async () => {
+    await page.fill('[data-testid="email"]', 'user@example.com');
+    await page.fill('[data-testid="password"]', 'password123');
+    await page.click('[data-testid="login-button"]');
+    
+    await expect(page).toHaveURL('/dashboard');
+    await expect(page.locator('[data-testid="welcome-message"]')).toContainText('Welcome');
+  });
+  
+  test('should show error for invalid credentials', async () => {
+    await page.fill('[data-testid="email"]', 'invalid@example.com');
+    await page.fill('[data-testid="password"]', 'wrongpassword');
+    await page.click('[data-testid="login-button"]');
+    
+    await expect(page.locator('[data-testid="error-message"]')).toBeVisible();
+    await expect(page).toHaveURL('/login');
+  });
+  
+  test('should logout successfully', async () => {
+    // First login
+    await page.fill('[data-testid="email"]', 'user@example.com');
+    await page.fill('[data-testid="password"]', 'password123');
+    await page.click('[data-testid="login-button"]');
+    
+    // Then logout
+    await page.click('[data-testid="user-menu"]');
+    await page.click('[data-testid="logout-button"]');
+    
+    await expect(page).toHaveURL('/login');
+  });
+});`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'test-api-supertest',
+    language: 'typescript',
+    title: 'API Tests mit Supertest',
+    description: 'Integration Tests für Express APIs',
+    code: `import request from 'supertest';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import app from '../src/app';
+import { prisma } from '../src/db';
+
+describe('Users API', () => {
+  let authToken: string;
+  
+  beforeAll(async () => {
+    // Create test user and get token
+    const response = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'test@example.com', password: 'password123' });
+    
+    authToken = response.body.token;
+  });
+  
+  afterAll(async () => {
+    await prisma.$disconnect();
+  });
+  
+  describe('GET /api/users', () => {
+    it('should return list of users', async () => {
+      const response = await request(app)
+        .get('/api/users')
+        .set('Authorization', \`Bearer \${authToken}\`)
+        .expect(200);
+      
+      expect(response.body).toBeInstanceOf(Array);
+      expect(response.body[0]).toHaveProperty('id');
+      expect(response.body[0]).toHaveProperty('email');
+    });
+    
+    it('should return 401 without auth token', async () => {
+      await request(app)
+        .get('/api/users')
+        .expect(401);
+    });
+  });
+  
+  describe('POST /api/users', () => {
+    it('should create a new user', async () => {
+      const newUser = {
+        email: 'newuser@example.com',
+        name: 'New User',
+        password: 'password123'
+      };
+      
+      const response = await request(app)
+        .post('/api/users')
+        .set('Authorization', \`Bearer \${authToken}\`)
+        .send(newUser)
+        .expect(201);
+      
+      expect(response.body).toMatchObject({
+        email: newUser.email,
+        name: newUser.name
+      });
+      expect(response.body).not.toHaveProperty('password');
+    });
+    
+    it('should return 400 for invalid data', async () => {
+      const response = await request(app)
+        .post('/api/users')
+        .set('Authorization', \`Bearer \${authToken}\`)
+        .send({ email: 'invalid-email' })
+        .expect(400);
+      
+      expect(response.body).toHaveProperty('errors');
+    });
+  });
+});`,
+    difficulty: 'advanced',
+  },
+  {
+    id: 'test-mocking-advanced',
+    language: 'typescript',
+    title: 'Advanced Mocking',
+    description: 'Fortgeschrittene Mocking-Techniken',
+    code: `import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+
+// Mock Module
+vi.mock('../services/email', () => ({
+  sendEmail: vi.fn().mockResolvedValue({ success: true })
+}));
+
+// Spy on existing methods
+const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+describe('NotificationService', () => {
+  let service: NotificationService;
+  let mockEmailService: any;
+  
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockEmailService = {
+      sendEmail: vi.fn().mockResolvedValue({ success: true })
+    };
+    service = new NotificationService(mockEmailService);
+  });
+  
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+  
+  it('should send notification and log result', async () => {
+    const result = await service.notify('user@example.com', 'Hello!');
+    
+    expect(mockEmailService.sendEmail).toHaveBeenCalledWith({
+      to: 'user@example.com',
+      subject: 'Notification',
+      body: 'Hello!'
+    });
+    expect(consoleSpy).toHaveBeenCalledWith('Notification sent successfully');
+    expect(result.success).toBe(true);
+  });
+  
+  it('should handle email service failure', async () => {
+    mockEmailService.sendEmail.mockRejectedValueOnce(new Error('SMTP error'));
+    
+    await expect(service.notify('user@example.com', 'Hello!'))
+      .rejects.toThrow('Failed to send notification');
+  });
+  
+  it('should retry on temporary failure', async () => {
+    mockEmailService.sendEmail
+      .mockRejectedValueOnce(new Error('Temporary error'))
+      .mockResolvedValueOnce({ success: true });
+    
+    const result = await service.notifyWithRetry('user@example.com', 'Hello!');
+    
+    expect(mockEmailService.sendEmail).toHaveBeenCalledTimes(2);
+    expect(result.success).toBe(true);
+  });
+});
+
+// Timer Mocking
+describe('Scheduler', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+  
+  it('should execute callback after delay', () => {
+    const callback = vi.fn();
+    scheduler.scheduleTask(callback, 5000);
+    
+    expect(callback).not.toHaveBeenCalled();
+    
+    vi.advanceTimersByTime(5000);
+    
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
+});`,
+    difficulty: 'advanced',
+  },
+  {
+    id: 'test-snapshot',
+    language: 'typescript',
+    title: 'Snapshot Testing',
+    description: 'Snapshot Tests für Components',
+    code: `import { describe, it, expect } from 'vitest';
+import { render } from '@testing-library/react';
+
+describe('UserCard Snapshots', () => {
+  const defaultProps = {
+    user: {
+      id: '1',
+      name: 'John Doe',
+      email: 'john@example.com',
+      avatar: 'https://example.com/avatar.jpg',
+      role: 'admin'
+    }
+  };
+  
+  it('should match snapshot with default props', () => {
+    const { container } = render(<UserCard {...defaultProps} />);
+    expect(container).toMatchSnapshot();
+  });
+  
+  it('should match snapshot without avatar', () => {
+    const propsWithoutAvatar = {
+      ...defaultProps,
+      user: { ...defaultProps.user, avatar: undefined }
+    };
+    const { container } = render(<UserCard {...propsWithoutAvatar} />);
+    expect(container).toMatchSnapshot();
+  });
+  
+  it('should match inline snapshot', () => {
+    const { getByTestId } = render(<UserCard {...defaultProps} />);
+    
+    expect(getByTestId('user-name').textContent).toMatchInlineSnapshot(\`"John Doe"\`);
+    expect(getByTestId('user-email').textContent).toMatchInlineSnapshot(\`"john@example.com"\`);
+  });
+});
+
+// JSON Snapshot
+describe('API Response Snapshots', () => {
+  it('should match user response schema', async () => {
+    const response = await api.getUser('1');
+    
+    expect(response).toMatchSnapshot({
+      id: expect.any(String),
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String)
+    });
+  });
+});`,
+    difficulty: 'intermediate',
+  },
+];
+
 // All Framework Snippets Combined
 export const ALL_FRAMEWORK_SNIPPETS: CodeSnippet[] = [
   ...REACT_HOOKS,
@@ -831,18 +2124,42 @@ export const ALL_FRAMEWORK_SNIPPETS: CodeSnippet[] = [
   ...CUSTOM_HOOKS,
   ...TYPESCRIPT_PATTERNS,
   ...TESTING_PATTERNS,
+  ...TESTING_EXTENDED,
+  ...VUE_SNIPPETS,
+  ...SVELTE_SNIPPETS,
+  ...NODEJS_SNIPPETS,
+  ...DOCKER_EXTENDED_SNIPPETS,
 ];
 
 // Categories for UI display
 export const FRAMEWORK_CATEGORIES = [
   { id: 'react-hooks', name: 'React Hooks', icon: 'react', snippets: REACT_HOOKS },
-  {
-    id: 'react-components',
-    name: 'React Components',
-    icon: 'component',
-    snippets: REACT_COMPONENTS,
-  },
+  { id: 'react-components', name: 'React Components', icon: 'component', snippets: REACT_COMPONENTS },
   { id: 'custom-hooks', name: 'Custom Hooks', icon: 'hook', snippets: CUSTOM_HOOKS },
   { id: 'typescript', name: 'TypeScript Patterns', icon: 'ts', snippets: TYPESCRIPT_PATTERNS },
-  { id: 'testing', name: 'Testing', icon: 'test', snippets: TESTING_PATTERNS },
+  { id: 'testing', name: 'Testing Basics', icon: 'test', snippets: TESTING_PATTERNS },
+  { id: 'testing-advanced', name: 'Testing Advanced', icon: 'test', snippets: TESTING_EXTENDED },
+  { id: 'vue', name: 'Vue.js', icon: 'vue', snippets: VUE_SNIPPETS },
+  { id: 'svelte', name: 'Svelte', icon: 'svelte', snippets: SVELTE_SNIPPETS },
+  { id: 'nodejs', name: 'Node.js / Express', icon: 'node', snippets: NODEJS_SNIPPETS },
+  { id: 'docker', name: 'Docker & DevOps', icon: 'docker', snippets: DOCKER_EXTENDED_SNIPPETS },
 ];
+
+// Helper functions
+export function getSnippetsByCategory(categoryId: string): CodeSnippet[] {
+  const category = FRAMEWORK_CATEGORIES.find(c => c.id === categoryId);
+  return category?.snippets || [];
+}
+
+export function getSnippetsByDifficulty(difficulty: 'beginner' | 'intermediate' | 'advanced'): CodeSnippet[] {
+  return ALL_FRAMEWORK_SNIPPETS.filter(s => s.difficulty === difficulty);
+}
+
+export function searchSnippets(query: string): CodeSnippet[] {
+  const lowerQuery = query.toLowerCase();
+  return ALL_FRAMEWORK_SNIPPETS.filter(s =>
+    s.title.toLowerCase().includes(lowerQuery) ||
+    s.description?.toLowerCase().includes(lowerQuery) ||
+    s.code.toLowerCase().includes(lowerQuery)
+  );
+}

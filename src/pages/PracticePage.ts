@@ -142,12 +142,12 @@ export class PracticePage {
         </div>
 
         <div id="typing-display" class="typing-text-display">
-          <p style="color: var(--text-muted); text-align: center; padding: var(--space-8);">
+          <p style="color: var(--text-muted); text-align: center; padding: var(--space-4);">
             ${t('practice.clickToStart')}
           </p>
         </div>
 
-        <div class="stats-panel" style="margin: var(--space-6) 0;">
+        <div class="stats-panel" style="margin: var(--space-3) 0;">
           <div class="stat-card">
             <span class="stat-card-value" id="session-wpm">0</span>
             <span class="stat-card-label">WPM</span>
@@ -170,7 +170,7 @@ export class PracticePage {
           </div>
         </div>
 
-        <div class="progress-container" style="margin-bottom: var(--space-6);">
+        <div class="progress-container" style="margin-bottom: var(--space-3);">
           <div class="progress-bar">
             <div class="progress-bar-fill" id="progress-fill" style="width: 0%;"></div>
           </div>

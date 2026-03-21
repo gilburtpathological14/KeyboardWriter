@@ -153,7 +153,7 @@ export class SQLTrainingPage {
               return `
               <button class="exercise-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}" data-exercise="${ex.id}">
                 <div class="ex-status">
-                  ${isCompleted ? '✓' : `<span class="diff-dot" style="background: ${diffColors[ex.difficulty]}"></span>`}
+                  ${isCompleted ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-success)" stroke-width="3"><polyline points="20,6 9,17 4,12"></polyline></svg>' : `<span class="diff-dot" style="background: ${diffColors[ex.difficulty]}"></span>`}
                 </div>
                 <div class="ex-info">
                   <span class="ex-title">${ex.title}</span>

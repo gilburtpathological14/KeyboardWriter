@@ -174,7 +174,7 @@ export class DailyChallengePage {
                 border-radius: 20px;
                 font-weight: bold;
               ">
-                ✓ Abgeschlossen
+                [OK] Abgeschlossen
               </span>
             `
                 : `

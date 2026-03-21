@@ -426,6 +426,659 @@ volumes:
   },
 ];
 
+// PHP Snippets
+export const PHP_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'php-hello',
+    language: 'php',
+    title: 'Hello World',
+    code: `<?php
+echo "Hello, World!";
+?>`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'php-variables',
+    language: 'php',
+    title: 'Variables & Types',
+    code: `<?php
+$name = "PHP";
+$version = 8.2;
+$isModern = true;
+$items = ["apple", "banana", "orange"];
+
+echo "Language: $name version $version";
+echo "<br>";
+print_r($items);
+?>`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'php-class',
+    language: 'php',
+    title: 'Classes & Objects',
+    code: `<?php
+class User {
+    private string $name;
+    private string $email;
+    
+    public function __construct(string $name, string $email) {
+        $this->name = $name;
+        $this->email = $email;
+    }
+    
+    public function getName(): string {
+        return $this->name;
+    }
+    
+    public function toArray(): array {
+        return [
+            'name' => $this->name,
+            'email' => $this->email
+        ];
+    }
+}
+?>`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'php-interface',
+    language: 'php',
+    title: 'Interfaces & Traits',
+    code: `<?php
+interface Repository {
+    public function find(int $id): ?Model;
+    public function save(Model $model): void;
+    public function delete(int $id): bool;
+}
+
+trait Timestamps {
+    protected DateTime $createdAt;
+    protected DateTime $updatedAt;
+    
+    public function touch(): void {
+        $this->updatedAt = new DateTime();
+    }
+}
+
+class UserRepository implements Repository {
+    use Timestamps;
+    
+    public function find(int $id): ?Model {
+        // Implementation
+    }
+}
+?>`,
+    difficulty: 'advanced',
+  },
+  {
+    id: 'php-pdo',
+    language: 'php',
+    title: 'PDO Database',
+    code: `<?php
+$dsn = 'mysql:host=localhost;dbname=myapp;charset=utf8mb4';
+$pdo = new PDO($dsn, $user, $password, [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+]);
+
+$stmt = $pdo->prepare('SELECT * FROM users WHERE id = :id');
+$stmt->execute(['id' => $userId]);
+$user = $stmt->fetch();
+?>`,
+    difficulty: 'intermediate',
+  },
+];
+
+// Ruby Snippets
+export const RUBY_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'ruby-hello',
+    language: 'ruby',
+    title: 'Hello World',
+    code: `puts "Hello, World!"`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'ruby-variables',
+    language: 'ruby',
+    title: 'Variables & Types',
+    code: `name = "Ruby"
+version = 3.2
+is_dynamic = true
+items = ["apple", "banana", "orange"]
+
+puts "Language: #{name} version #{version}"
+items.each { |item| puts item }`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'ruby-class',
+    language: 'ruby',
+    title: 'Classes & Modules',
+    code: `class User
+  attr_accessor :name, :email
+  
+  def initialize(name, email)
+    @name = name
+    @email = email
+  end
+  
+  def to_s
+    "#{name} <#{email}>"
+  end
+end
+
+module Authenticatable
+  def authenticate(password)
+    BCrypt::Password.new(password_digest) == password
+  end
+end`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'ruby-blocks',
+    language: 'ruby',
+    title: 'Blocks & Iterators',
+    code: `numbers = [1, 2, 3, 4, 5]
+
+squared = numbers.map { |n| n ** 2 }
+evens = numbers.select { |n| n.even? }
+sum = numbers.reduce(0) { |acc, n| acc + n }
+
+numbers.each_with_index do |num, index|
+  puts "Index #{index}: #{num}"
+end`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'ruby-rails-model',
+    language: 'ruby',
+    title: 'Rails Model',
+    code: `class User < ApplicationRecord
+  has_many :posts, dependent: :destroy
+  has_one :profile
+  belongs_to :organization
+  
+  validates :email, presence: true, uniqueness: true
+  validates :name, length: { minimum: 2, maximum: 50 }
+  
+  scope :active, -> { where(active: true) }
+  scope :admins, -> { where(role: 'admin') }
+  
+  before_save :normalize_email
+  
+  private
+  
+  def normalize_email
+    self.email = email.downcase.strip
+  end
+end`,
+    difficulty: 'advanced',
+  },
+];
+
+// Kotlin Snippets
+export const KOTLIN_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'kotlin-hello',
+    language: 'kotlin',
+    title: 'Hello World',
+    code: `fun main() {
+    println("Hello, World!")
+}`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'kotlin-variables',
+    language: 'kotlin',
+    title: 'Variables & Types',
+    code: `fun main() {
+    val name: String = "Kotlin"  // immutable
+    var version = 1.9  // mutable, type inference
+    val isModern = true
+    val items = listOf("apple", "banana", "orange")
+    
+    println("Language: $name version $version")
+    items.forEach { println(it) }
+}`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'kotlin-class',
+    language: 'kotlin',
+    title: 'Data Classes',
+    code: `data class User(
+    val id: Long,
+    val name: String,
+    val email: String,
+    val role: Role = Role.USER
+)
+
+enum class Role {
+    USER, ADMIN, MODERATOR
+}
+
+fun main() {
+    val user = User(1, "John", "john@example.com")
+    val admin = user.copy(role = Role.ADMIN)
+    
+    println(user)
+    println(admin)
+}`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'kotlin-nullable',
+    language: 'kotlin',
+    title: 'Null Safety',
+    code: `fun findUser(id: Long): User? {
+    return repository.findById(id)
+}
+
+fun main() {
+    val user: User? = findUser(1)
+    
+    // Safe call
+    val name = user?.name
+    
+    // Elvis operator
+    val displayName = user?.name ?: "Anonymous"
+    
+    // Safe cast
+    val admin = user as? Admin
+    
+    // Let block
+    user?.let {
+        println("Found user: \${it.name}")
+    }
+}`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'kotlin-coroutines',
+    language: 'kotlin',
+    title: 'Coroutines',
+    code: `import kotlinx.coroutines.*
+
+suspend fun fetchUser(id: Long): User {
+    delay(1000)  // simulate network call
+    return User(id, "John")
+}
+
+suspend fun fetchPosts(userId: Long): List<Post> {
+    delay(1000)
+    return listOf(Post(1, "Hello World"))
+}
+
+fun main() = runBlocking {
+    val user = async { fetchUser(1) }
+    val posts = async { fetchPosts(1) }
+    
+    println("User: \${user.await()}")
+    println("Posts: \${posts.await()}")
+}`,
+    difficulty: 'advanced',
+  },
+];
+
+// Swift Snippets
+export const SWIFT_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'swift-hello',
+    language: 'swift',
+    title: 'Hello World',
+    code: `print("Hello, World!")`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'swift-variables',
+    language: 'swift',
+    title: 'Variables & Types',
+    code: `let name: String = "Swift"  // constant
+var version = 5.9  // variable
+let isModern = true
+let items = ["apple", "banana", "orange"]
+
+print("Language: \\(name) version \\(version)")
+for item in items {
+    print(item)
+}`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'swift-struct',
+    language: 'swift',
+    title: 'Structs & Classes',
+    code: `struct User {
+    let id: Int
+    var name: String
+    var email: String
+    
+    var displayName: String {
+        return "\\(name) <\\(email)>"
+    }
+    
+    mutating func updateEmail(_ newEmail: String) {
+        email = newEmail
+    }
+}
+
+class UserManager {
+    private var users: [User] = []
+    
+    func addUser(_ user: User) {
+        users.append(user)
+    }
+}`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'swift-optionals',
+    language: 'swift',
+    title: 'Optionals',
+    code: `func findUser(byId id: Int) -> User? {
+    return users.first { $0.id == id }
+}
+
+// Optional binding
+if let user = findUser(byId: 1) {
+    print("Found: \\(user.name)")
+}
+
+// Guard statement
+guard let user = findUser(byId: 1) else {
+    print("User not found")
+    return
+}
+
+// Optional chaining
+let name = user?.profile?.displayName ?? "Anonymous"
+
+// Nil coalescing
+let email = user?.email ?? "no-email@example.com"`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'swift-async',
+    language: 'swift',
+    title: 'Async/Await',
+    code: `func fetchUser(id: Int) async throws -> User {
+    let url = URL(string: "https://api.example.com/users/\\(id)")!
+    let (data, _) = try await URLSession.shared.data(from: url)
+    return try JSONDecoder().decode(User.self, from: data)
+}
+
+func loadData() async {
+    do {
+        async let user = fetchUser(id: 1)
+        async let posts = fetchPosts(userId: 1)
+        
+        let (userData, postsData) = await (try user, try posts)
+        print("User: \\(userData), Posts: \\(postsData)")
+    } catch {
+        print("Error: \\(error)")
+    }
+}`,
+    difficulty: 'advanced',
+  },
+];
+
+// Kubernetes/DevOps Snippets
+export const K8S_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'k8s-deployment',
+    language: 'yaml',
+    title: 'Kubernetes Deployment',
+    code: `apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  labels:
+    app: web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-app
+        image: myapp:1.0.0
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'k8s-service',
+    language: 'yaml',
+    title: 'Kubernetes Service',
+    code: `apiVersion: v1
+kind: Service
+metadata:
+  name: web-app-service
+spec:
+  selector:
+    app: web-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'k8s-configmap',
+    language: 'yaml',
+    title: 'ConfigMap & Secret',
+    code: `apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  DATABASE_HOST: "postgres-service"
+  LOG_LEVEL: "info"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+type: Opaque
+stringData:
+  DATABASE_PASSWORD: "supersecret"
+  API_KEY: "abc123"`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'k8s-ingress',
+    language: 'yaml',
+    title: 'Ingress',
+    code: `apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - myapp.example.com
+    secretName: tls-secret
+  rules:
+  - host: myapp.example.com
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-service
+            port:
+              number: 80`,
+    difficulty: 'advanced',
+  },
+  {
+    id: 'k8s-hpa',
+    language: 'yaml',
+    title: 'Horizontal Pod Autoscaler',
+    code: `apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web-app-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web-app
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80`,
+    difficulty: 'advanced',
+  },
+];
+
+// GitHub Actions/CI Snippets
+export const CICD_SNIPPETS: CodeSnippet[] = [
+  {
+    id: 'gha-basic',
+    language: 'yaml',
+    title: 'GitHub Actions Basic',
+    code: `name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run tests
+      run: npm test
+    
+    - name: Build
+      run: npm run build`,
+    difficulty: 'beginner',
+  },
+  {
+    id: 'gha-matrix',
+    language: 'yaml',
+    title: 'Matrix Strategy',
+    code: `name: Test Matrix
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: \${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [18, 20, 22]
+        exclude:
+          - os: windows-latest
+            node: 18
+    
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: \${{ matrix.node }}
+    - run: npm ci
+    - run: npm test`,
+    difficulty: 'intermediate',
+  },
+  {
+    id: 'gha-deploy',
+    language: 'yaml',
+    title: 'Deploy Workflow',
+    code: `name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build Docker image
+      run: docker build -t myapp:\${{ github.sha }} .
+    
+    - name: Login to Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: \${{ github.actor }}
+        password: \${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Push image
+      run: |
+        docker tag myapp:\${{ github.sha }} ghcr.io/\${{ github.repository }}:\${{ github.sha }}
+        docker push ghcr.io/\${{ github.repository }}:\${{ github.sha }}
+    
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl set image deployment/myapp myapp=ghcr.io/\${{ github.repository }}:\${{ github.sha }}`,
+    difficulty: 'advanced',
+  },
+];
+
 // HTML/CSS Snippets
 export const HTML_CSS_SNIPPETS: CodeSnippet[] = [
   {
@@ -1304,8 +1957,29 @@ export const ALL_CODE_SNIPPETS: CodeSnippet[] = [
   ...SQL_SNIPPETS,
   ...CPP_SNIPPETS,
   ...DOCKER_SNIPPETS,
+  ...PHP_SNIPPETS,
+  ...RUBY_SNIPPETS,
+  ...KOTLIN_SNIPPETS,
+  ...SWIFT_SNIPPETS,
+  ...K8S_SNIPPETS,
+  ...CICD_SNIPPETS,
   ...HTML_CSS_SNIPPETS,
 ];
+
+// Get snippets by language
+export function getSnippetsByLanguage(language: string): CodeSnippet[] {
+  return ALL_CODE_SNIPPETS.filter((s) => s.language === language);
+}
+
+// Get snippets by difficulty
+export function getSnippetsByDifficulty(difficulty: 'beginner' | 'intermediate' | 'advanced'): CodeSnippet[] {
+  return ALL_CODE_SNIPPETS.filter((s) => s.difficulty === difficulty);
+}
+
+// Get all available languages
+export function getAvailableLanguages(): string[] {
+  return [...new Set(ALL_CODE_SNIPPETS.map((s) => s.language))];
+}
 
 // Language configurations for syntax highlighting
 export const LANGUAGE_CONFIGS: Record<

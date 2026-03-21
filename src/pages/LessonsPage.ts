@@ -1,8 +1,11 @@
 import { VirtualKeyboard } from '../components/keyboard/VirtualKeyboard';
+import { ProgressMap, progressMapStyles } from '../components/progress/ProgressMap';
 import { EventBus, Store, t } from '../core';
+import { SettingsService } from '../core/SettingsService';
 import { LESSON_CATEGORIES } from '../data/lessons';
 import { Exercise, Lesson } from '../domain/models';
 import { LessonService } from '../services/LessonService';
+import { progressTrackingService } from '../services/ProgressTrackingService';
 import { TypingEngineService } from '../services/TypingEngineService';
 
 /**
@@ -11,10 +14,12 @@ import { TypingEngineService } from '../services/TypingEngineService';
  */
 export class LessonsPage {
   private keyboard: VirtualKeyboard | null = null;
-  private currentView: 'categories' | 'lessons' | 'exercise' = 'categories';
+  private progressMap: ProgressMap | null = null;
+  private currentView: 'categories' | 'lessons' | 'exercise' | 'progressMap' = 'categories';
   private selectedCategory: string | null = null;
   private timeUpdateInterval: ReturnType<typeof setInterval> | null = null;
   private boundKeydownHandler: ((e: KeyboardEvent) => void) | null = null;
+  private stylesInjected = false;
 
   // Event subscriptions for cleanup
   private readonly eventSubscriptions: { unsubscribe: () => void }[] = [];
@@ -52,6 +57,8 @@ export class LessonsPage {
         return this.renderLessonsView();
       case 'exercise':
         return this.renderExerciseView();
+      case 'progressMap':
+        return this.renderProgressMapView();
       default:
         return this.renderCategoriesView();
     }
@@ -63,14 +70,33 @@ export class LessonsPage {
   private renderCategoriesView(): string {
     const completedCount = LessonService.getCompletedLessonsCount();
     const totalCount = LessonService.getAllLessons().length;
+    const currentLang = SettingsService.getSettings().exerciseLanguage;
 
     return `
       <div class="typing-container">
         <div class="lessons-header" style="margin-bottom: var(--space-6);">
-          <h1>${t('lessons.title')}</h1>
-          <p style="color: var(--text-secondary); margin-top: var(--space-2);">
-            ${t('lessons.completed', { completed: completedCount, total: totalCount })}
-          </p>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-3);">
+            <div>
+              <h1>${t('lessons.title')}</h1>
+              <p style="color: var(--text-secondary); margin-top: var(--space-2);">
+                ${t('lessons.completed', { completed: completedCount, total: totalCount })}
+              </p>
+            </div>
+            <div style="display: flex; gap: var(--space-2); align-items: center;">
+              <button id="btn-show-progress-map" class="btn btn-secondary" style="padding: 6px 12px; font-size: 13px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;">
+                  <path d="M3 3v18h18"/>
+                  <path d="M18 9l-5 5-4-4-6 6"/>
+                </svg>
+                ${t('lessons.progressMap') || 'Lernpfad'}
+              </button>
+              <div class="language-toggle" style="display: flex; gap: var(--space-1); background: var(--bg-tertiary); padding: 4px; border-radius: var(--radius-md);">
+                <button class="lang-btn ${currentLang === 'de' ? 'active' : ''}" data-lang="de" style="padding: 6px 12px; border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; background: ${currentLang === 'de' ? 'var(--accent-primary)' : 'transparent'}; color: ${currentLang === 'de' ? 'white' : 'var(--text-secondary)'};">DE</button>
+                <button class="lang-btn ${currentLang === 'en' ? 'active' : ''}" data-lang="en" style="padding: 6px 12px; border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; background: ${currentLang === 'en' ? 'var(--accent-primary)' : 'transparent'}; color: ${currentLang === 'en' ? 'white' : 'var(--text-secondary)'};">EN</button>
+                <button class="lang-btn ${currentLang === 'both' ? 'active' : ''}" data-lang="both" style="padding: 6px 12px; border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; background: ${currentLang === 'both' ? 'var(--accent-primary)' : 'transparent'}; color: ${currentLang === 'both' ? 'white' : 'var(--text-secondary)'};">DE/EN</button>
+              </div>
+            </div>
+          </div>
           <div class="progress-bar" style="margin-top: var(--space-4); height: 8px;">
             <div class="progress-bar-fill" style="width: ${(completedCount / totalCount) * 100}%;"></div>
           </div>
@@ -78,6 +104,32 @@ export class LessonsPage {
 
         <div class="category-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3);">
           ${LESSON_CATEGORIES.map(cat => this.renderCategoryCard(cat.id, cat.name, cat.description, cat.icon ?? 'book')).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Render progress map view
+   */
+  private renderProgressMapView(): string {
+    return `
+      <div class="typing-container">
+        <div class="lessons-header" style="margin-bottom: var(--space-6);">
+          <button class="btn btn-ghost" id="btn-back-from-map" style="margin-bottom: var(--space-2);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15,18 9,12 15,6"></polyline>
+            </svg>
+            ${t('lessons.back')}
+          </button>
+          <h1>${t('lessons.progressMap') || 'Lernpfad'}</h1>
+          <p style="color: var(--text-secondary); margin-top: var(--space-2);">
+            ${t('lessons.progressMapDesc') || 'Visualisiere deinen Fortschritt durch alle Lektionen'}
+          </p>
+        </div>
+
+        <div class="card" style="padding: var(--space-4);">
+          <div id="progress-map-container" style="min-height: 400px;"></div>
         </div>
       </div>
     `;
@@ -262,19 +314,19 @@ export class LessonsPage {
           </div>
         </div>
 
-        <div class="progress-bar" style="margin-bottom: var(--space-4); height: 6px;">
+        <div class="progress-bar" style="margin-bottom: var(--space-2); height: 6px;">
           <div class="progress-bar-fill" id="lesson-progress-fill" style="width: ${(currentIndex / totalExercises) * 100}%;"></div>
         </div>
 
-        ${exercise.description ? `<p style="color: var(--text-secondary); margin-bottom: var(--space-4); font-style: italic;">${exercise.description}</p>` : ''}
+        ${exercise.description ? `<p style="color: var(--text-secondary); margin-bottom: var(--space-2); font-style: italic; font-size: 14px;">${exercise.description}</p>` : ''}
 
         <div id="typing-display" class="typing-text-display">
-          <p style="color: var(--text-muted); text-align: center; padding: var(--space-8);">
+          <p style="color: var(--text-muted); text-align: center; padding: var(--space-4);">
             ${t('lessons.pressToStart')}
           </p>
         </div>
 
-        <div class="stats-panel" style="margin: var(--space-6) 0;">
+        <div class="stats-panel" style="margin: var(--space-3) 0;">
           <div class="stat-card">
             <span class="stat-card-value" id="session-wpm">0</span>
             <span class="stat-card-label">${t('common.wpm')}</span>
@@ -295,8 +347,8 @@ export class LessonsPage {
 
         <div class="keyboard-container" id="keyboard"></div>
 
-        <div style="text-align: center; margin-top: var(--space-4);">
-          <p style="font-size: var(--font-sm); color: var(--text-muted);">
+        <div style="text-align: center; margin-top: var(--space-2);">
+          <p style="font-size: var(--font-xs); color: var(--text-muted);">
             ${t('lessons.goal', { wpm: lesson.targetWPM ?? 20, accuracy: lesson.targetAccuracy ?? 85 })}
           </p>
         </div>
@@ -311,11 +363,53 @@ export class LessonsPage {
    * Initialize the page after rendering
    */
   init(): void {
+    this.injectStyles();
     this.setupEventDelegation();
     this.setupOtherButtonHandlers();
 
     if (this.currentView === 'exercise') {
       this.initExerciseView();
+    } else if (this.currentView === 'progressMap') {
+      this.initProgressMap();
+    }
+  }
+
+  /**
+   * Inject component styles
+   */
+  private injectStyles(): void {
+    if (this.stylesInjected) {
+      return;
+    }
+
+    const styleId = 'progress-map-styles';
+    if (!document.getElementById(styleId)) {
+      const styleEl = document.createElement('style');
+      styleEl.id = styleId;
+      styleEl.textContent = progressMapStyles;
+      document.head.appendChild(styleEl);
+    }
+    this.stylesInjected = true;
+  }
+
+  /**
+   * Initialize progress map
+   */
+  private initProgressMap(): void {
+    try {
+      const container = document.getElementById('progress-map-container');
+      if (!container) {
+        return;
+      }
+
+      // Get learning path data
+      const learningPath = progressTrackingService.getLearningPath();
+
+      this.progressMap = new ProgressMap('progress-map-container', learningPath, lessonId => {
+        this.startLesson(lessonId);
+      });
+    } catch (e) {
+      console.error('Failed to initialize progress map:', e);
     }
   }
 
@@ -403,9 +497,41 @@ export class LessonsPage {
   }
 
   /**
-   * Setup other button handlers (back, quit, skip)
+   * Setup other button handlers (back, quit, skip, language toggle, progress map)
    */
   private setupOtherButtonHandlers(): void {
+    // Language toggle buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        const lang = (btn as HTMLElement).dataset.lang as 'de' | 'en' | 'both';
+        if (lang) {
+          SettingsService.updateSettings({ exerciseLanguage: lang });
+          this.rerender();
+        }
+      });
+    });
+
+    // Show Progress Map button
+    const progressMapBtn = document.getElementById('btn-show-progress-map');
+    if (progressMapBtn) {
+      progressMapBtn.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        this.currentView = 'progressMap';
+        this.rerender();
+      });
+    }
+
+    // Back from progress map button
+    const backFromMapBtn = document.getElementById('btn-back-from-map');
+    if (backFromMapBtn) {
+      backFromMapBtn.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        this.currentView = 'categories';
+        this.rerender();
+      });
+    }
+
     // Back button
     const backBtn = document.getElementById('btn-back-categories');
     if (backBtn) {
@@ -882,6 +1008,7 @@ export class LessonsPage {
     this.removeKeyboardInput();
     this.removeEventDelegation();
     this.keyboard?.destroy();
+    this.progressMap?.destroy();
     TypingEngineService.endSession();
 
     // Unsubscribe from all EventBus events to prevent duplicate handlers
