@@ -19,7 +19,13 @@ export class LessonsPage {
   private selectedCategory: string | null = null;
   private timeUpdateInterval: ReturnType<typeof setInterval> | null = null;
   private boundKeydownHandler: ((e: KeyboardEvent) => void) | null = null;
+  private boundKeyupHandler: ((e: KeyboardEvent) => void) | null = null;
   private stylesInjected = false;
+
+  // Shortcut practice state
+  private readonly pressedKeys: Set<string> = new Set();
+  private shortcutScore = 0;
+  private shortcutErrors = 0;
 
   // Event subscriptions for cleanup
   private readonly eventSubscriptions: { unsubscribe: () => void }[] = [];
@@ -283,6 +289,12 @@ export class LessonsPage {
    */
   private renderExerciseView(): string {
     const lesson = LessonService.getCurrentLesson();
+
+    // Check if this is a shortcut lesson
+    if (LessonService.isShortcutLesson()) {
+      return this.renderShortcutExerciseView();
+    }
+
     const exercise = LessonService.getCurrentExercise();
     const currentIndex = LessonService.getCurrentExerciseIndex();
     const totalExercises = LessonService.getTotalExercisesCount();
@@ -351,6 +363,127 @@ export class LessonsPage {
           <p style="font-size: var(--font-xs); color: var(--text-muted);">
             ${t('lessons.goal', { wpm: lesson.targetWPM ?? 20, accuracy: lesson.targetAccuracy ?? 85 })}
           </p>
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Render shortcut exercise view (keyboard shortcut practice)
+   */
+  private renderShortcutExerciseView(): string {
+    const lesson = LessonService.getCurrentLesson();
+    const currentShortcut = LessonService.getCurrentShortcut();
+    const currentIndex = LessonService.getCurrentExerciseIndex();
+    const totalShortcuts = LessonService.getTotalShortcutsCount();
+
+    if (!lesson || !currentShortcut) {
+      return this.renderCategoriesView();
+    }
+
+    // Get translated lesson title
+    const titleKey = `lessons.${lesson.id}.title`;
+    const translatedTitle = t(titleKey) !== titleKey ? t(titleKey) : lesson.title;
+
+    const progress = totalShortcuts > 0 ? ((currentIndex + 1) / totalShortcuts) * 100 : 0;
+    const accuracy =
+      this.shortcutScore + this.shortcutErrors > 0
+        ? Math.round((this.shortcutScore / (this.shortcutScore + this.shortcutErrors)) * 100)
+        : 100;
+
+    return `
+      <div class="typing-container">
+        <div class="exercise-header" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <button class="btn btn-ghost" id="btn-quit-lesson" style="margin-bottom: var(--space-2);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+              ${t('lessons.quit')}
+            </button>
+            <h2 style="margin: 0;">${translatedTitle}</h2>
+            <p style="color: var(--text-secondary); margin: var(--space-1) 0 0 0;">
+              Shortcut ${currentIndex + 1} / ${totalShortcuts}
+            </p>
+          </div>
+          <div style="display: flex; gap: var(--space-2);">
+            <button id="btn-skip-shortcut" class="btn btn-secondary">${t('lessons.skip')}</button>
+          </div>
+        </div>
+
+        <div class="progress-bar" style="margin-bottom: var(--space-4); height: 6px;">
+          <div class="progress-bar-fill" id="lesson-progress-fill" style="width: ${progress}%;"></div>
+        </div>
+
+        <!-- Stats Panel for Shortcuts -->
+        <div class="stats-panel" style="margin-bottom: var(--space-4);">
+          <div class="stat-card">
+            <span class="stat-card-value" style="color: var(--accent-success);">${this.shortcutScore}</span>
+            <span class="stat-card-label">Richtig</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card-value" style="color: var(--accent-error);">${this.shortcutErrors}</span>
+            <span class="stat-card-label">Fehler</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card-value">${accuracy}%</span>
+            <span class="stat-card-label">${t('common.accuracy')}</span>
+          </div>
+        </div>
+
+        <!-- Current Shortcut to Practice -->
+        <div class="card" style="text-align: center; padding: var(--space-6);">
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: var(--space-2);">
+            ${currentShortcut.category}
+          </div>
+          <div style="font-size: var(--font-size-2xl); font-weight: bold; margin-bottom: var(--space-4);">
+            ${currentShortcut.description}
+          </div>
+          
+          <div id="shortcut-feedback" style="min-height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="color: var(--text-muted); margin-bottom: var(--space-4);">
+              Druecke die richtige Tastenkombination
+            </div>
+            <div id="pressed-keys-display" style="display: flex; gap: 8px; min-height: 48px; align-items: center; justify-content: center;">
+              <!-- Pressed keys will be displayed here -->
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-4);">
+            <button id="btn-show-shortcut-answer" class="btn btn-secondary">
+              Loesung anzeigen
+            </button>
+          </div>
+        </div>
+
+        <!-- Expected Shortcut (hidden by default) -->
+        <div id="shortcut-solution" style="display: none; margin-top: var(--space-4);">
+          <div class="card" style="text-align: center; padding: var(--space-4); background: var(--bg-tertiary);">
+            <div style="color: var(--text-muted); font-size: 12px; margin-bottom: var(--space-2);">Loesung:</div>
+            <div style="display: flex; gap: 8px; justify-content: center;">
+              ${currentShortcut.keys
+                .map(
+                  key => `
+                <span style="
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  min-width: 40px;
+                  height: 40px;
+                  padding: 0 12px;
+                  background: var(--accent-warning);
+                  border-radius: 8px;
+                  font-family: var(--font-mono);
+                  font-size: 16px;
+                  font-weight: bold;
+                  color: var(--bg-primary);
+                ">${key}</span>
+              `
+                )
+                .join('')}
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -585,6 +718,12 @@ export class LessonsPage {
    * Initialize exercise view
    */
   private initExerciseView(): void {
+    // Check if this is a shortcut lesson
+    if (LessonService.isShortcutLesson()) {
+      this.initShortcutExerciseView();
+      return;
+    }
+
     const exercise = LessonService.getCurrentExercise();
     if (!exercise) {
       return;
@@ -607,6 +746,230 @@ export class LessonsPage {
 
     // Setup keyboard input
     this.setupKeyboardInput(exercise);
+  }
+
+  /**
+   * Initialize shortcut exercise view
+   */
+  private initShortcutExerciseView(): void {
+    // Reset shortcut state if starting fresh
+    if (LessonService.getCurrentExerciseIndex() === 0) {
+      this.shortcutScore = 0;
+      this.shortcutErrors = 0;
+    }
+
+    this.pressedKeys.clear();
+
+    // Setup shortcut keyboard handlers
+    this.setupShortcutKeyboardInput();
+
+    // Setup button handlers
+    this.setupShortcutButtonHandlers();
+  }
+
+  /**
+   * Setup keyboard input for shortcut practice
+   */
+  private setupShortcutKeyboardInput(): void {
+    // Remove any existing handlers
+    this.removeKeyboardInput();
+    this.removeShortcutKeyboardInput();
+
+    this.boundKeydownHandler = (event: KeyboardEvent): void => {
+      if (Store.getState().isModalOpen) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const keySymbol = this.getKeySymbol(event);
+      this.pressedKeys.add(keySymbol);
+      this.updatePressedKeysDisplay();
+    };
+
+    this.boundKeyupHandler = (event: KeyboardEvent): void => {
+      if (Store.getState().isModalOpen) {
+        return;
+      }
+
+      // Check if the combination is complete
+      const currentShortcut = LessonService.getCurrentShortcut();
+      if (!currentShortcut) {
+        return;
+      }
+
+      const pressedArray = Array.from(this.pressedKeys);
+      const expectedKeys = currentShortcut.keys;
+
+      // Check if all expected keys are pressed
+      const isCorrect =
+        expectedKeys.every(key => pressedArray.includes(key)) &&
+        pressedArray.length === expectedKeys.length;
+
+      if (isCorrect) {
+        this.shortcutScore++;
+        this.showShortcutFeedback(true);
+        setTimeout(() => {
+          this.nextShortcut(true);
+        }, 500);
+      } else if (pressedArray.length >= expectedKeys.length) {
+        this.shortcutErrors++;
+        this.showShortcutFeedback(false);
+        setTimeout(() => {
+          this.pressedKeys.clear();
+          this.updatePressedKeysDisplay();
+          this.rerender();
+        }, 500);
+      }
+
+      // Clear the released key
+      const keySymbol = this.getKeySymbol(event);
+      setTimeout(() => {
+        this.pressedKeys.delete(keySymbol);
+        this.updatePressedKeysDisplay();
+      }, 100);
+    };
+
+    document.addEventListener('keydown', this.boundKeydownHandler);
+    document.addEventListener('keyup', this.boundKeyupHandler);
+  }
+
+  /**
+   * Remove shortcut keyboard input handlers
+   */
+  private removeShortcutKeyboardInput(): void {
+    if (this.boundKeyupHandler) {
+      document.removeEventListener('keyup', this.boundKeyupHandler);
+      this.boundKeyupHandler = null;
+    }
+  }
+
+  /**
+   * Get key symbol from event (like in ShortcutsPage)
+   */
+  private getKeySymbol(e: KeyboardEvent): string {
+    const keyMap: Record<string, string> = {
+      Meta: 'Cmd',
+      Control: 'Ctrl',
+      Alt: 'Alt',
+      Shift: 'Shift',
+      ArrowUp: 'Up',
+      ArrowDown: 'Down',
+      ArrowLeft: 'Left',
+      ArrowRight: 'Right',
+      Enter: 'Enter',
+      Backspace: 'Backspace',
+      Delete: 'Delete',
+      Escape: 'Esc',
+      Tab: 'Tab',
+      ' ': 'Space',
+    };
+
+    if (keyMap[e.key]) {
+      return keyMap[e.key];
+    }
+
+    // Function keys
+    if (e.key.startsWith('F') && e.key.length <= 3) {
+      return e.key;
+    }
+
+    return e.key.toUpperCase();
+  }
+
+  /**
+   * Update pressed keys display
+   */
+  private updatePressedKeysDisplay(): void {
+    const container = document.getElementById('pressed-keys-display');
+    if (container) {
+      container.innerHTML = Array.from(this.pressedKeys)
+        .map(
+          key => `
+        <span style="
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 40px;
+          height: 40px;
+          padding: 0 12px;
+          background: var(--accent-primary);
+          border-radius: 8px;
+          font-family: var(--font-mono);
+          font-size: 16px;
+          font-weight: bold;
+          color: var(--text-inverse);
+          animation: popIn 0.15s ease;
+        ">${key}</span>
+      `
+        )
+        .join('');
+    }
+  }
+
+  /**
+   * Show feedback for shortcut attempt
+   */
+  private showShortcutFeedback(correct: boolean): void {
+    const feedback = document.getElementById('shortcut-feedback');
+    if (feedback) {
+      const color = correct ? 'var(--accent-success)' : 'var(--accent-error)';
+      const text = correct ? 'Richtig!' : 'Falsch!';
+
+      feedback.innerHTML = `
+        <div style="font-size: var(--font-size-xl); color: ${color}; font-weight: bold;">
+          ${text}
+        </div>
+      `;
+    }
+  }
+
+  /**
+   * Move to next shortcut
+   */
+  private nextShortcut(wasCorrect: boolean): void {
+    this.pressedKeys.clear();
+
+    const isLessonComplete = LessonService.completeShortcutExercise(wasCorrect);
+
+    if (!isLessonComplete) {
+      // Re-render to show next shortcut
+      this.rerender();
+    }
+  }
+
+  /**
+   * Setup button handlers for shortcut practice
+   */
+  private setupShortcutButtonHandlers(): void {
+    // Skip button
+    const skipBtn = document.getElementById('btn-skip-shortcut');
+    if (skipBtn) {
+      skipBtn.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        this.skipShortcut();
+      });
+    }
+
+    // Show answer button
+    const showAnswerBtn = document.getElementById('btn-show-shortcut-answer');
+    if (showAnswerBtn) {
+      showAnswerBtn.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        const solution = document.getElementById('shortcut-solution');
+        if (solution) {
+          solution.style.display = 'block';
+        }
+      });
+    }
+  }
+
+  /**
+   * Skip current shortcut
+   */
+  private skipShortcut(): void {
+    this.shortcutErrors++;
+    this.nextShortcut(false);
   }
 
   /**
@@ -1006,10 +1369,16 @@ export class LessonsPage {
   destroy(): void {
     this.stopTimeUpdate();
     this.removeKeyboardInput();
+    this.removeShortcutKeyboardInput();
     this.removeEventDelegation();
     this.keyboard?.destroy();
     this.progressMap?.destroy();
     TypingEngineService.endSession();
+
+    // Reset shortcut state
+    this.pressedKeys.clear();
+    this.shortcutScore = 0;
+    this.shortcutErrors = 0;
 
     // Unsubscribe from all EventBus events to prevent duplicate handlers
     this.eventSubscriptions.forEach(sub => sub.unsubscribe());

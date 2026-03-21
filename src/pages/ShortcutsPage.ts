@@ -31,6 +31,9 @@ export class ShortcutsPage {
   private readonly boundKeyDown = (e: KeyboardEvent): void => this.handlePracticeKeyDown(e);
   private readonly boundKeyUp = (e: KeyboardEvent): void => this.handlePracticeKeyUp(e);
 
+  // Language change subscription cleanup
+  private unsubscribeLanguage: (() => void) | null = null;
+
   constructor() {
     this.selectedCollection = ALL_SHORTCUT_COLLECTIONS[0];
   }
@@ -397,6 +400,11 @@ export class ShortcutsPage {
    */
   init(): void {
     this.setupEventListeners();
+
+    // Subscribe to language changes
+    this.unsubscribeLanguage = i18n.subscribe(() => {
+      this.rerender();
+    });
   }
 
   /**
@@ -621,7 +629,9 @@ export class ShortcutsPage {
     const feedback = document.getElementById('practice-feedback');
     if (feedback) {
       const color = correct ? 'var(--accent-success)' : 'var(--accent-error)';
-      const text = correct ? this.t('[OK] Richtig!', '[OK] Correct!') : this.t('[X] Falsch!', '[X] Wrong!');
+      const text = correct
+        ? this.t('[OK] Richtig!', '[OK] Correct!')
+        : this.t('[X] Falsch!', '[X] Wrong!');
 
       feedback.innerHTML = `
         <div style="font-size: var(--font-size-xl); color: ${color}; font-weight: bold;">
@@ -682,6 +692,9 @@ export class ShortcutsPage {
    * Rerender the page
    */
   private rerender(): void {
+    // Wichtig: Event-Listener entfernen bevor wir neu rendern
+    this.destroy();
+
     const main = document.querySelector('.app-main');
     if (main) {
       main.innerHTML = this.render();
@@ -695,5 +708,11 @@ export class ShortcutsPage {
   destroy(): void {
     document.removeEventListener('keydown', this.boundKeyDown);
     document.removeEventListener('keyup', this.boundKeyUp);
+
+    // Unsubscribe from language changes
+    if (this.unsubscribeLanguage) {
+      this.unsubscribeLanguage();
+      this.unsubscribeLanguage = null;
+    }
   }
 }

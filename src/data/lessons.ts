@@ -426,7 +426,11 @@ export const BEGINNER_LESSONS: Lesson[] = [
       { id: 'beg-08-12', text: 'falls das glas da lass', description: 'Fünf Wörter 3' },
       { id: 'beg-08-13', text: 'das glas all das lass glas', description: 'Sechs Wörter' },
       { id: 'beg-08-14', text: 'lass das glas da falls all', description: 'Sechs Wörter 2' },
-      { id: 'beg-08-15', text: 'das glas halb falls all lass da salsa', description: 'Langer Satz' },
+      {
+        id: 'beg-08-15',
+        text: 'das glas halb falls all lass da salsa',
+        description: 'Langer Satz',
+      },
     ],
   },
 ];
@@ -780,7 +784,11 @@ export const INTERMEDIATE_LESSONS: Lesson[] = [
       { id: 'int-04-10', text: 'Äpfel, Birnen, Kirschen.', description: 'Obst-Liste' },
       { id: 'int-04-11', text: 'Gut. Sehr gut. Ausgezeichnet.', description: 'Bewertungen' },
       { id: 'int-04-12', text: 'Max, Anna, Peter, Lisa.', description: 'Namen-Liste' },
-      { id: 'int-04-13', text: 'Heute ist Montag. Morgen ist Dienstag.', description: 'Zwei Sätze' },
+      {
+        id: 'int-04-13',
+        text: 'Heute ist Montag. Morgen ist Dienstag.',
+        description: 'Zwei Sätze',
+      },
       { id: 'int-04-14', text: 'A, B und C. D, E und F.', description: 'Mit und' },
       { id: 'int-04-15', text: 'Ja, genau. Nein, danke.', description: 'Abschluss-Mix' },
     ],
@@ -825,20 +833,20 @@ export const INTERMEDIATE_LESSONS: Lesson[] = [
     requiredKeys: ['-', "'"],
     exercises: [
       { id: 'int-06-01', text: '--- --- --- --- --- ---', description: 'Nur Bindestriche' },
-      { id: "int-06-02", text: "''' ''' ''' ''' ''' '''", description: 'Nur Apostrophe' },
-      { id: "int-06-03", text: "-' -' -' '- '- '- -' -'", description: 'Wechsel' },
+      { id: 'int-06-02', text: "''' ''' ''' ''' ''' '''", description: 'Nur Apostrophe' },
+      { id: 'int-06-03', text: "-' -' -' '- '- '- -' -'", description: 'Wechsel' },
       { id: 'int-06-04', text: 'E-Mail E-Mail E-Mail', description: 'E-Mail üben' },
       { id: 'int-06-05', text: 'On-line Off-line Up-date', description: 'Tech-Begriffe' },
       { id: 'int-06-06', text: 'Nord-Süd Ost-West Alt-Neu', description: 'Gegensätze' },
       { id: 'int-06-07', text: 'Schwarz-Weiß Groß-Klein', description: 'Mehr Gegensätze' },
-      { id: "int-06-08", text: "geht's gibt's ist's war's", description: 'Auslassungen' },
-      { id: "int-06-09", text: "Wie geht's? Was gibt's?", description: 'Fragen mit Apostroph' },
+      { id: 'int-06-08', text: "geht's gibt's ist's war's", description: 'Auslassungen' },
+      { id: 'int-06-09', text: "Wie geht's? Was gibt's?", description: 'Fragen mit Apostroph' },
       { id: 'int-06-10', text: 'Step-by-Step Day-by-Day', description: 'Englische Ausdrücke' },
       { id: 'int-06-11', text: 'Schritt-für-Schritt', description: 'Deutsche Ausdrücke' },
       { id: 'int-06-12', text: 'Tag-und-Nacht Hin-und-Her', description: 'Lange Verbindungen' },
-      { id: "int-06-13", text: "Das ist's. So geht's.", description: 'Im Satz 1' },
-      { id: "int-06-14", text: "Wie geht's dir? Gut!", description: 'Im Satz 2' },
-      { id: "int-06-15", text: "E-Mail geht's Nord-Süd", description: 'Abschluss-Mix' },
+      { id: 'int-06-13', text: "Das ist's. So geht's.", description: 'Im Satz 1' },
+      { id: 'int-06-14', text: "Wie geht's dir? Gut!", description: 'Im Satz 2' },
+      { id: 'int-06-15', text: "E-Mail geht's Nord-Süd", description: 'Abschluss-Mix' },
     ],
   },
   // ========== MEHR SONDERZEICHEN ==========
@@ -1029,7 +1037,11 @@ export const WORD_LESSONS: Lesson[] = [
     exercises: [
       { id: 'wrd-05-01', text: 'Der Mann geht jeden Morgen zur Arbeit.', description: 'Routine' },
       { id: 'wrd-05-02', text: 'Die Kinder spielen im Garten Fußball.', description: 'Freizeit' },
-      { id: 'wrd-05-03', text: 'Ich habe gestern einen Film gesehen.', description: 'Vergangenheit' },
+      {
+        id: 'wrd-05-03',
+        text: 'Ich habe gestern einen Film gesehen.',
+        description: 'Vergangenheit',
+      },
       { id: 'wrd-05-04', text: 'Sie kauft im Supermarkt frisches Obst.', description: 'Einkaufen' },
       { id: 'wrd-05-05', text: 'Das Auto steht vor dem großen Haus.', description: 'Beschreibung' },
       { id: 'wrd-05-06', text: 'Wir fahren am Wochenende ans Meer.', description: 'Planung' },
@@ -1041,7 +1053,11 @@ export const WORD_LESSONS: Lesson[] = [
       { id: 'wrd-05-12', text: 'Wir haben einen schönen Garten.', description: 'Zuhause' },
       { id: 'wrd-05-13', text: 'Das Konzert beginnt um acht Uhr.', description: 'Event' },
       { id: 'wrd-05-14', text: 'Sie arbeitet in einem großen Büro.', description: 'Beruf' },
-      { id: 'wrd-05-15', text: 'Der Mann geht zur Arbeit und kauft Obst.', description: 'Abschluss' },
+      {
+        id: 'wrd-05-15',
+        text: 'Der Mann geht zur Arbeit und kauft Obst.',
+        description: 'Abschluss',
+      },
     ],
   },
   // ========== LONGER TEXTS ==========
@@ -1055,21 +1071,81 @@ export const WORD_LESSONS: Lesson[] = [
     targetWPM: 40,
     targetAccuracy: 88,
     exercises: [
-      { id: 'wrd-06-01', text: 'Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.', description: 'Pangram' },
-      { id: 'wrd-06-02', text: 'Zwölf große Boxkämpfer jagen Viktor quer über den Sylter Deich.', description: 'Pangram 2' },
-      { id: 'wrd-06-03', text: 'Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich.', description: 'Pangram 3' },
-      { id: 'wrd-06-04', text: 'Falsches Üben von Xylophonmusik quält jeden größeren Zwerg.', description: 'Pangram 4' },
-      { id: 'wrd-06-05', text: 'Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.', description: 'Pangram 5' },
-      { id: 'wrd-06-06', text: 'Sylvia wagt quick den Jux bei Pforzheim.', description: 'Pangram 6' },
-      { id: 'wrd-06-07', text: 'Prüfe jetzt brav zehn Wachkünstler im Quäldorf.', description: 'Pangram 7' },
-      { id: 'wrd-06-08', text: 'Fix, Schwyz! quäkt Jürgen blöd vom Paß.', description: 'Pangram 8' },
-      { id: 'wrd-06-09', text: 'Typisch für Bayern sind Weißwurst, Brezeln und gutes Bier.', description: 'Regional' },
-      { id: 'wrd-06-10', text: 'Der schnelle braune Fuchs springt über den faulen Hund.', description: 'Klassiker' },
-      { id: 'wrd-06-11', text: 'Heute ist das Wetter besonders schön und angenehm warm.', description: 'Wetter lang' },
-      { id: 'wrd-06-12', text: 'Die Kinder spielen fröhlich im großen Park am Stadtrand.', description: 'Kinder lang' },
-      { id: 'wrd-06-13', text: 'Nach dem Abendessen gehen wir gemeinsam spazieren.', description: 'Abend lang' },
-      { id: 'wrd-06-14', text: 'Im Sommer fahren wir gerne an die Ostsee zum Baden.', description: 'Urlaub lang' },
-      { id: 'wrd-06-15', text: 'Franz jagt quer durch Bayern mit Viktor am Sylter Deich.', description: 'Abschluss' },
+      {
+        id: 'wrd-06-01',
+        text: 'Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.',
+        description: 'Pangram',
+      },
+      {
+        id: 'wrd-06-02',
+        text: 'Zwölf große Boxkämpfer jagen Viktor quer über den Sylter Deich.',
+        description: 'Pangram 2',
+      },
+      {
+        id: 'wrd-06-03',
+        text: 'Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich.',
+        description: 'Pangram 3',
+      },
+      {
+        id: 'wrd-06-04',
+        text: 'Falsches Üben von Xylophonmusik quält jeden größeren Zwerg.',
+        description: 'Pangram 4',
+      },
+      {
+        id: 'wrd-06-05',
+        text: 'Jeder wackere Bayer vertilgt bequem zwo Pfund Kalbshaxen.',
+        description: 'Pangram 5',
+      },
+      {
+        id: 'wrd-06-06',
+        text: 'Sylvia wagt quick den Jux bei Pforzheim.',
+        description: 'Pangram 6',
+      },
+      {
+        id: 'wrd-06-07',
+        text: 'Prüfe jetzt brav zehn Wachkünstler im Quäldorf.',
+        description: 'Pangram 7',
+      },
+      {
+        id: 'wrd-06-08',
+        text: 'Fix, Schwyz! quäkt Jürgen blöd vom Paß.',
+        description: 'Pangram 8',
+      },
+      {
+        id: 'wrd-06-09',
+        text: 'Typisch für Bayern sind Weißwurst, Brezeln und gutes Bier.',
+        description: 'Regional',
+      },
+      {
+        id: 'wrd-06-10',
+        text: 'Der schnelle braune Fuchs springt über den faulen Hund.',
+        description: 'Klassiker',
+      },
+      {
+        id: 'wrd-06-11',
+        text: 'Heute ist das Wetter besonders schön und angenehm warm.',
+        description: 'Wetter lang',
+      },
+      {
+        id: 'wrd-06-12',
+        text: 'Die Kinder spielen fröhlich im großen Park am Stadtrand.',
+        description: 'Kinder lang',
+      },
+      {
+        id: 'wrd-06-13',
+        text: 'Nach dem Abendessen gehen wir gemeinsam spazieren.',
+        description: 'Abend lang',
+      },
+      {
+        id: 'wrd-06-14',
+        text: 'Im Sommer fahren wir gerne an die Ostsee zum Baden.',
+        description: 'Urlaub lang',
+      },
+      {
+        id: 'wrd-06-15',
+        text: 'Franz jagt quer durch Bayern mit Viktor am Sylter Deich.',
+        description: 'Abschluss',
+      },
     ],
   },
   {
@@ -1082,21 +1158,81 @@ export const WORD_LESSONS: Lesson[] = [
     targetWPM: 42,
     targetAccuracy: 86,
     exercises: [
-      { id: 'wrd-07-01', text: 'Der frühe Vogel fängt den Wurm. Aber die zweite Maus bekommt den Käse. So ist das Leben manchmal.', description: 'Sprichwörter' },
-      { id: 'wrd-07-02', text: 'Es war einmal ein kleines Mädchen mit dem Namen Rotkäppchen. Es lebte mit seiner Mutter in einem kleinen Haus.', description: 'Märchen' },
-      { id: 'wrd-07-03', text: 'Die Sonne scheint warm auf die grüne Wiese. Die Vögel singen fröhlich in den Bäumen. Es ist ein schöner Tag.', description: 'Beschreibung' },
-      { id: 'wrd-07-04', text: 'Wer A sagt, muss auch B sagen. Übung macht den Meister. Ende gut, alles gut.', description: 'Mehr Sprichwörter' },
-      { id: 'wrd-07-05', text: 'Der kleine Prinz kam von einem fernen Stern. Er lernte viel über die Menschen und ihre seltsamen Gewohnheiten.', description: 'Literatur' },
-      { id: 'wrd-07-06', text: 'Am Morgen stehe ich früh auf. Ich frühstücke und gehe zur Arbeit. Am Abend komme ich müde nach Hause.', description: 'Tagesablauf' },
-      { id: 'wrd-07-07', text: 'Das Wetter war schön. Wir machten einen Ausflug in die Berge. Die Aussicht war atemberaubend.', description: 'Ausflug' },
-      { id: 'wrd-07-08', text: 'In der Schule lernen wir viele Dinge. Deutsch, Mathe und Englisch sind wichtige Fächer.', description: 'Schule' },
-      { id: 'wrd-07-09', text: 'Meine Familie ist nicht sehr groß. Wir sind vier Personen: Vater, Mutter, mein Bruder und ich.', description: 'Familie' },
-      { id: 'wrd-07-10', text: 'Im Urlaub waren wir am Meer. Das Wasser war klar und warm. Wir haben viel gebadet.', description: 'Urlaub' },
-      { id: 'wrd-07-11', text: 'Sport ist wichtig für die Gesundheit. Ich jogge dreimal pro Woche. Es macht mir Spaß.', description: 'Sport' },
-      { id: 'wrd-07-12', text: 'Kochen ist mein Hobby. Ich probiere gerne neue Rezepte aus. Meine Familie freut sich immer.', description: 'Kochen' },
-      { id: 'wrd-07-13', text: 'Musik entspannt mich sehr. Ich höre gerne klassische Musik. Manchmal spiele ich auch Klavier.', description: 'Musik' },
-      { id: 'wrd-07-14', text: 'Lesen erweitert den Horizont. Ein gutes Buch ist wie eine Reise in eine andere Welt.', description: 'Lesen' },
-      { id: 'wrd-07-15', text: 'Die Sonne scheint, die Vögel singen. Ein schöner Tag beginnt. Das Leben ist wunderbar.', description: 'Abschluss' },
+      {
+        id: 'wrd-07-01',
+        text: 'Der frühe Vogel fängt den Wurm. Aber die zweite Maus bekommt den Käse. So ist das Leben manchmal.',
+        description: 'Sprichwörter',
+      },
+      {
+        id: 'wrd-07-02',
+        text: 'Es war einmal ein kleines Mädchen mit dem Namen Rotkäppchen. Es lebte mit seiner Mutter in einem kleinen Haus.',
+        description: 'Märchen',
+      },
+      {
+        id: 'wrd-07-03',
+        text: 'Die Sonne scheint warm auf die grüne Wiese. Die Vögel singen fröhlich in den Bäumen. Es ist ein schöner Tag.',
+        description: 'Beschreibung',
+      },
+      {
+        id: 'wrd-07-04',
+        text: 'Wer A sagt, muss auch B sagen. Übung macht den Meister. Ende gut, alles gut.',
+        description: 'Mehr Sprichwörter',
+      },
+      {
+        id: 'wrd-07-05',
+        text: 'Der kleine Prinz kam von einem fernen Stern. Er lernte viel über die Menschen und ihre seltsamen Gewohnheiten.',
+        description: 'Literatur',
+      },
+      {
+        id: 'wrd-07-06',
+        text: 'Am Morgen stehe ich früh auf. Ich frühstücke und gehe zur Arbeit. Am Abend komme ich müde nach Hause.',
+        description: 'Tagesablauf',
+      },
+      {
+        id: 'wrd-07-07',
+        text: 'Das Wetter war schön. Wir machten einen Ausflug in die Berge. Die Aussicht war atemberaubend.',
+        description: 'Ausflug',
+      },
+      {
+        id: 'wrd-07-08',
+        text: 'In der Schule lernen wir viele Dinge. Deutsch, Mathe und Englisch sind wichtige Fächer.',
+        description: 'Schule',
+      },
+      {
+        id: 'wrd-07-09',
+        text: 'Meine Familie ist nicht sehr groß. Wir sind vier Personen: Vater, Mutter, mein Bruder und ich.',
+        description: 'Familie',
+      },
+      {
+        id: 'wrd-07-10',
+        text: 'Im Urlaub waren wir am Meer. Das Wasser war klar und warm. Wir haben viel gebadet.',
+        description: 'Urlaub',
+      },
+      {
+        id: 'wrd-07-11',
+        text: 'Sport ist wichtig für die Gesundheit. Ich jogge dreimal pro Woche. Es macht mir Spaß.',
+        description: 'Sport',
+      },
+      {
+        id: 'wrd-07-12',
+        text: 'Kochen ist mein Hobby. Ich probiere gerne neue Rezepte aus. Meine Familie freut sich immer.',
+        description: 'Kochen',
+      },
+      {
+        id: 'wrd-07-13',
+        text: 'Musik entspannt mich sehr. Ich höre gerne klassische Musik. Manchmal spiele ich auch Klavier.',
+        description: 'Musik',
+      },
+      {
+        id: 'wrd-07-14',
+        text: 'Lesen erweitert den Horizont. Ein gutes Buch ist wie eine Reise in eine andere Welt.',
+        description: 'Lesen',
+      },
+      {
+        id: 'wrd-07-15',
+        text: 'Die Sonne scheint, die Vögel singen. Ein schöner Tag beginnt. Das Leben ist wunderbar.',
+        description: 'Abschluss',
+      },
     ],
   },
   // ========== THEMEN ==========
@@ -1110,21 +1246,53 @@ export const WORD_LESSONS: Lesson[] = [
     targetWPM: 35,
     targetAccuracy: 88,
     exercises: [
-      { id: 'wrd-08-01', text: 'Computer Monitor Tastatur Maus Bildschirm', description: 'Hardware 1' },
-      { id: 'wrd-08-02', text: 'Prozessor Grafikkarte Arbeitsspeicher RAM', description: 'Hardware 2' },
-      { id: 'wrd-08-03', text: 'Software Programm Anwendung System Betrieb', description: 'Software' },
+      {
+        id: 'wrd-08-01',
+        text: 'Computer Monitor Tastatur Maus Bildschirm',
+        description: 'Hardware 1',
+      },
+      {
+        id: 'wrd-08-02',
+        text: 'Prozessor Grafikkarte Arbeitsspeicher RAM',
+        description: 'Hardware 2',
+      },
+      {
+        id: 'wrd-08-03',
+        text: 'Software Programm Anwendung System Betrieb',
+        description: 'Software',
+      },
       { id: 'wrd-08-04', text: 'Datei Ordner Speicher Festplatte Cloud', description: 'Speicher' },
       { id: 'wrd-08-05', text: 'Internet Browser Website Email Download', description: 'Internet' },
-      { id: 'wrd-08-06', text: 'Netzwerk Router Server Firewall Passwort', description: 'Netzwerk' },
-      { id: 'wrd-08-07', text: 'Betriebssystem Windows Linux MacOS Update', description: 'Systeme' },
-      { id: 'wrd-08-08', text: 'Virus Malware Antivirus Sicherheit Backup', description: 'Sicherheit' },
-      { id: 'wrd-08-09', text: 'Der Computer startet langsam heute Morgen.', description: 'Satz 1' },
+      {
+        id: 'wrd-08-06',
+        text: 'Netzwerk Router Server Firewall Passwort',
+        description: 'Netzwerk',
+      },
+      {
+        id: 'wrd-08-07',
+        text: 'Betriebssystem Windows Linux MacOS Update',
+        description: 'Systeme',
+      },
+      {
+        id: 'wrd-08-08',
+        text: 'Virus Malware Antivirus Sicherheit Backup',
+        description: 'Sicherheit',
+      },
+      {
+        id: 'wrd-08-09',
+        text: 'Der Computer startet langsam heute Morgen.',
+        description: 'Satz 1',
+      },
       { id: 'wrd-08-10', text: 'Bitte speichere die Datei im Ordner.', description: 'Satz 2' },
       { id: 'wrd-08-11', text: 'Das Programm läuft nicht richtig.', description: 'Satz 3' },
       { id: 'wrd-08-12', text: 'Der Browser öffnet die Website schnell.', description: 'Satz 4' },
       { id: 'wrd-08-13', text: 'Mach ein Backup deiner wichtigen Daten.', description: 'Satz 5' },
       { id: 'wrd-08-14', text: 'Das Update muss installiert werden.', description: 'Satz 6' },
-      { id: 'wrd-08-15', text: 'Computer Monitor Datei Download Backup', description: 'Abschluss-Mix' },
+      {
+        id: 'wrd-08-15',
+        text: 'Computer Monitor Datei Download Backup',
+        description: 'Abschluss-Mix',
+      },
     ],
   },
   {
@@ -1137,12 +1305,28 @@ export const WORD_LESSONS: Lesson[] = [
     targetWPM: 35,
     targetAccuracy: 88,
     exercises: [
-      { id: 'wrd-09-01', text: 'Meeting Termin Besprechung Konferenz Team', description: 'Termine' },
-      { id: 'wrd-09-02', text: 'Dokument Bericht Präsentation Protokoll', description: 'Dokumente' },
-      { id: 'wrd-09-03', text: 'Chef Kollege Mitarbeiter Abteilung Firma', description: 'Personen' },
+      {
+        id: 'wrd-09-01',
+        text: 'Meeting Termin Besprechung Konferenz Team',
+        description: 'Termine',
+      },
+      {
+        id: 'wrd-09-02',
+        text: 'Dokument Bericht Präsentation Protokoll',
+        description: 'Dokumente',
+      },
+      {
+        id: 'wrd-09-03',
+        text: 'Chef Kollege Mitarbeiter Abteilung Firma',
+        description: 'Personen',
+      },
       { id: 'wrd-09-04', text: 'Drucker Scanner Kopierer Fax Telefon', description: 'Geräte' },
       { id: 'wrd-09-05', text: 'Schreibtisch Stuhl Bürostuhl Regal Lampe', description: 'Möbel' },
-      { id: 'wrd-09-06', text: 'Vertrag Rechnung Angebot Bestellung Lieferung', description: 'Handel' },
+      {
+        id: 'wrd-09-06',
+        text: 'Vertrag Rechnung Angebot Bestellung Lieferung',
+        description: 'Handel',
+      },
       { id: 'wrd-09-07', text: 'Projekt Aufgabe Deadline Ziel Erfolg', description: 'Projekte' },
       { id: 'wrd-09-08', text: 'Email Kalender Notiz Agenda Planung', description: 'Organisation' },
       { id: 'wrd-09-09', text: 'Das Meeting beginnt um neun Uhr.', description: 'Satz 1' },
@@ -1150,8 +1334,16 @@ export const WORD_LESSONS: Lesson[] = [
       { id: 'wrd-09-11', text: 'Die Deadline für das Projekt ist Freitag.', description: 'Satz 3' },
       { id: 'wrd-09-12', text: 'Der Chef möchte den Bericht sehen.', description: 'Satz 4' },
       { id: 'wrd-09-13', text: 'Wir brauchen mehr Papier für den Drucker.', description: 'Satz 5' },
-      { id: 'wrd-09-14', text: 'Die Konferenz findet im großen Saal statt.', description: 'Satz 6' },
-      { id: 'wrd-09-15', text: 'Meeting Dokument Projekt Email Deadline', description: 'Abschluss-Mix' },
+      {
+        id: 'wrd-09-14',
+        text: 'Die Konferenz findet im großen Saal statt.',
+        description: 'Satz 6',
+      },
+      {
+        id: 'wrd-09-15',
+        text: 'Meeting Dokument Projekt Email Deadline',
+        description: 'Abschluss-Mix',
+      },
     ],
   },
   {
@@ -1164,21 +1356,41 @@ export const WORD_LESSONS: Lesson[] = [
     targetWPM: 35,
     targetAccuracy: 88,
     exercises: [
-      { id: 'wrd-10-01', text: 'Flugzeug Zug Bus Auto Schiff Fahrrad', description: 'Verkehrsmittel' },
+      {
+        id: 'wrd-10-01',
+        text: 'Flugzeug Zug Bus Auto Schiff Fahrrad',
+        description: 'Verkehrsmittel',
+      },
       { id: 'wrd-10-02', text: 'Bahnhof Flughafen Hotel Restaurant Museum', description: 'Orte' },
       { id: 'wrd-10-03', text: 'Koffer Rucksack Tasche Gepäck Ticket', description: 'Gepäck' },
       { id: 'wrd-10-04', text: 'Reisepass Visum Buchung Reservierung', description: 'Dokumente' },
       { id: 'wrd-10-05', text: 'Strand Meer Berg Wald See Fluss', description: 'Natur' },
-      { id: 'wrd-10-06', text: 'Sehenswürdigkeit Denkmal Kirche Schloss', description: 'Tourismus' },
-      { id: 'wrd-10-07', text: 'Zimmer Einzelzimmer Doppelzimmer Suite', description: 'Unterkunft' },
-      { id: 'wrd-10-08', text: 'Frühstück Halbpension Vollpension Buffet', description: 'Verpflegung' },
+      {
+        id: 'wrd-10-06',
+        text: 'Sehenswürdigkeit Denkmal Kirche Schloss',
+        description: 'Tourismus',
+      },
+      {
+        id: 'wrd-10-07',
+        text: 'Zimmer Einzelzimmer Doppelzimmer Suite',
+        description: 'Unterkunft',
+      },
+      {
+        id: 'wrd-10-08',
+        text: 'Frühstück Halbpension Vollpension Buffet',
+        description: 'Verpflegung',
+      },
       { id: 'wrd-10-09', text: 'Wir fliegen morgen nach Berlin.', description: 'Satz 1' },
       { id: 'wrd-10-10', text: 'Das Hotel liegt direkt am Strand.', description: 'Satz 2' },
       { id: 'wrd-10-11', text: 'Ich habe meinen Reisepass vergessen.', description: 'Satz 3' },
       { id: 'wrd-10-12', text: 'Der Zug fährt in zehn Minuten ab.', description: 'Satz 4' },
       { id: 'wrd-10-13', text: 'Können Sie mir ein Taxi rufen?', description: 'Satz 5' },
       { id: 'wrd-10-14', text: 'Die Sehenswürdigkeiten sind wunderschön.', description: 'Satz 6' },
-      { id: 'wrd-10-15', text: 'Flugzeug Hotel Strand Reisepass Zug', description: 'Abschluss-Mix' },
+      {
+        id: 'wrd-10-15',
+        text: 'Flugzeug Hotel Strand Reisepass Zug',
+        description: 'Abschluss-Mix',
+      },
     ],
   },
 ];
@@ -1215,7 +1427,11 @@ export const ADVANCED_LESSONS: Lesson[] = [
       { id: 'adv-01-12', text: 'user_name my_file config_v2', description: 'Unterstriche' },
       { id: 'adv-01-13', text: 'file-name my-project api-v2', description: 'Bindestriche' },
       { id: 'adv-01-14', text: 'path/to/file src/main.ts', description: 'Pfade' },
-      { id: 'adv-01-15', text: 'email@test.de #tag $50 25% path/file', description: 'Abschluss-Mix' },
+      {
+        id: 'adv-01-15',
+        text: 'email@test.de #tag $50 25% path/file',
+        description: 'Abschluss-Mix',
+      },
     ],
   },
   {
@@ -1233,14 +1449,22 @@ export const ADVANCED_LESSONS: Lesson[] = [
       { id: 'adv-02-03', text: '+ - * / = != < > <= >= ++', description: 'Grundoperatoren Mix' },
       { id: 'adv-02-04', text: '1 + 1 = 2; 2 + 2 = 4; 3 + 3 = 6', description: 'Addition' },
       { id: 'adv-02-05', text: '10 - 3 = 7; 15 - 8 = 7; 20 - 5 = 15', description: 'Subtraktion' },
-      { id: 'adv-02-06', text: '5 * 6 = 30; 7 * 8 = 56; 9 * 9 = 81', description: 'Multiplikation' },
+      {
+        id: 'adv-02-06',
+        text: '5 * 6 = 30; 7 * 8 = 56; 9 * 9 = 81',
+        description: 'Multiplikation',
+      },
       { id: 'adv-02-07', text: '20 / 4 = 5; 36 / 6 = 6; 100 / 10 = 10', description: 'Division' },
       { id: 'adv-02-08', text: 'x = (a + b) / c; y = a * b - c', description: 'Formeln' },
       { id: 'adv-02-09', text: 'f(x) = x^2 + 2x + 1; g(x) = 3x - 5', description: 'Funktionen' },
       { id: 'adv-02-10', text: 'a < b; c >= d; x != y; z == 0', description: 'Vergleiche' },
       { id: 'adv-02-11', text: 'a <= b; c > d; x == y; z != 0', description: 'Mehr Vergleiche' },
       { id: 'adv-02-12', text: 'i++; j--; count += 1; total -= 5', description: 'Inkrement' },
-      { id: 'adv-02-13', text: 'sum += value; product *= factor', description: 'Zusammengesetzte Ops' },
+      {
+        id: 'adv-02-13',
+        text: 'sum += value; product *= factor',
+        description: 'Zusammengesetzte Ops',
+      },
       { id: 'adv-02-14', text: 'result = (a + b) * (c - d) / e', description: 'Komplexe Formel' },
       { id: 'adv-02-15', text: '2 + 2 = 4; x < y; i++; f(x) = x^2', description: 'Abschluss-Mix' },
     ],
@@ -1256,21 +1480,81 @@ export const ADVANCED_LESSONS: Lesson[] = [
     targetWPM: 40,
     targetAccuracy: 88,
     exercises: [
-      { id: 'adv-03-01', text: 'Da steh ich nun, ich armer Tor, und bin so klug als wie zuvor.', description: 'Goethe - Faust' },
-      { id: 'adv-03-02', text: 'Zwei Seelen wohnen, ach! in meiner Brust.', description: 'Goethe - Faust 2' },
-      { id: 'adv-03-03', text: 'Sein oder Nichtsein, das ist hier die Frage.', description: 'Shakespeare - Hamlet' },
-      { id: 'adv-03-04', text: 'Die Gedanken sind frei, wer kann sie erraten?', description: 'Volkslied' },
-      { id: 'adv-03-05', text: 'Über allen Gipfeln ist Ruh, in allen Wipfeln spürest du kaum einen Hauch.', description: 'Goethe - Wanderers Nachtlied' },
-      { id: 'adv-03-06', text: 'Wer reitet so spät durch Nacht und Wind? Es ist der Vater mit seinem Kind.', description: 'Goethe - Erlkönig' },
-      { id: 'adv-03-07', text: 'Das Schöne ist nichts als des Schrecklichen Anfang.', description: 'Rilke' },
-      { id: 'adv-03-08', text: 'Alle Menschen werden Brüder, wo dein sanfter Flügel weilt.', description: 'Schiller - Freude' },
-      { id: 'adv-03-09', text: 'Die beste Bildung findet ein gescheiter Mensch auf Reisen.', description: 'Goethe' },
-      { id: 'adv-03-10', text: 'Edel sei der Mensch, hilfreich und gut!', description: 'Goethe - Das Göttliche' },
-      { id: 'adv-03-11', text: 'Gefährlich ist es, den Leu zu wecken.', description: 'Schiller - Lied von der Glocke' },
-      { id: 'adv-03-12', text: 'Ich weiß nicht, was soll es bedeuten, dass ich so traurig bin.', description: 'Heine - Loreley' },
-      { id: 'adv-03-13', text: 'Am Ende hängen wir doch ab von Kreaturen, die wir machten.', description: 'Goethe - Faust' },
-      { id: 'adv-03-14', text: 'Dunkel war es, der Mond schien helle.', description: 'Paradoxes Gedicht' },
-      { id: 'adv-03-15', text: 'Da steh ich nun. Zwei Seelen wohnen. Sein oder Nichtsein.', description: 'Abschluss-Mix' },
+      {
+        id: 'adv-03-01',
+        text: 'Da steh ich nun, ich armer Tor, und bin so klug als wie zuvor.',
+        description: 'Goethe - Faust',
+      },
+      {
+        id: 'adv-03-02',
+        text: 'Zwei Seelen wohnen, ach! in meiner Brust.',
+        description: 'Goethe - Faust 2',
+      },
+      {
+        id: 'adv-03-03',
+        text: 'Sein oder Nichtsein, das ist hier die Frage.',
+        description: 'Shakespeare - Hamlet',
+      },
+      {
+        id: 'adv-03-04',
+        text: 'Die Gedanken sind frei, wer kann sie erraten?',
+        description: 'Volkslied',
+      },
+      {
+        id: 'adv-03-05',
+        text: 'Über allen Gipfeln ist Ruh, in allen Wipfeln spürest du kaum einen Hauch.',
+        description: 'Goethe - Wanderers Nachtlied',
+      },
+      {
+        id: 'adv-03-06',
+        text: 'Wer reitet so spät durch Nacht und Wind? Es ist der Vater mit seinem Kind.',
+        description: 'Goethe - Erlkönig',
+      },
+      {
+        id: 'adv-03-07',
+        text: 'Das Schöne ist nichts als des Schrecklichen Anfang.',
+        description: 'Rilke',
+      },
+      {
+        id: 'adv-03-08',
+        text: 'Alle Menschen werden Brüder, wo dein sanfter Flügel weilt.',
+        description: 'Schiller - Freude',
+      },
+      {
+        id: 'adv-03-09',
+        text: 'Die beste Bildung findet ein gescheiter Mensch auf Reisen.',
+        description: 'Goethe',
+      },
+      {
+        id: 'adv-03-10',
+        text: 'Edel sei der Mensch, hilfreich und gut!',
+        description: 'Goethe - Das Göttliche',
+      },
+      {
+        id: 'adv-03-11',
+        text: 'Gefährlich ist es, den Leu zu wecken.',
+        description: 'Schiller - Lied von der Glocke',
+      },
+      {
+        id: 'adv-03-12',
+        text: 'Ich weiß nicht, was soll es bedeuten, dass ich so traurig bin.',
+        description: 'Heine - Loreley',
+      },
+      {
+        id: 'adv-03-13',
+        text: 'Am Ende hängen wir doch ab von Kreaturen, die wir machten.',
+        description: 'Goethe - Faust',
+      },
+      {
+        id: 'adv-03-14',
+        text: 'Dunkel war es, der Mond schien helle.',
+        description: 'Paradoxes Gedicht',
+      },
+      {
+        id: 'adv-03-15',
+        text: 'Da steh ich nun. Zwei Seelen wohnen. Sein oder Nichtsein.',
+        description: 'Abschluss-Mix',
+      },
     ],
   },
   {
@@ -1284,20 +1568,60 @@ export const ADVANCED_LESSONS: Lesson[] = [
     targetAccuracy: 90,
     exercises: [
       { id: 'adv-04-01', text: 'Sehr geehrte Damen und Herren,', description: 'Anrede formal' },
-      { id: 'adv-04-02', text: 'Sehr geehrter Herr Müller, sehr geehrte Frau Schmidt,', description: 'Anrede persönlich' },
-      { id: 'adv-04-03', text: 'mit diesem Schreiben möchte ich mich vorstellen.', description: 'Einleitung' },
-      { id: 'adv-04-04', text: 'Bezugnehmend auf Ihr Schreiben vom 15. März teilen wir Ihnen mit...', description: 'Bezugnahme' },
-      { id: 'adv-04-05', text: 'Für Rückfragen stehe ich Ihnen gerne zur Verfügung.', description: 'Angebot' },
-      { id: 'adv-04-06', text: 'Wir freuen uns auf eine baldige Rückmeldung Ihrerseits.', description: 'Abschluss' },
+      {
+        id: 'adv-04-02',
+        text: 'Sehr geehrter Herr Müller, sehr geehrte Frau Schmidt,',
+        description: 'Anrede persönlich',
+      },
+      {
+        id: 'adv-04-03',
+        text: 'mit diesem Schreiben möchte ich mich vorstellen.',
+        description: 'Einleitung',
+      },
+      {
+        id: 'adv-04-04',
+        text: 'Bezugnehmend auf Ihr Schreiben vom 15. März teilen wir Ihnen mit...',
+        description: 'Bezugnahme',
+      },
+      {
+        id: 'adv-04-05',
+        text: 'Für Rückfragen stehe ich Ihnen gerne zur Verfügung.',
+        description: 'Angebot',
+      },
+      {
+        id: 'adv-04-06',
+        text: 'Wir freuen uns auf eine baldige Rückmeldung Ihrerseits.',
+        description: 'Abschluss',
+      },
       { id: 'adv-04-07', text: 'Mit freundlichen Grüßen', description: 'Grußformel Standard' },
       { id: 'adv-04-08', text: 'Hochachtungsvoll verbleibe ich', description: 'Grußformel formal' },
       { id: 'adv-04-09', text: 'Max Mustermann, Geschäftsführer', description: 'Unterschrift' },
       { id: 'adv-04-10', text: 'Anlage: Vertrag, Rechnung, Lieferschein', description: 'Anlagen' },
-      { id: 'adv-04-11', text: 'PS: Bitte beachten Sie unsere neuen Öffnungszeiten.', description: 'Postskriptum' },
-      { id: 'adv-04-12', text: 'Betreff: Ihre Anfrage vom 10. April 2024', description: 'Betreffzeile' },
-      { id: 'adv-04-13', text: 'Im Anhang finden Sie die gewünschten Unterlagen.', description: 'Anhang-Hinweis' },
-      { id: 'adv-04-14', text: 'Wir bedanken uns für Ihr entgegengebrachtes Vertrauen.', description: 'Danksagung' },
-      { id: 'adv-04-15', text: 'Sehr geehrte Damen und Herren, mit freundlichen Grüßen.', description: 'Abschluss-Mix' },
+      {
+        id: 'adv-04-11',
+        text: 'PS: Bitte beachten Sie unsere neuen Öffnungszeiten.',
+        description: 'Postskriptum',
+      },
+      {
+        id: 'adv-04-12',
+        text: 'Betreff: Ihre Anfrage vom 10. April 2024',
+        description: 'Betreffzeile',
+      },
+      {
+        id: 'adv-04-13',
+        text: 'Im Anhang finden Sie die gewünschten Unterlagen.',
+        description: 'Anhang-Hinweis',
+      },
+      {
+        id: 'adv-04-14',
+        text: 'Wir bedanken uns für Ihr entgegengebrachtes Vertrauen.',
+        description: 'Danksagung',
+      },
+      {
+        id: 'adv-04-15',
+        text: 'Sehr geehrte Damen und Herren, mit freundlichen Grüßen.',
+        description: 'Abschluss-Mix',
+      },
     ],
   },
   {
@@ -1310,21 +1634,81 @@ export const ADVANCED_LESSONS: Lesson[] = [
     targetWPM: 35,
     targetAccuracy: 90,
     exercises: [
-      { id: 'adv-05-01', text: 'Die vorliegende Untersuchung befasst sich mit der Analyse von...', description: 'Einleitung' },
-      { id: 'adv-05-02', text: 'Ziel dieser Arbeit ist es, die Zusammenhänge zwischen...', description: 'Zielsetzung' },
-      { id: 'adv-05-03', text: 'Gemäß der Hypothese wurde erwartet, dass die Ergebnisse zeigen...', description: 'Hypothese' },
-      { id: 'adv-05-04', text: 'Die Daten wurden mittels quantitativer Methoden analysiert.', description: 'Methodik' },
-      { id: 'adv-05-05', text: 'Die Stichprobe umfasste 500 Teilnehmer im Alter von 18 bis 65 Jahren.', description: 'Stichprobe' },
-      { id: 'adv-05-06', text: 'Die Ergebnisse zeigen einen signifikanten Zusammenhang (p < 0.05).', description: 'Ergebnisse' },
-      { id: 'adv-05-07', text: 'Die Korrelation betrug r = 0.78 und war hochsignifikant.', description: 'Statistik' },
-      { id: 'adv-05-08', text: 'Diese Befunde stehen im Einklang mit früheren Studien.', description: 'Diskussion' },
-      { id: 'adv-05-09', text: 'Limitationen dieser Studie umfassen die geringe Stichprobengröße.', description: 'Limitationen' },
-      { id: 'adv-05-10', text: 'Zusammenfassend lässt sich feststellen, dass die Ergebnisse...', description: 'Fazit' },
-      { id: 'adv-05-11', text: 'Künftige Forschung sollte diese Aspekte weiter untersuchen.', description: 'Ausblick' },
-      { id: 'adv-05-12', text: 'Vgl. Müller (2023), S. 42-45; siehe auch Schmidt (2022).', description: 'Quellenangabe' },
-      { id: 'adv-05-13', text: 'Abbildung 3 zeigt die Verteilung der Messwerte.', description: 'Abbildungen' },
-      { id: 'adv-05-14', text: 'Tabelle 2 fasst die deskriptiven Statistiken zusammen.', description: 'Tabellen' },
-      { id: 'adv-05-15', text: 'Die Hypothese konnte bestätigt werden (p < 0.001).', description: 'Abschluss-Mix' },
+      {
+        id: 'adv-05-01',
+        text: 'Die vorliegende Untersuchung befasst sich mit der Analyse von...',
+        description: 'Einleitung',
+      },
+      {
+        id: 'adv-05-02',
+        text: 'Ziel dieser Arbeit ist es, die Zusammenhänge zwischen...',
+        description: 'Zielsetzung',
+      },
+      {
+        id: 'adv-05-03',
+        text: 'Gemäß der Hypothese wurde erwartet, dass die Ergebnisse zeigen...',
+        description: 'Hypothese',
+      },
+      {
+        id: 'adv-05-04',
+        text: 'Die Daten wurden mittels quantitativer Methoden analysiert.',
+        description: 'Methodik',
+      },
+      {
+        id: 'adv-05-05',
+        text: 'Die Stichprobe umfasste 500 Teilnehmer im Alter von 18 bis 65 Jahren.',
+        description: 'Stichprobe',
+      },
+      {
+        id: 'adv-05-06',
+        text: 'Die Ergebnisse zeigen einen signifikanten Zusammenhang (p < 0.05).',
+        description: 'Ergebnisse',
+      },
+      {
+        id: 'adv-05-07',
+        text: 'Die Korrelation betrug r = 0.78 und war hochsignifikant.',
+        description: 'Statistik',
+      },
+      {
+        id: 'adv-05-08',
+        text: 'Diese Befunde stehen im Einklang mit früheren Studien.',
+        description: 'Diskussion',
+      },
+      {
+        id: 'adv-05-09',
+        text: 'Limitationen dieser Studie umfassen die geringe Stichprobengröße.',
+        description: 'Limitationen',
+      },
+      {
+        id: 'adv-05-10',
+        text: 'Zusammenfassend lässt sich feststellen, dass die Ergebnisse...',
+        description: 'Fazit',
+      },
+      {
+        id: 'adv-05-11',
+        text: 'Künftige Forschung sollte diese Aspekte weiter untersuchen.',
+        description: 'Ausblick',
+      },
+      {
+        id: 'adv-05-12',
+        text: 'Vgl. Müller (2023), S. 42-45; siehe auch Schmidt (2022).',
+        description: 'Quellenangabe',
+      },
+      {
+        id: 'adv-05-13',
+        text: 'Abbildung 3 zeigt die Verteilung der Messwerte.',
+        description: 'Abbildungen',
+      },
+      {
+        id: 'adv-05-14',
+        text: 'Tabelle 2 fasst die deskriptiven Statistiken zusammen.',
+        description: 'Tabellen',
+      },
+      {
+        id: 'adv-05-15',
+        text: 'Die Hypothese konnte bestätigt werden (p < 0.001).',
+        description: 'Abschluss-Mix',
+      },
     ],
   },
   // ========== SCHNELLIGKEITSTRAINING ==========
@@ -1338,21 +1722,69 @@ export const ADVANCED_LESSONS: Lesson[] = [
     targetWPM: 50,
     targetAccuracy: 92,
     exercises: [
-      { id: 'adv-06-01', text: 'der die das der die das der die das', description: 'Top 3 schnell' },
+      {
+        id: 'adv-06-01',
+        text: 'der die das der die das der die das',
+        description: 'Top 3 schnell',
+      },
       { id: 'adv-06-02', text: 'und in zu und in zu und in zu', description: 'Wörter 4-6 schnell' },
-      { id: 'adv-06-03', text: 'der die das und in zu den mit von auf', description: '10 häufigste' },
-      { id: 'adv-06-04', text: 'ist nicht sich auch ist nicht sich auch', description: 'Wörter 7-10 schnell' },
-      { id: 'adv-06-05', text: 'ist nicht sich auch es an sie so eine', description: '11-19 häufigste' },
+      {
+        id: 'adv-06-03',
+        text: 'der die das und in zu den mit von auf',
+        description: '10 häufigste',
+      },
+      {
+        id: 'adv-06-04',
+        text: 'ist nicht sich auch ist nicht sich auch',
+        description: 'Wörter 7-10 schnell',
+      },
+      {
+        id: 'adv-06-05',
+        text: 'ist nicht sich auch es an sie so eine',
+        description: '11-19 häufigste',
+      },
       { id: 'adv-06-06', text: 'das ist und die der nicht zu so es', description: 'Mix schnell' },
-      { id: 'adv-06-07', text: 'ich du er ich du er ich du er sie es', description: 'Pronomen schnell' },
+      {
+        id: 'adv-06-07',
+        text: 'ich du er ich du er ich du er sie es',
+        description: 'Pronomen schnell',
+      },
       { id: 'adv-06-08', text: 'ich du er sie es wir ihr sie Sie', description: 'Alle Pronomen' },
-      { id: 'adv-06-09', text: 'haben sein haben sein haben sein werden', description: 'Verben schnell' },
-      { id: 'adv-06-10', text: 'haben sein werden können müssen wollen', description: 'Modalverben' },
-      { id: 'adv-06-11', text: 'der ist und ich habe wir sind sie hat', description: 'Kombis schnell' },
-      { id: 'adv-06-12', text: 'in an auf aus bei mit nach zu von für', description: 'Präpositionen' },
-      { id: 'adv-06-13', text: 'nicht auch noch schon immer nur sehr viel', description: 'Adverbien' },
-      { id: 'adv-06-14', text: 'aber denn weil wenn oder aber denn weil', description: 'Konjunktionen' },
-      { id: 'adv-06-15', text: 'der die das und ist haben werden ich du', description: 'Abschluss-Mix' },
+      {
+        id: 'adv-06-09',
+        text: 'haben sein haben sein haben sein werden',
+        description: 'Verben schnell',
+      },
+      {
+        id: 'adv-06-10',
+        text: 'haben sein werden können müssen wollen',
+        description: 'Modalverben',
+      },
+      {
+        id: 'adv-06-11',
+        text: 'der ist und ich habe wir sind sie hat',
+        description: 'Kombis schnell',
+      },
+      {
+        id: 'adv-06-12',
+        text: 'in an auf aus bei mit nach zu von für',
+        description: 'Präpositionen',
+      },
+      {
+        id: 'adv-06-13',
+        text: 'nicht auch noch schon immer nur sehr viel',
+        description: 'Adverbien',
+      },
+      {
+        id: 'adv-06-14',
+        text: 'aber denn weil wenn oder aber denn weil',
+        description: 'Konjunktionen',
+      },
+      {
+        id: 'adv-06-15',
+        text: 'der die das und ist haben werden ich du',
+        description: 'Abschluss-Mix',
+      },
     ],
   },
   {
@@ -1367,19 +1799,43 @@ export const ADVANCED_LESSONS: Lesson[] = [
     exercises: [
       { id: 'adv-07-01', text: 'allerdings allerdings allerdings', description: 'Füllwörter 1' },
       { id: 'adv-07-02', text: 'beispielsweise beispielsweise', description: 'Füllwörter 2' },
-      { id: 'adv-07-03', text: 'allerdings beispielsweise beziehungsweise', description: 'Füllwörter Mix' },
+      {
+        id: 'adv-07-03',
+        text: 'allerdings beispielsweise beziehungsweise',
+        description: 'Füllwörter Mix',
+      },
       { id: 'adv-07-04', text: 'grundsätzlich grundsätzlich', description: 'Adverb 1' },
       { id: 'adv-07-05', text: 'wahrscheinlich selbstverständlich', description: 'Adverb 2' },
-      { id: 'adv-07-06', text: 'grundsätzlich wahrscheinlich selbstverständlich', description: 'Adverbien Mix' },
+      {
+        id: 'adv-07-06',
+        text: 'grundsätzlich wahrscheinlich selbstverständlich',
+        description: 'Adverbien Mix',
+      },
       { id: 'adv-07-07', text: 'Verantwortung Verantwortung', description: 'Substantiv 1' },
       { id: 'adv-07-08', text: 'Möglichkeit Notwendigkeit', description: 'Substantiv 2' },
-      { id: 'adv-07-09', text: 'Verantwortung Möglichkeit Notwendigkeit', description: 'Substantive Mix' },
+      {
+        id: 'adv-07-09',
+        text: 'Verantwortung Möglichkeit Notwendigkeit',
+        description: 'Substantive Mix',
+      },
       { id: 'adv-07-10', text: 'Zusammenarbeit Zusammenarbeit', description: 'Business 1' },
       { id: 'adv-07-11', text: 'Entwicklung Verbesserung', description: 'Business 2' },
-      { id: 'adv-07-12', text: 'Zusammenarbeit Entwicklung Verbesserung', description: 'Business Mix' },
+      {
+        id: 'adv-07-12',
+        text: 'Zusammenarbeit Entwicklung Verbesserung',
+        description: 'Business Mix',
+      },
       { id: 'adv-07-13', text: 'Kundenzufriedenheit Qualitätssicherung', description: 'Komposita' },
-      { id: 'adv-07-14', text: 'Geschäftsführung Projektmanagement Personalentwicklung', description: 'Management' },
-      { id: 'adv-07-15', text: 'allerdings Verantwortung Zusammenarbeit', description: 'Abschluss-Mix' },
+      {
+        id: 'adv-07-14',
+        text: 'Geschäftsführung Projektmanagement Personalentwicklung',
+        description: 'Management',
+      },
+      {
+        id: 'adv-07-15',
+        text: 'allerdings Verantwortung Zusammenarbeit',
+        description: 'Abschluss-Mix',
+      },
     ],
   },
 ];
@@ -2716,4 +3172,50 @@ export function getLessonStats(): {
   });
 
   return stats;
+}
+
+/**
+ * Mapping of lesson IDs to their PracticeText source for language-dependent exercises
+ */
+const LESSON_PRACTICE_TEXT_MAP: Record<string, { texts: PracticeText[] }> = {
+  'micro-single-keys': { texts: MICRO_EXERCISES.slice(0, 7) },
+  'micro-two-letter-same': { texts: MICRO_EXERCISES.slice(7, 11) },
+  'micro-two-letter-alt': { texts: MICRO_EXERCISES.slice(11, 15) },
+  'micro-short-words': { texts: MICRO_EXERCISES.slice(15, 23) },
+  'micro-vowels-ei': { texts: MICRO_EXERCISES.slice(23, 30) },
+  'practice-simple-de': { texts: SIMPLE_TEXTS },
+  'practice-simple-en': { texts: SIMPLE_TEXTS },
+  'practice-medium-de': { texts: MEDIUM_TEXTS },
+  'practice-medium-en': { texts: MEDIUM_TEXTS },
+  'practice-complex-de': { texts: COMPLEX_TEXTS },
+  'practice-complex-en': { texts: COMPLEX_TEXTS },
+  'practice-expert-de': { texts: EXPERT_TEXTS },
+  'practice-expert-en': { texts: EXPERT_TEXTS },
+};
+
+/**
+ * Get a lesson with exercises in the specified language
+ * @param id - Lesson ID
+ * @param language - Target language for exercises ('de' or 'en')
+ * @returns Lesson with localized exercises, or undefined if not found
+ */
+export function getLessonWithLanguage(id: string, language: 'de' | 'en'): Lesson | undefined {
+  const lesson = getLessonById(id);
+  if (!lesson) {
+    return undefined;
+  }
+
+  // Check if this lesson has practice texts that need language transformation
+  const practiceTextSource = LESSON_PRACTICE_TEXT_MAP[id];
+  if (practiceTextSource) {
+    // Transform exercises using the specified language
+    const localizedExercises = practiceTextsToExercises(practiceTextSource.texts, language);
+    return {
+      ...lesson,
+      exercises: localizedExercises,
+    };
+  }
+
+  // Return original lesson if no transformation needed
+  return lesson;
 }

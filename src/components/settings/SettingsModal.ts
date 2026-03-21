@@ -361,10 +361,12 @@ export class SettingsModal {
    * Setup individual setting listeners
    */
   private setupSettingListeners(): void {
-    // Language
+    // Language - also update exercise language to match
     document.getElementById('setting-language')?.addEventListener('change', e => {
       const value = (e.target as HTMLSelectElement).value as 'en' | 'de';
       i18n.setLanguage(value);
+      // Also update exercise language so practice texts match the UI language
+      SettingsService.updateSettings({ exerciseLanguage: value });
     });
 
     // Theme

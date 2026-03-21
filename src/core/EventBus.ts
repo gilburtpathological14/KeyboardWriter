@@ -2,6 +2,7 @@
  * Type-safe EventBus implementation using Observer Pattern
  */
 
+import type { BossBattle, Quest, QuestReward } from '../domain/models/Quest';
 import { Logger } from './Logger';
 
 const logger = Logger.scope('EventBus');
@@ -16,6 +17,22 @@ interface EventSubscription {
  * Global event types for the application
  */
 export interface AppEvents {
+  // Story Mode / Quest events
+  'quest:started': { quest: Quest };
+  'quest:progress': { quest: Quest };
+  'quest:completed': { quest: Quest; rewards: QuestReward };
+  'chapter:completed': { chapterId: string };
+  'player:levelup': { level: number; skillPoints: number };
+
+  // Boss Battle events
+  'boss:battle:start': { boss: BossBattle };
+  'boss:battle:victory': { boss: BossBattle; wpm: number; accuracy: number };
+  'boss:battle:defeat': { boss: BossBattle; wpm: number; accuracy: number };
+
+  // Skill Tree events
+  'skill:unlocked': { skillId: string; category: string };
+  'skill:effect:applied': { skillId: string; effectType: string };
+
   // Typing events
   'typing:start': { lessonId: string; exerciseId: string };
   'typing:keystroke': { key: string; isCorrect: boolean; position: number };

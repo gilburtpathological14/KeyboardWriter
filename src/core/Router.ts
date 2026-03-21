@@ -39,6 +39,8 @@ export const pages: Record<string, PageConfig> = {
   git: { id: 'git', title: 'Git Training' },
   vim: { id: 'vim', title: 'Vim Training' },
   regex: { id: 'regex', title: 'Regex Training' },
+  'story-mode': { id: 'story-mode', title: 'Story Mode' },
+  'skill-tree': { id: 'skill-tree', title: 'Skill Tree' },
 };
 
 type RouteChangeListener = (page: string, previousPage: string) => void;

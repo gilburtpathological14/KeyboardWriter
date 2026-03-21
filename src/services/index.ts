@@ -10,7 +10,7 @@ export type {
   LearningPathRecommendation,
   PatternPerformance,
   PracticeRecommendation,
-  WeaknessAnalysis
+  WeaknessAnalysis,
 } from './AdaptiveLearningService';
 
 export { ConfettiService } from './ConfettiService';
@@ -23,7 +23,7 @@ export type {
   ErrorCorrectionState,
   ExerciseModeSession,
   TimePressureState,
-  WarmupExercise
+  WarmupExercise,
 } from './ExerciseModeService';
 
 // Gamification
@@ -32,7 +32,7 @@ export {
   GamificationService,
   gamificationService,
   LEVEL_THRESHOLDS,
-  XP_REWARDS
+  XP_REWARDS,
 } from './GamificationService';
 export type {
   ChallengeDifficulty,
@@ -41,7 +41,7 @@ export type {
   GamificationData,
   LessonResult,
   StarRating,
-  XPGainEvent
+  XPGainEvent,
 } from './GamificationService';
 
 export { LessonService } from './LessonService';
@@ -59,7 +59,7 @@ export type {
   MasteryLevel,
   QualityRating,
   ReviewResult,
-  SRSItemData
+  SRSItemData,
 } from './SpacedRepetitionService';
 export { ThemeService } from './ThemeService';
 export type { ThemeColors, ThemeMode, ThemeSettings } from './ThemeService';
@@ -68,9 +68,16 @@ export { TypingEngineService } from './TypingEngineService';
 // Progress Tracking
 export { ProgressTrackingService, progressTrackingService } from './ProgressTrackingService';
 export type {
-  DailySession, LearningPathNode,
+  DailySession,
+  LearningPathNode,
   Milestone,
   PerformanceComparison,
-  ProgressData, WeeklySummary
+  ProgressData,
+  WeeklySummary,
 } from './ProgressTrackingService';
 
+// Story Mode / Quest System
+export { storyModeService } from './StoryModeService';
+
+// Skill Tree
+export { SkillTreeService } from './SkillTreeService';

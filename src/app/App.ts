@@ -12,10 +12,12 @@ import { PracticePage } from '../pages/PracticePage';
 import { QuizPage } from '../pages/QuizPage';
 import { RegexTrainingPage } from '../pages/RegexTrainingPage';
 import { ShortcutsPage } from '../pages/ShortcutsPage';
+import { SkillTreePage } from '../pages/SkillTreePage';
 import { SocialPage } from '../pages/SocialPage';
 import { SQLTrainingPage } from '../pages/SQLTrainingPage';
 import { SRSReviewPage } from '../pages/SRSReviewPage';
 import { StatisticsPage } from '../pages/StatisticsPage';
+import { StoryModePage } from '../pages/StoryModePage';
 import { TerminalTrainingPage } from '../pages/TerminalTrainingPage';
 import { TypingRacePage } from '../pages/TypingRacePage';
 import { VimTrainingPage } from '../pages/VimTrainingPage';
@@ -45,6 +47,8 @@ export class App {
   private regexPage: RegexTrainingPage | null = null;
   private algorithmPage: AlgorithmTrainingPage | null = null;
   private sqlPage: SQLTrainingPage | null = null;
+  private storyModePage: StoryModePage | null = null;
+  private skillTreePage: SkillTreePage | null = null;
 
   constructor() {
     const el = document.getElementById('app');
@@ -255,6 +259,12 @@ export class App {
       case 'sql':
         this.sqlPage?.init();
         break;
+      case 'story-mode':
+        this.storyModePage?.init();
+        break;
+      case 'skill-tree':
+        this.skillTreePage?.init();
+        break;
       // Quiz, Git, Vim, Regex pages use container-based init
     }
   }
@@ -417,6 +427,7 @@ export class App {
           { id: 'practice', label: t('nav.practice'), icon: 'keyboard' },
           { id: 'lessons', label: t('nav.lessons'), icon: 'book' },
           { id: 'challenge', label: t('nav.challenge'), icon: 'flame' },
+          { id: 'story-mode', label: t('nav.storyMode'), icon: 'story' },
         ],
       },
       {
@@ -493,6 +504,8 @@ export class App {
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3v18"/><path d="M10 8l7 8"/><path d="M10 16l7-8"/></svg>',
       algorithm:
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>',
+      story:
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>',
       database:
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>',
       chevron:
@@ -593,6 +606,10 @@ export class App {
         return this.renderAlgorithmPage();
       case 'sql':
         return this.renderSQLPage();
+      case 'story-mode':
+        return this.renderStoryModePage();
+      case 'skill-tree':
+        return this.renderSkillTreePage();
       default:
         return this.getHomePageContent();
     }
@@ -673,6 +690,14 @@ export class App {
     if (currentPage !== 'sql' && this.sqlPage) {
       this.sqlPage.destroy();
       this.sqlPage = null;
+    }
+    if (currentPage !== 'story-mode' && this.storyModePage) {
+      this.storyModePage.destroy();
+      this.storyModePage = null;
+    }
+    if (currentPage !== 'skill-tree' && this.skillTreePage) {
+      this.skillTreePage.destroy();
+      this.skillTreePage = null;
     }
   }
 
@@ -981,6 +1006,34 @@ export class App {
     const content = this.sqlPage.render();
     setTimeout(() => {
       this.sqlPage?.init();
+    }, 0);
+    return content;
+  }
+
+  /**
+   * Render and initialize story mode page
+   */
+  private renderStoryModePage(): string {
+    if (!this.storyModePage) {
+      this.storyModePage = new StoryModePage();
+    }
+    const content = this.storyModePage.render();
+    setTimeout(() => {
+      this.storyModePage?.init();
+    }, 0);
+    return content;
+  }
+
+  /**
+   * Render and initialize skill tree page
+   */
+  private renderSkillTreePage(): string {
+    if (!this.skillTreePage) {
+      this.skillTreePage = new SkillTreePage();
+    }
+    const content = this.skillTreePage.render();
+    setTimeout(() => {
+      this.skillTreePage?.init();
     }, 0);
     return content;
   }

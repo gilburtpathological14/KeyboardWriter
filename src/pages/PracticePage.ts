@@ -1,53 +1,62 @@
 import { VirtualKeyboard } from '../components/keyboard/VirtualKeyboard';
 import { EventBus, Store, t } from '../core';
 import { SettingsService } from '../core/SettingsService';
+import {
+  COMPLEX_TEXTS,
+  EXPERT_TEXTS,
+  MEDIUM_TEXTS,
+  PracticeText,
+  SIMPLE_TEXTS,
+} from '../data/practiceTexts';
 import { TypingEngineService } from '../services/TypingEngineService';
 
 /**
- * Sample texts for practice
+ * Get sample texts based on difficulty and language setting
  */
-const SAMPLE_TEXTS = {
-  beginner: [
-    'asdf jkl; asdf jkl; asdf jkl;',
-    'fjdk sl;a fjdk sl;a fjdk sl;a',
-    'the last the last the last the',
-    'fall hall fall hall fall hall',
-  ],
-  intermediate: [
-    'The quick brown fox jumps over.',
-    'A dog runs through the park.',
-    'The weather is very nice today.',
-    'I am learning touch typing skills.',
-  ],
-  advanced: [
-    'The quick brown fox jumps over the lazy dog near the riverbank.',
-    'Pack my box with five dozen liquor jugs for the upcoming party.',
-    'How vexingly quick daft zebras jump!',
-  ],
-  programming: [
-    'const value = 42;',
-    'function hello() { return "world"; }',
-    'if (x > 0) { console.log(x); }',
-    'for (let i = 0; i < 10; i++) {}',
-    'const arr = [1, 2, 3].map(x => x * 2);',
-  ],
-};
+function getSampleTexts(
+  difficulty: 'beginner' | 'intermediate' | 'advanced' | 'programming',
+  language: 'de' | 'en'
+): string[] {
+  const getText = (t: PracticeText) => (language === 'de' ? t.textDe : t.textEn);
+
+  switch (difficulty) {
+    case 'beginner':
+      return SIMPLE_TEXTS.slice(0, 5).map(getText);
+    case 'intermediate':
+      return MEDIUM_TEXTS.slice(0, 5).map(getText);
+    case 'advanced':
+      return COMPLEX_TEXTS.slice(0, 5).map(getText);
+    case 'programming':
+      // Programming texts stay the same (code is universal)
+      return [
+        'const value = 42;',
+        'function hello() { return "world"; }',
+        'if (x > 0) { console.log(x); }',
+        'for (let i = 0; i < 10; i++) {}',
+        'const arr = [1, 2, 3].map(x => x * 2);',
+      ];
+    default:
+      return SIMPLE_TEXTS.slice(0, 5).map(getText);
+  }
+}
+
+/**
+ * Get timed test texts based on language setting
+ */
+function getTimedTestTexts(language: 'de' | 'en'): string[] {
+  const getText = (t: PracticeText) => (language === 'de' ? t.textDe : t.textEn);
+  // Combine medium, complex and expert texts for longer tests
+  return [
+    ...MEDIUM_TEXTS.slice(0, 3),
+    ...COMPLEX_TEXTS.slice(0, 2),
+    ...EXPERT_TEXTS.slice(0, 2),
+  ].map(getText);
+}
 
 /**
  * Test modes
  */
 type TestMode = 'text' | 'timed';
-
-/**
- * Long texts for timed tests
- */
-const TIMED_TEST_TEXTS = [
-  'The art of typing is a valuable skill in the modern world. With regular practice, anyone can learn to type quickly and accurately. The key to success lies in proper finger positioning and steady repetition. Start with simple exercises and gradually increase the difficulty. Always pay attention to ergonomic posture and take regular breaks to avoid fatigue.',
-  'Programming is like writing stories for computers. Each line of code tells the computer what to do. Variables store information, functions perform actions, and loops repeat tasks. Over time, you develop a sense for elegant code that not only works but is also easy to understand and maintain.',
-  'The internet has fundamentally changed our world. Today we can communicate with people around the world in seconds. Knowledge is freely accessible, and new technologies emerge at a rapid pace. But with these opportunities come challenges. Privacy and security are more important than ever, and we must learn to use digital media responsibly.',
-  'Software development is a creative process. You start with an idea and transform it step by step into a working program. Planning and structure are just as important as the actual programming. A good developer thinks not only about the current solution but also about future extensions and potential problems.',
-  'Keyboard training improves not only typing speed but also productivity at the computer. Those who can touch type save time with every email, document, and message. The brain can fully focus on content instead of searching for the right keys. With just a few minutes of daily practice, progress is quickly visible.',
-];
 
 /**
  * Practice Page Controller
@@ -220,7 +229,7 @@ export class PracticePage {
 
     newTextBtn?.addEventListener('click', () => {
       const difficulty = difficultySelect?.value ?? 'beginner';
-      this.loadNewText(difficulty as keyof typeof SAMPLE_TEXTS);
+      this.loadNewText(difficulty as 'beginner' | 'intermediate' | 'advanced' | 'programming');
     });
 
     restartBtn?.addEventListener('click', () => {
@@ -228,7 +237,9 @@ export class PracticePage {
     });
 
     difficultySelect?.addEventListener('change', () => {
-      this.loadNewText(difficultySelect.value as keyof typeof SAMPLE_TEXTS);
+      this.loadNewText(
+        difficultySelect.value as 'beginner' | 'intermediate' | 'advanced' | 'programming'
+      );
     });
 
     // Mode toggle
@@ -307,8 +318,12 @@ export class PracticePage {
    * Load text for timed test
    */
   private loadTimedTestText(): void {
-    // Combine multiple texts for longer tests
-    const shuffled = [...TIMED_TEST_TEXTS].sort(() => Math.random() - 0.5);
+    // Get language setting - use the helper method that handles 'both' correctly
+    const language = SettingsService.getExerciseLanguage();
+
+    // Get texts in the correct language and shuffle
+    const texts = getTimedTestTexts(language);
+    const shuffled = [...texts].sort(() => Math.random() - 0.5);
     this.currentText = shuffled.join(' ');
     this.currentPosition = 0;
     this.sessionActive = false;
@@ -617,8 +632,18 @@ export class PracticePage {
   /**
    * Load new text
    */
-  loadNewText(difficulty: keyof typeof SAMPLE_TEXTS): void {
-    const texts = SAMPLE_TEXTS[difficulty];
+  loadNewText(difficulty: 'beginner' | 'intermediate' | 'advanced' | 'programming'): void {
+    // Get language setting - use the helper method that handles 'both' correctly
+    const language = SettingsService.getExerciseLanguage();
+    const settings = SettingsService.getSettings();
+    console.log(
+      '[PracticePage] Loading text - exerciseLanguage setting:',
+      settings.exerciseLanguage,
+      '-> resolved language:',
+      language
+    );
+
+    const texts = getSampleTexts(difficulty, language);
     const randomIndex = Math.floor(Math.random() * texts.length);
     this.currentText = texts[randomIndex];
     this.currentPosition = 0;

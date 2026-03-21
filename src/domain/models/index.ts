@@ -61,3 +61,26 @@ export type { DailyStats, KeyStatistics, UserStatistics } from './Statistics';
 // User
 export { calculateLevel, createUser, DEFAULT_SETTINGS, getLevelProgress, xpForLevel } from './User';
 export type { ExerciseProgress, LessonProgress, User, UserSettings } from './User';
+
+// Quest / Story Mode
+export { QuestDifficulty, QuestStatus, QuestType } from './Quest';
+export type {
+  BossBattle,
+  Chapter,
+  PlayerStats,
+  Quest,
+  QuestRequirement,
+  QuestReward,
+  StoryProgress,
+} from './Quest';
+
+// Skill Tree
+export { SKILL_TREE_STRUCTURE, SkillCategory, SkillEffectType, SkillTier } from './SkillTree';
+export type {
+  PlayerSkillProgress,
+  SkillConnection,
+  SkillEffect,
+  SkillNode,
+  SkillTreeCategory,
+  SkillTreeData,
+} from './SkillTree';

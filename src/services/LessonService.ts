@@ -1,18 +1,21 @@
-import { EventBus, Store } from '../core';
+import { EventBus, SettingsService, Store } from '../core';
 import {
   ALL_LESSONS,
   getLessonById,
   getLessonsByCategory,
+  getLessonWithLanguage,
   getNextLesson,
   getProgrammingLessonsByLanguage,
   getShortcutLessonsByIDE,
   LESSON_CATEGORIES,
 } from '../data/lessons';
+import { LessonType } from '../domain/enums';
 import {
   Exercise,
   Lesson,
   LessonCategory,
   ProgrammingLesson,
+  ShortcutDefinition,
   ShortcutLesson,
 } from '../domain/models';
 
@@ -104,7 +107,18 @@ class LessonServiceImpl {
    * Start a lesson
    */
   startLesson(lessonId: string): Lesson | null {
-    const lesson = getLessonById(lessonId);
+    // Get current language setting
+    const settings = SettingsService.getSettings();
+    const language = settings.exerciseLanguage === 'en' ? 'en' : 'de';
+
+    // Try to get lesson with language-specific exercises first
+    let lesson = getLessonWithLanguage(lessonId, language);
+
+    // Fall back to regular lesson if no language-specific version exists
+    if (!lesson) {
+      lesson = getLessonById(lessonId);
+    }
+
     if (!lesson) {
       console.error(`Lesson ${lessonId} not found`);
       return null;
@@ -329,6 +343,134 @@ class LessonServiceImpl {
       return 0;
     }
     return Math.round((this.currentExerciseIndex / this.currentLesson.exercises.length) * 100);
+  }
+
+  /**
+   * Check if current lesson is a shortcut lesson
+   */
+  isShortcutLesson(): boolean {
+    return this.currentLesson?.type === LessonType.SHORTCUTS;
+  }
+
+  /**
+   * Get current shortcut to practice (for shortcut lessons)
+   */
+  getCurrentShortcut(): ShortcutDefinition | null {
+    if (!this.isShortcutLesson() || !this.currentLesson) {
+      return null;
+    }
+
+    const shortcutLesson = this.currentLesson as ShortcutLesson;
+    if (!shortcutLesson.shortcuts || this.currentExerciseIndex >= shortcutLesson.shortcuts.length) {
+      return null;
+    }
+
+    return shortcutLesson.shortcuts[this.currentExerciseIndex];
+  }
+
+  /**
+   * Get total shortcuts count (for shortcut lessons)
+   */
+  getTotalShortcutsCount(): number {
+    if (!this.isShortcutLesson() || !this.currentLesson) {
+      return 0;
+    }
+
+    const shortcutLesson = this.currentLesson as ShortcutLesson;
+    return shortcutLesson.shortcuts?.length ?? 0;
+  }
+
+  /**
+   * Complete shortcut exercise (move to next shortcut)
+   */
+  completeShortcutExercise(isCorrect: boolean): boolean {
+    if (!this.isShortcutLesson() || !this.currentLesson) {
+      return false;
+    }
+
+    const shortcutLesson = this.currentLesson as ShortcutLesson;
+    const totalShortcuts = shortcutLesson.shortcuts?.length ?? 0;
+
+    // Record result
+    const shortcut = this.getCurrentShortcut();
+    if (shortcut) {
+      this.exerciseResults.push({
+        exerciseId: shortcut.id,
+        wpm: 0, // Not applicable for shortcuts
+        accuracy: isCorrect ? 100 : 0,
+        time: 0,
+        errors: isCorrect ? 0 : 1,
+      });
+    }
+
+    EventBus.emit('lesson:exerciseComplete', {
+      lessonId: this.currentLesson.id,
+      exerciseIndex: this.currentExerciseIndex,
+      result: {
+        exerciseId: shortcut?.id ?? '',
+        wpm: 0,
+        accuracy: isCorrect ? 100 : 0,
+        time: 0,
+        errors: isCorrect ? 0 : 1,
+      },
+    });
+
+    // Move to next shortcut
+    this.currentExerciseIndex++;
+
+    // Check if lesson is complete
+    if (this.currentExerciseIndex >= totalShortcuts) {
+      this.completeShortcutLesson();
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Complete shortcut lesson
+   */
+  private completeShortcutLesson(): void {
+    if (!this.currentLesson) {
+      return;
+    }
+
+    // Calculate accuracy
+    const correctCount = this.exerciseResults.filter(r => r.accuracy === 100).length;
+    const totalCount = this.exerciseResults.length;
+    const avgAccuracy = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 0;
+
+    // Check if passed (require at least 70% accuracy for shortcuts)
+    const targetAccuracy = this.currentLesson.targetAccuracy ?? 70;
+    const passed = avgAccuracy >= targetAccuracy;
+
+    // Calculate XP
+    const baseXp = 50;
+    const accuracyBonus = Math.max(0, avgAccuracy - targetAccuracy) * 2;
+    const xpEarned = passed ? baseXp + accuracyBonus : Math.round(baseXp / 2);
+
+    const completionResult: LessonCompletionResult = {
+      lessonId: this.currentLesson.id,
+      exerciseId: 'shortcuts',
+      wpm: 0,
+      accuracy: avgAccuracy,
+      time: 0,
+      passed,
+      xpEarned,
+    };
+
+    // Update user progress
+    if (passed) {
+      this.updateUserProgress(completionResult);
+    }
+
+    // Emit completion event
+    EventBus.emit('lesson:complete', completionResult);
+
+    // Reset state
+    this.currentLesson = null;
+    this.currentExerciseIndex = 0;
+    this.exerciseResults = [];
   }
 
   /**

@@ -3,6 +3,8 @@
  * Handles language switching between English and German
  */
 
+import { SettingsService } from './SettingsService';
+
 export type Language = 'en' | 'de';
 
 interface Translations {
@@ -38,6 +40,8 @@ const en: Translations = {
   'nav.regex': 'Regex Training',
   'nav.algorithms': 'Algorithms',
   'nav.sql': 'SQL Training',
+  'nav.storyMode': 'Story Mode',
+  'nav.skillTree': 'Skill Tree',
 
   // Header
   'header.accuracy': 'Accuracy',
@@ -361,6 +365,53 @@ const en: Translations = {
   'days.sat': 'Sat',
   'days.sun': 'Sun',
 
+  // Story Mode
+  'storyMode.title': 'Story Mode',
+  'storyMode.skillTree': 'Skill Tree',
+  'storyMode.viewSkillTree': 'Open',
+  'storyMode.skillsUnlocked': 'Unlocked',
+  'storyMode.availablePoints': 'Available Points',
+  'storyMode.categories': 'Categories',
+  'storyMode.chapters': 'Chapters',
+  'storyMode.yourProgress': 'Your Progress',
+  'storyMode.questsCompleted': 'Quests Completed',
+  'storyMode.chaptersCompleted': 'Chapters Completed',
+  'storyMode.bossesDefeated': 'Bosses Defeated',
+  'storyMode.highestWpm': 'Highest WPM',
+  'storyMode.avgAccuracy': 'Avg. Accuracy',
+  'storyMode.totalTime': 'Total Time',
+  'storyMode.currentQuest': 'Current Quest',
+  'storyMode.startQuest': 'Start Quest',
+  'storyMode.days': 'days',
+
+  // Skill Tree
+  'skillTree.title': 'Skill Tree',
+  'skillTree.subtitle': 'Develop your abilities and unlock new skills',
+  'skillTree.availablePoints': 'Available Skill Points',
+  'skillTree.upgrade': 'Upgrade',
+  'skillTree.maxLevel': 'Max Level',
+  'skillTree.requirements': 'Requirements',
+  'skillTree.locked': 'Locked',
+  'skillTree.unlocked': 'Unlocked',
+  'skillTree.level': 'Level',
+  'skillTree.effect': 'Effect',
+  'skillTree.back': 'Back to Story Mode',
+  'skillTree.totalSkills': 'Total Skills',
+  'skillTree.unlockedSkills': 'Unlocked',
+  'skillTree.totalPoints': 'Total Points Spent',
+  'skillTree.tier.novice': 'Novice',
+  'skillTree.tier.apprentice': 'Apprentice',
+  'skillTree.tier.journeyman': 'Journeyman',
+  'skillTree.tier.expert': 'Expert',
+  'skillTree.tier.master': 'Master',
+  'skillTree.category.typingBasics': 'Typing Basics',
+  'skillTree.category.speed': 'Speed',
+  'skillTree.category.accuracy': 'Accuracy',
+  'skillTree.category.codeSyntax': 'Code Syntax',
+  'skillTree.category.algorithms': 'Algorithms',
+  'skillTree.category.developerTools': 'Developer Tools',
+  'skillTree.category.special': 'Special',
+
   // Dev Tools - Terminal
   'terminal.title': 'Terminal Training',
   'terminal.commands': 'Commands',
@@ -482,33 +533,33 @@ const en: Translations = {
   'algo.category.testing': 'Testing',
   'algo.category.nextjs': 'Next.js',
   'algo.category.angular': 'Angular',
-  
+
   // Vue Snippets
   'algo.vue.composition': 'Vue 3 Composition API',
   'algo.vue.composables': 'Custom Composables',
   'algo.vue.pinia': 'Pinia Store',
   'algo.vue.router': 'Vue Router Guards',
   'algo.vue.directives': 'Custom Directives',
-  
+
   // Svelte Snippets
   'algo.svelte.basic': 'Svelte Basic Component',
   'algo.svelte.stores': 'Svelte Stores',
   'algo.svelte.lifecycle': 'Svelte Lifecycle',
   'algo.svelte.transitions': 'Svelte Transitions',
   'algo.svelte.actions': 'Svelte Actions',
-  
+
   // Node.js Snippets
   'algo.nodejs.express': 'Express Server Setup',
   'algo.nodejs.router': 'Express Router & Controller',
   'algo.nodejs.middleware': 'Custom Middleware',
   'algo.nodejs.prisma': 'Prisma ORM',
   'algo.nodejs.websocket': 'WebSocket Server',
-  
+
   // Docker Snippets
   'algo.docker.production': 'Node.js Production Dockerfile',
   'algo.docker.compose': 'Docker Compose Full Stack',
   'algo.docker.cicd': 'GitHub Actions CI/CD',
-  
+
   // Testing Snippets
   'algo.testing.e2e': 'Playwright E2E Test',
   'algo.testing.api': 'Supertest API Testing',
@@ -634,6 +685,8 @@ const de: Translations = {
   'nav.regex': 'Regex Training',
   'nav.algorithms': 'Algorithmen',
   'nav.sql': 'SQL Training',
+  'nav.storyMode': 'Story-Modus',
+  'nav.skillTree': 'Skill-Baum',
 
   // Header
   'header.accuracy': 'Genauigkeit',
@@ -960,6 +1013,53 @@ const de: Translations = {
   'days.sat': 'Sa',
   'days.sun': 'So',
 
+  // Story Mode
+  'storyMode.title': 'Story-Modus',
+  'storyMode.skillTree': 'Skill-Baum',
+  'storyMode.viewSkillTree': 'Oeffnen',
+  'storyMode.skillsUnlocked': 'Freigeschaltet',
+  'storyMode.availablePoints': 'Verfuegbare Punkte',
+  'storyMode.categories': 'Kategorien',
+  'storyMode.chapters': 'Kapitel',
+  'storyMode.yourProgress': 'Dein Fortschritt',
+  'storyMode.questsCompleted': 'Quests abgeschlossen',
+  'storyMode.chaptersCompleted': 'Kapitel abgeschlossen',
+  'storyMode.bossesDefeated': 'Bosse besiegt',
+  'storyMode.highestWpm': 'Hoechste WPM',
+  'storyMode.avgAccuracy': 'Durchschn. Genauigkeit',
+  'storyMode.totalTime': 'Gesamtzeit',
+  'storyMode.currentQuest': 'Aktuelle Quest',
+  'storyMode.startQuest': 'Quest starten',
+  'storyMode.days': 'Tage',
+
+  // Skill Tree
+  'skillTree.title': 'Skill-Baum',
+  'skillTree.subtitle': 'Entwickle deine Faehigkeiten und schalte neue Skills frei',
+  'skillTree.availablePoints': 'Verfuegbare Skill-Punkte',
+  'skillTree.upgrade': 'Verbessern',
+  'skillTree.maxLevel': 'Max. Stufe',
+  'skillTree.requirements': 'Anforderungen',
+  'skillTree.locked': 'Gesperrt',
+  'skillTree.unlocked': 'Freigeschaltet',
+  'skillTree.level': 'Stufe',
+  'skillTree.effect': 'Effekt',
+  'skillTree.back': 'Zurueck zum Story-Modus',
+  'skillTree.totalSkills': 'Alle Skills',
+  'skillTree.unlockedSkills': 'Freigeschaltet',
+  'skillTree.totalPoints': 'Ausgegebene Punkte',
+  'skillTree.tier.novice': 'Anfaenger',
+  'skillTree.tier.apprentice': 'Lehrling',
+  'skillTree.tier.journeyman': 'Geselle',
+  'skillTree.tier.expert': 'Experte',
+  'skillTree.tier.master': 'Meister',
+  'skillTree.category.typingBasics': 'Tipp-Grundlagen',
+  'skillTree.category.speed': 'Geschwindigkeit',
+  'skillTree.category.accuracy': 'Genauigkeit',
+  'skillTree.category.codeSyntax': 'Code-Syntax',
+  'skillTree.category.algorithms': 'Algorithmen',
+  'skillTree.category.developerTools': 'Entwickler-Tools',
+  'skillTree.category.special': 'Spezial',
+
   // Dev Tools - Terminal
   'terminal.title': 'Terminal Training',
   'terminal.commands': 'Befehle',
@@ -1082,33 +1182,33 @@ const de: Translations = {
   'algo.category.testing': 'Testing',
   'algo.category.nextjs': 'Next.js',
   'algo.category.angular': 'Angular',
-  
+
   // Vue Snippets
   'algo.vue.composition': 'Vue 3 Composition API',
   'algo.vue.composables': 'Eigene Composables',
   'algo.vue.pinia': 'Pinia Store',
   'algo.vue.router': 'Vue Router Guards',
   'algo.vue.directives': 'Eigene Direktiven',
-  
+
   // Svelte Snippets
   'algo.svelte.basic': 'Svelte Basis-Komponente',
   'algo.svelte.stores': 'Svelte Stores',
   'algo.svelte.lifecycle': 'Svelte Lifecycle',
   'algo.svelte.transitions': 'Svelte Übergänge',
   'algo.svelte.actions': 'Svelte Actions',
-  
+
   // Node.js Snippets
   'algo.nodejs.express': 'Express Server Setup',
   'algo.nodejs.router': 'Express Router & Controller',
   'algo.nodejs.middleware': 'Eigene Middleware',
   'algo.nodejs.prisma': 'Prisma ORM',
   'algo.nodejs.websocket': 'WebSocket Server',
-  
+
   // Docker Snippets
   'algo.docker.production': 'Node.js Produktions-Dockerfile',
   'algo.docker.compose': 'Docker Compose Full Stack',
   'algo.docker.cicd': 'GitHub Actions CI/CD',
-  
+
   // Testing Snippets
   'algo.testing.e2e': 'Playwright E2E Test',
   'algo.testing.api': 'Supertest API Testing',
@@ -1248,6 +1348,10 @@ class I18nService {
   setLanguage(lang: Language): void {
     this.currentLanguage = lang;
     localStorage.setItem(STORAGE_KEY, lang);
+
+    // Also sync exercise language to match the UI language
+    SettingsService.updateSettings({ exerciseLanguage: lang });
+
     this.notifyListeners();
   }
 
